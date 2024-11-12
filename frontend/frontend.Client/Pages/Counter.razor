@@ -1,0 +1,104 @@
+﻿@page "/counter"
+<PageTitle>Chat</PageTitle>
+
+<MudGrid>
+    <!-- Sidebar com o histórico de conversas -->
+    <MudItem xs="3">
+        <MudPaper Class="pa-4" Style="height: 90vh; overflow-y: auto;">
+            <MudList T="Chat">
+                @foreach (var chat in Chats)
+                {
+                <MudListItem>
+                    <AvatarContent>
+                        <MudAvatar>
+                            <MudImage Src="@chat.AvatarUrl" Alt="@chat.Username"/>
+                        </MudAvatar>
+                    </AvatarContent>
+                    <ChildContent>
+                        <div style="display: grid;">
+                            <strong>@chat.Username</strong>
+                            <span>@chat.Message</span>
+                            <span>@chat.Tag</span>
+                        </div>
+                    </ChildContent>
+                </MudListItem>
+                }
+            </MudList>
+        </MudPaper>
+    </MudItem>
+
+
+    <!-- Área principal do chat -->
+    <MudItem xs="9">
+        <MudPaper Class="pa-4 d-flex flex-column" Style="height: 100%; display: flex; flex-direction: column;">
+            <!-- Área de mensagens -->
+            <MudPaper Style="flex-grow: 1; overflow-y: auto; padding: 16px; border-bottom: 1px solid #e0e0e0;">
+                @foreach (var msg in Messages)
+                {
+                <MudText Typo="Typo.body1"><strong>@msg.Sender:</strong> @msg.Content</MudText>
+                }
+            </MudPaper>
+
+            <!-- Campo de entrada para envio de mensagem -->
+
+            <MudTextField @ref="multilineReference" @onkeydown="HandleKeyDown" @bind-Value="newMessageContent" Label="Multiline Select" Lines="3" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Send"  OnAdornmentClick="SendMessage" />
+
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    // Variável para armazenar temporariamente a mensagem digitada
+    private string newMessageContent;
+    private MudTextField<string> multilineReference;
+// Lista de exemplo de chats para exibir na barra lateral
+private List<Chat> Chats = new List<Chat>
+{
+new Chat { Username = "Alice", Tag = "ATA", AvatarUrl = "AvatarUrls/avatar1.png", Message = "Oi, pessoal!" },
+new Chat { Username = "Bob", Tag = "DEV", AvatarUrl = "AvatarUrls/avatar2.png", Message = "Alguém já viu a atualização?" },
+new Chat { Username = "Charlie", Tag = "SUP", AvatarUrl = "AvatarUrls/avatar3.png", Message = "Estou aqui para ajudar." },
+new Chat { Username = "Diana", Tag = "ADM", AvatarUrl = "AvatarUrls/avatar4.png", Message = "Precisamos de uma reunião." },
+new Chat { Username = "Evan", Tag = "QA", AvatarUrl = "AvatarUrls/avatar5.png", Message = "Encontrei um bug importante." },
+new Chat { Username = "Fiona", Tag = "UX", AvatarUrl = "AvatarUrls/avatar6.png", Message = "Vamos melhorar essa interface?" },
+new Chat { Username = "George", Tag = "PM", AvatarUrl = "AvatarUrls/avatar7.png", Message = "Projeto está em andamento." },
+new Chat { Username = "Helen", Tag = "FIN", AvatarUrl = "AvatarUrls/avatar8.png", Message = "Precisamos rever o orçamento." },
+new Chat { Username = "Ivan", Tag = "ENG", AvatarUrl = "AvatarUrls/avatar9.png", Message = "Estrutura do sistema está sólida." },
+new Chat { Username = "Jane", Tag = "MKT", AvatarUrl = "AvatarUrls/avatar10.png", Message = "Campanha foi um sucesso!" }
+};
+
+// Lista de exemplo de mensagens na área principal de chat
+private List<Message> Messages = new List<Message>
+{
+new Message { Sender = "Alice", Content = "Oi, como vai?" },
+new Message { Sender = "Bob", Content = "Tudo bem! E você?" },
+new Message { Sender = "Alice", Content = "Ótimo, obrigado!" }
+};
+
+// Método para verificar a tecla Enter
+private void HandleKeyDown(KeyboardEventArgs e)
+{
+    if (e.Key == "Enter")
+    {
+        SendMessage();
+    }
+}
+// Método para enviar mensagem
+private void SendMessage()
+{
+    Debug.WriteLine($"Mensagem a ser enviada: {newMessageContent}");
+    if (!string.IsNullOrWhiteSpace(newMessageContent))
+    {
+        Messages.Add(new Message { Sender = "Você", Content = newMessageContent });
+        newMessageContent = string.Empty; // Limpa o campo de entrada após o envio
+    }
+}
+
+
+
+
+private class Message
+{
+public string Sender { get; set; }
+public string Content { get; set; }
+}
+}
