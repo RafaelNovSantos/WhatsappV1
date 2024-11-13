@@ -12402,7 +12402,7 @@ ul {
         margin: 0;
         padding: 0;
         display: flex;
-        /*flex: 1 1 auto;*/
+        flex: 1 1 auto;
         max-width: 100%;
         position: relative;
         flex-direction: column;
@@ -28229,6 +28229,7 @@ margin: 35px -40px 0;
 
     .mud-appbar {
         width: 100%;
+        height: 10%;
         display: flex;
         z-index: var(--mud-zindex-appbar);
         position: relative;
@@ -28262,25 +28263,10 @@ margin: 35px -40px 0;
                 position: fixed
             }
 
-        .mud-appbar .mud-toolbar-appbar {
-            height: calc(var(--mud-appbar-height) - var(--mud-appbar-height)/8)
-        }
 
-    @media(min-width: 0px)and (orientation: landscape) {
-        .mud-appbar .mud-toolbar-appbar {
-            height: calc(var(--mud-appbar-height) - var(--mud-appbar-height)/4)
-        }
-    }
+  
 
-    @media(min-width: 600px) {
-        .mud-appbar .mud-toolbar-appbar {
-            height: var(--mud-appbar-height)
-        }
-    }
 
-    .mud-appbar.mud-appbar-dense .mud-toolbar-appbar {
-        height: calc(var(--mud-appbar-height) - var(--mud-appbar-height)/4)
-    }
 
     @media(min-width: 0px) {
         .mud-drawer-open-responsive-xs-left.mud-drawer-left-clipped-never .mud-appbar {

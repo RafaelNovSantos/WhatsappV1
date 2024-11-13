@@ -13,4 +13,16 @@
         <PackageReference Include="MudBlazor" Version="7.*"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="Pages\Teste.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Pages\Teste.razor.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Pages\Teste.razor.js" />
+    </ItemGroup>
+
 </Project>
