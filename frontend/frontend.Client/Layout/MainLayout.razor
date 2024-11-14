@@ -10,6 +10,10 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">Application</MudText>
         <MudSpacer />
+     
+            <MudBadge Origin="@Origin"  Content="@BadgeContent" Color="Color.Primary" Overlap="true" Bordered="true" Class="ma-5">
+            <MudIconButton Icon="@Icons.Material.Filled.Notifications" Size="Size.Medium" Color="Color.Default" />
+            </MudBadge>
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
         <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
@@ -32,11 +36,17 @@
     private bool _drawerOpen = false;
     private bool _isDarkMode = false;
     private MudTheme? _theme = null;
+    public ChatService ChatService = new ChatService();
+    public Origin Origin { get; set; } = Origin.BottomRight;
+    public int? BadgeContent { get; set; }
+    
+    [Parameter]
+    public string ContactId { get; set; } // ID do contato (usado na barra de título)
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
+        BadgeContent = 2;
         _theme = new()
         {
             PaletteLight = _lightPalette,
