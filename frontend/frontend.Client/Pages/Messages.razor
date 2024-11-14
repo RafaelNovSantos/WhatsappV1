@@ -3,6 +3,7 @@
 
 @page "/"
 
+@inject IJSRuntime JSRuntime
 
 
 <PageTitle>Chat</PageTitle>
@@ -42,12 +43,12 @@
     </MudPaper>
 
     <!-- Área Principal de Chat -->
-    <MudPaper Elevation="25" Class="py-4 flex-grow-1" Style="background: #fafafa;">
+    <MudPaper Elevation="25" Class="flex-grow-1  " Style="background: #fafafa">
         <!-- Barra de título do chat -->
         <MudToolBar Dense="true" Class="px-4">
             @if (string.IsNullOrEmpty(ContactId))
             {
-                <MudIcon Icon="@Icons.Material.Outlined.Person" Style="margin-right:10px" Color="Color.Primary"></MudIcon>
+                <MudIcon Icon="@Icons.Material.Outlined.Person"  Color="Color.Primary"></MudIcon>
                 <MudText Typo="Typo.h6" Color="Color.Primary">Chat</MudText>
             }
             else
@@ -56,15 +57,66 @@
                 <MudText Typo="Typo.h6">@ContactEmail</MudText>
             }
 
+            <div Class="full-width flex-end" >
+
+            <MudMenu FullWidth="true">
+                <ActivatorContent>
+                    <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Primary">Transferir</MudChip>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>Theme</MudMenuItem>
+                    <MudMenuItem>Usage</MudMenuItem>
+                    <MudMenuItem>Sign Out</MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+
+            <MudMenu FullWidth="true">
+                <ActivatorContent>
+                    <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Primary">Etiquetas</MudChip>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>Theme</MudMenuItem>
+                    <MudMenuItem>Usage</MudMenuItem>
+                    <MudMenuItem>Sign Out</MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+
+            <MudMenu FullWidth="true">
+                <ActivatorContent>
+                    <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Primary">Agendar</MudChip>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>Theme</MudMenuItem>
+                    <MudMenuItem>Usage</MudMenuItem>
+                    <MudMenuItem>Sign Out</MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+
+            <MudMenu FullWidth="true">
+                <ActivatorContent>
+                    <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Primary">Finalizar</MudChip>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>Theme</MudMenuItem>
+                    <MudMenuItem>Usage</MudMenuItem>
+                    <MudMenuItem>Sign Out</MudMenuItem>
+                </ChildContent>
+            </MudMenu>       
+            
             <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert">
                 <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Archive">Arquivar Chat</MudMenuItem>
                 <MudMenuItem IconSize="Size.Small" IconColor="Color.Success" Icon="@Icons.Material.Outlined.NotificationsOff">Silenciar Chat</MudMenuItem>
                 <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.Block">Bloquear</MudMenuItem>
             </MudMenu>
+            </div>
         </MudToolBar>
 
         <!-- Área de mensagens -->
-        <div class="d-flex flex-column px-4" style="max-height:65vh;min-height:65vh; overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">
+        <div class="d-flex flex-column px-4" style="height:100%; padding-bottom: 200px !important; overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">
             @foreach (var message in ChatService.Messages)
             {
                 @if (message.Sender == "Você")
@@ -75,8 +127,9 @@
                             <MudText Typo="Typo.body1" Style="font-weight: bold;">@message.Sender</MudText>
                             <pre Typo="Typo.body2">@message.Content</pre>
                             <div class="justify-end d-flex">
-                                <MudText Typo="Typo.caption" Style="font-size: xx-small!important; text-align: right; color: #666;">
+                                <MudText Typo="Typo.caption" Style=" font-size: xx-small!important; text-align: right; color: #666;">
                                     @DateTime.Now.ToString("HH:mm'h'")
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify iconify--ph" width="1em" height="1em" viewBox="0 0 256 256" style="vertical-align: -0.125em;"><path fill="currentColor" d="m152.41 88.56l-89.6 88a12 12 0 0 1-16.82 0l-38.4-37.71a12 12 0 0 1 16.82-17.13l30 29.46l81.19-79.74a12 12 0 0 1 16.82 17.12Zm96.15-17a12 12 0 0 0-17-.15l-81.16 79.77l-7.88-7.74a12 12 0 0 0-16.82 17.12l16.29 16a12 12 0 0 0 16.82 0l89.6-88a12 12 0 0 0 .15-16.97Z"></path></svg>
                                 </MudText>
                             </div>
                         </div>
@@ -110,46 +163,64 @@
         </div>
 
         <!-- Campo para envio de mensagem -->
-        <div style="display: flex;">
-            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Abrir menu">
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Image">
-                    Foto e Vídeo
-                </MudMenuItem>
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Success" Icon="@Icons.Material.Filled.FileUpload">
-                    Documento
-                </MudMenuItem>
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Info" Icon="@Icons.Material.Filled.Contacts">
-                    Contato
-                </MudMenuItem>
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.Comment">
-                    Comentário
-                </MudMenuItem>
-            </MudMenu>
-            <MudTextField T="string" Immediate="true" @bind-Text="newMessageContent" @onkeyup="HandleKeyDown" Label="Mensagem" AutoGrow MaxLines="4" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Send" OnAdornmentClick="SendMessage"/>
-   
+        <div style="bottom: 0;
+    position: fixed;
+    display: flex;">
+
+
+
+            <div class="messageBox mud-elevation-1">
+                <div class="fileUploadWrapper">
+                    <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.Add" AriaLabel="Abrir menu">
+                        <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Image">
+                            Foto e Vídeo
+                        </MudMenuItem>
+                        <MudMenuItem IconSize="Size.Small" IconColor="Color.Success" Icon="@Icons.Material.Filled.FileUpload">
+                            Documento
+                        </MudMenuItem>
+                        <MudMenuItem IconSize="Size.Small" IconColor="Color.Info" Icon="@Icons.Material.Filled.Contacts">
+                            Contato
+                        </MudMenuItem>
+                        <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.Comment">
+                            Comentário
+                        </MudMenuItem>
+                    </MudMenu>
+
+                </div>
+                <textarea 
+                          @bind="newMessageContent"
+                          @oninput="e => newMessageContent = e.Value.ToString()"
+                          @onkeydown="HandleKeyDown"
+                          placeholder="Mensagem"
+                          id="messageInput"
+                          style="resize: none;"></textarea>
+                <button id="sendButton" @onclick="SendMessage">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 664 663">
+                        <path
+                            fill="none"
+                            d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+                        ></path>
+                        <path
+                            stroke-linejoin="round"
+                            stroke-linecap="round"
+                            stroke-width="33.67"
+                            stroke="#6c6c6c"
+                            d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+                        ></path>
+                    </svg>
+                </button>
+            </div>
+
+          
+          
         </div>
+
     </MudPaper>
+    
 </div>
 
 <style>
-    .message-bubble {
-        max-width: 55%;
-        padding: 8px 12px;
-        border-radius: 18px;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        margin: 2px 0;
-    }
 
-    .chat-background {
-        background-color: #f0f0f5;
-        background-size: cover;
-    }
-
-    .message-input-container {
-        display: flex;
-        align-items: center;
-        border-top: 1px solid #e0e0e0;
-    }
 </style>
 
 
@@ -189,10 +260,15 @@ window.scrollTo(0, document.body.scrollHeight);
    
     private async Task HandleKeyDown(KeyboardEventArgs e)
     {
+        
         if (e.Key == "Enter" && !e.ShiftKey)
         {
             // Encontra a última ocorrência de '\n' e remove apenas essa ocorrência
             int lastIndex = newMessageContent.LastIndexOf('\n');
+            if (newMessageContent == "")
+            {
+                newMessageContent = string.Empty;
+            } 
             if (lastIndex >= 0)
             {
                 newMessageContent = newMessageContent.Remove(lastIndex, 1);
@@ -206,9 +282,13 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
             {
                 // Conteúdo não é vazio e não contém apenas quebras de linha
                 await SendMessage();
+                await Task.Delay(1);
+                newMessageContent = string.Empty; // Limpa o campo de entrada após o envio
             }
 
         }
+
+        
     }
 
     

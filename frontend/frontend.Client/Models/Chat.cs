@@ -22,7 +22,19 @@
         {
             new Chat { Username = "Alice", Tag = "ATA", AvatarUrl = "AvatarUrls/avatar1.png", Message = "Oi, pessoal!", HasUnreadMessages = true },
             new Chat { Username = "Bob", Tag = "DEV", AvatarUrl = "AvatarUrls/avatar2.png", Message = "Alguém já viu a atualização?", HasUnreadMessages = false },
-            new Chat { Username = "Charlie", Tag = "SUP", AvatarUrl = "AvatarUrls/avatar3.png", Message = "Estou aqui para ajudar.", HasUnreadMessages = true }
+            new Chat { Username = "Charlie", Tag = "SUP", AvatarUrl = "AvatarUrls/avatar3.png", Message = "Estou aqui para ajudar.", HasUnreadMessages = true },
+            new Chat { Username = "Alice", Tag = "ATA", AvatarUrl = "AvatarUrls/avatar1.png", Message = "Oi, pessoal!", HasUnreadMessages = true },
+        new Chat { Username = "Bob", Tag = "DEV", AvatarUrl = "AvatarUrls/avatar2.png", Message = "Alguém já viu a atualização?", HasUnreadMessages = false },
+        new Chat { Username = "Charlie", Tag = "SUP", AvatarUrl = "AvatarUrls/avatar3.png", Message = "Estou aqui para ajudar.", HasUnreadMessages = true },
+        new Chat { Username = "Alice", Tag = "ATA", AvatarUrl = "AvatarUrls/avatar1.png", Message = "Oi, pessoal!", HasUnreadMessages = true },
+        new Chat { Username = "Bob", Tag = "DEV", AvatarUrl = "AvatarUrls/avatar2.png", Message = "Alguém já viu a atualização?", HasUnreadMessages = false },
+        new Chat { Username = "Charlie", Tag = "SUP", AvatarUrl = "AvatarUrls/avatar3.png", Message = "Estou aqui para ajudar.", HasUnreadMessages = true },
+        new Chat { Username = "Alice", Tag = "ATA", AvatarUrl = "AvatarUrls/avatar1.png", Message = "Oi, pessoal!", HasUnreadMessages = true },
+        new Chat { Username = "Bob", Tag = "DEV", AvatarUrl = "AvatarUrls/avatar2.png", Message = "Alguém já viu a atualização?", HasUnreadMessages = false },
+        new Chat { Username = "Charlie", Tag = "SUP", AvatarUrl = "AvatarUrls/avatar3.png", Message = "Estou aqui para ajudar.", HasUnreadMessages = true },
+        new Chat { Username = "Alice", Tag = "ATA", AvatarUrl = "AvatarUrls/avatar1.png", Message = "Oi, pessoal!", HasUnreadMessages = true },
+        new Chat { Username = "Bob", Tag = "DEV", AvatarUrl = "AvatarUrls/avatar2.png", Message = "Alguém já viu a atualização?", HasUnreadMessages = false },
+        new Chat { Username = "Charlie", Tag = "SUP", AvatarUrl = "AvatarUrls/avatar3.png", Message = "Estou aqui para ajudar.", HasUnreadMessages = true }
         };
 
         public List<Message> Messages { get; set; } = new List<Message>
