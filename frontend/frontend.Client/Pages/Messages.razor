@@ -277,39 +277,52 @@
     }
 
    
+    private bool isProcessing = false;  // Flag para evitar múltiplos processos simultâneos
     private async Task HandleKeyDown(KeyboardEventArgs e)
     {
-        
-        if (e.Key == "Enter" && !e.ShiftKey)
+        // Se já estiver processando, ignora o evento
+        if (isProcessing)
+            return;
+
+        // Marca como processando
+        isProcessing = true;
+
+        await Task.Run(async () =>
         {
-            // Encontra a última ocorrência de '\n' e remove apenas essa ocorrência
-            int lastIndex = newMessageContent.LastIndexOf('\n');
-            if (newMessageContent == "")
+            if (e.Key == "Enter" && !e.ShiftKey)
             {
-                newMessageContent = string.Empty;
-            } 
-            if (lastIndex >= 0)
-            {
-                newMessageContent = newMessageContent.Remove(lastIndex, 1);
-            }
-if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
-{
-    newMessageContent = string.Empty;
-}
-            // Envia a mensagem
-            if (!string.IsNullOrEmpty(newMessageContent) && !System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
-            {
-                // Conteúdo não é vazio e não contém apenas quebras de linha
-                  SendMessage();
-                await Task.Delay(1);
-                newMessageContent = string.Empty; // Limpa o campo de entrada após o envio
-                await JSRuntime.InvokeVoidAsync("scrollToElement", "chatContainer");
-            }
+                // Encontra a última ocorrência de '\n' e remove
+                int lastIndex = newMessageContent.LastIndexOf('\n');
+                if (string.IsNullOrEmpty(newMessageContent))
+                {
+                    newMessageContent = string.Empty;
+                }
 
-        }
+                if (lastIndex >= 0)
+                {
+                    newMessageContent = newMessageContent.Remove(lastIndex, 1);
+                }
 
-        
+                // Verifica se o conteúdo está vazio ou contém apenas quebras de linha
+                if (string.IsNullOrWhiteSpace(newMessageContent))
+                {
+                    newMessageContent = string.Empty;
+                }
+
+                // Envia a mensagem se não estiver vazia
+                if (!string.IsNullOrEmpty(newMessageContent))
+                {
+                    SendMessage();
+                    newMessageContent = string.Empty; // Limpa o campo de entrada após o envio
+                    await JSRuntime.InvokeVoidAsync("scrollToElement", "chatContainer");
+                }
+            }
+        });
+
+        // Marca como não processando após o envio
+        isProcessing = false;
     }
+
 
     
     
