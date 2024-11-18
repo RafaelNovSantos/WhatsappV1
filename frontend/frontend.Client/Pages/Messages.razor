@@ -1,6 +1,6 @@
 ﻿
 
-
+@*@page "/{ContacId}"*@
 @page "/"
 
 @inject IJSRuntime JSRuntime
@@ -116,51 +116,51 @@
         </MudToolBar>
 
         <!-- Área de mensagens -->
-        <div class="d-flex flex-column px-4" style="height:100%; padding-bottom: 200px !important; overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">
-            @foreach (var message in ChatService.Messages)
+        <div class="d-flex flex-column px-4" style="height:100%; padding-bottom: 200px !important; overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">      @foreach (var message in ChatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
             {
-                @if (message.Sender == "Você")
-                {
-                    <div class="d-flex my-4" style="justify-content: end;">
-                        <!-- Mensagens enviadas por você -->
-                        <div class="message-bubble" style="background-color: #def9c8; overflow: auto;">
-                            <MudText Typo="Typo.body1" Style="font-weight: bold;">@message.Sender</MudText>
-                            <pre Typo="Typo.body2">@message.Content</pre>
-                            <div class="justify-end d-flex">
-                                <MudText Typo="Typo.caption" Style=" font-size: xx-small!important; text-align: right; color: #666;">
-                                    @DateTime.Now.ToString("HH:mm'h'")
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify iconify--ph" width="1em" height="1em" viewBox="0 0 256 256" style="vertical-align: -0.125em;"><path fill="currentColor" d="m152.41 88.56l-89.6 88a12 12 0 0 1-16.82 0l-38.4-37.71a12 12 0 0 1 16.82-17.13l30 29.46l81.19-79.74a12 12 0 0 1 16.82 17.12Zm96.15-17a12 12 0 0 0-17-.15l-81.16 79.77l-7.88-7.74a12 12 0 0 0-16.82 17.12l16.29 16a12 12 0 0 0 16.82 0l89.6-88a12 12 0 0 0 .15-16.97Z"></path></svg>
-                                </MudText>
-                            </div>
-                        </div>
+            @if (message.Sender == "Você")
+            {
+            <div class="d-flex my-4 justify-end">
+                <!-- Mensagens enviadas por você -->
+                <div class="message-bubble" style="background-color: #def9c8; overflow: auto;">
+                    <MudText Typo="Typo.body1" Style="font-weight: bold;">@message.Sender</MudText>
+                    <pre Typo="Typo.body2">@message.Content</pre>
+                    <div class="justify-end d-flex">
+                        <MudText Typo="Typo.caption" Style=" font-size: xx-small!important; text-align: right; color: #666;">
+                            @DateTime.Now.ToString("HH:mm'h'")
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify iconify--ph" width="1em" height="1em" viewBox="0 0 256 256" style="vertical-align: -0.125em;"><path fill="currentColor" d="m152.41 88.56l-89.6 88a12 12 0 0 1-16.82 0l-38.4-37.71a12 12 0 0 1 16.82-17.13l30 29.46l81.19-79.74a12 12 0 0 1 16.82 17.12Zm96.15-17a12 12 0 0 0-17-.15l-81.16 79.77l-7.88-7.74a12 12 0 0 0-16.82 17.12l16.29 16a12 12 0 0 0 16.82 0l89.6-88a12 12 0 0 0 .15-16.97Z"></path></svg>
+                        </MudText>
                     </div>
-                }
-                else
-                {
-                    <!-- Mensagens enviadas por outros usuários -->
-                    <div class="d-flex my-4">
+                    </div>
+            </div>
+            }
+            else
+            {
+                <!-- Mensagens enviadas por outros usuários -->
+                <div class="d-flex my-4">
+                    @if(group == true)
+                    {
+                        <div class="mr-2">
+                            <MudAvatar Color="Color.Secondary" Style="height:40px; width:40px;">@message.Sender.ToUpper().FirstOrDefault()</MudAvatar>
+                        </div>
+                    }
+                    <div class="message-bubble" style="background-color: white; overflow: auto;">
                         @if(group == true)
                         {
-                            <div class="mr-2">
-                                <MudAvatar Color="Color.Secondary" Style="height:40px; width:40px;">@message.Sender.ToUpper().FirstOrDefault()</MudAvatar>
-                            </div>
+                            <MudText Typo="Typo.body1" Style="font-weight: bold;">@message.Sender</MudText>
                         }
-                        <div class="message-bubble" style="background-color: white; overflow: auto;">
-                            @if(group == true)
-                            {
-                                <MudText Typo="Typo.body1" Style="font-weight: bold;">@message.Sender</MudText>
-                            }
-                            <pre Typo="Typo.body2">@message.Content</pre>
-                            <div class="justify-end d-flex">
-                                <MudText Typo="Typo.caption" Style="font-size: xx-small!important; text-align: right; color: #666;">
-                                    @DateTime.Now.ToString("HH:mm'h'")
-                                </MudText>
-                            </div>
+                        <pre Typo="Typo.body2">@message.Content</pre>
+                        <div class="justify-end d-flex">
+                            <MudText Typo="Typo.caption" Style="font-size: xx-small!important; text-align: right; color: #666;">
+                                @DateTime.Now.ToString("HH:mm'h'")
+                            </MudText>
                         </div>
                     </div>
-                }
+                </div>
+            }
             }
         </div>
+
 
         <!-- Campo para envio de mensagem -->
         <div style="bottom: 0;
@@ -219,9 +219,7 @@
     
 </div>
 
-<style>
 
-</style>
 
 
 <script>
@@ -246,6 +244,11 @@ window.scrollTo(0, document.body.scrollHeight);
     [Parameter]
     public string ContactId { get; set; } // ID do contato (usado na barra de título)
 
+    private void LoadUserChat(string username)
+    {
+        ContactId = username;
+        StateHasChanged(); // Atualiza a interface
+    }
 
 
     private string ContactEmail
@@ -281,7 +284,7 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
             if (!string.IsNullOrEmpty(newMessageContent) && !System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
             {
                 // Conteúdo não é vazio e não contém apenas quebras de linha
-                await SendMessage();
+                 SendMessage();
                 await Task.Delay(1);
                 newMessageContent = string.Empty; // Limpa o campo de entrada após o envio
             }
@@ -296,23 +299,21 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
     private string newMessageContent;
 
 
-    private async Task SendMessage()
+    private void SendMessage()
     {
-        if (newMessageContent != "")
+        if (!string.IsNullOrEmpty(newMessageContent) && !string.IsNullOrEmpty(ContactId))
         {
-            ChatService.Messages.Add(new Message { Sender = "Você", Content = newMessageContent });
-            newMessageContent = string.Empty; // Limpa o campo de entrada após o envio
+            ChatService.Messages.Add(new Message
+            {
+                Sender = "Você",
+                Receiver = ContactId,
+                Content = newMessageContent,
+                Timestamp = DateTime.Now
+            });
 
-            // Chama o método JS para fazer scroll até a última mensagem
-            await JSRuntime.InvokeVoidAsync("scrollToBottom");
+            newMessageContent = string.Empty; // Limpa o campo de entrada
+            StateHasChanged(); // Atualiza a interface
         }
-    }
-
-    private void LoadUserChat(string contactId)
-    {
-        // Lógica para carregar o chat do usuário
-        ContactId = contactId;
-        StateHasChanged(); // Força a atualização da interface
     }
 
 
