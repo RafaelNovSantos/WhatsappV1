@@ -20,7 +20,7 @@
   @if(_drawerOpen){
         <NavMenu  />
   }
-    <MudMainContent >
+    <MudMainContent Style="position: fixed; ">
         @Body
     </MudMainContent>
 </MudLayout>
@@ -33,7 +33,7 @@
 </div>
 
 @code {
-    private bool _drawerOpen = true;
+    private bool _drawerOpen = false;
     private bool _isDarkMode = false;
     private MudTheme? _theme = null;
     public ChatService ChatService = new ChatService();
