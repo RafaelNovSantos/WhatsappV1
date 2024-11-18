@@ -1,7 +1,7 @@
 ﻿
 
 @*@page "/{ContacId}"*@
-@page "/"
+@page "/f"
 
 @inject IJSRuntime JSRuntime
 
@@ -43,7 +43,8 @@
     </MudPaper>
 
     <!-- Área Principal de Chat -->
-    <MudPaper Elevation="25" Class="flex-grow-1  " Style="background: #fafafa">
+    <MudPaper Elevation="25" Class="flex-grow-1  " Style="width: 100vw; background: #fafafa">
+        <MudPaper Width="100%" >
         <!-- Barra de título do chat -->
         <MudToolBar Dense="true" Class="px-4">
             @if (string.IsNullOrEmpty(ContactId))
@@ -114,17 +115,19 @@
             </MudMenu>
             </div>
         </MudToolBar>
-
+       </MudPaper>
         <!-- Área de mensagens -->
-        <div class="d-flex flex-column px-4" style="height:100%; padding-bottom: 200px !important; overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">      @foreach (var message in ChatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
+        <MudPaper    Style="height: calc(100vh - 182px);"  >
+        <div class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">      @foreach (var message in ChatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
             {
             @if (message.Sender == "Você")
             {
-            <div class="d-flex my-4 justify-end">
+            <div class="d-flex my-4 justify-end" >
                 <!-- Mensagens enviadas por você -->
-                <div class="message-bubble" style="background-color: #def9c8; overflow: auto;">
+                <div class="message-bubble" style="max-width: 40vw; background-color: #def9c8; overflow: auto;">
                     <MudText Typo="Typo.body1" Style="font-weight: bold;">@message.Sender</MudText>
-                    <pre Typo="Typo.body2">@message.Content</pre>
+                    <pre style=" white-space: normal;
+    word-wrap: break-word;" Typo="Typo.body2">@message.Content</pre>
                     <div class="justify-end d-flex">
                         <MudText Typo="Typo.caption" Style=" font-size: xx-small!important; text-align: right; color: #666;">
                             @DateTime.Now.ToString("HH:mm'h'")
@@ -137,21 +140,23 @@
             else
             {
                 <!-- Mensagens enviadas por outros usuários -->
-                <div class="d-flex my-4">
+                <div class="d-flex my-4" >
                     @if(group == true)
                     {
                         <div class="mr-2">
                             <MudAvatar Color="Color.Secondary" Style="height:40px; width:40px;">@message.Sender.ToUpper().FirstOrDefault()</MudAvatar>
                         </div>
                     }
-                    <div class="message-bubble" style="background-color: white; overflow: auto;">
+                    <div class="message-bubble" style="height:100%; background-color: white; overflow: auto;">
                         @if(group == true)
                         {
-                            <MudText Typo="Typo.body1" Style="font-weight: bold;">@message.Sender</MudText>
+                            <pre Typo="Typo.body1" Style="font-weight: bold; white-space: normal;
+    word-wrap: break-word;">@message.Sender</pre>
                         }
-                        <pre Typo="Typo.body2">@message.Content</pre>
+                        <pre Typo="Typo.body2" style=" white-space: normal;
+    word-wrap: break-word;">@message.Content</pre>
                         <div class="justify-end d-flex">
-                            <MudText Typo="Typo.caption" Style="font-size: xx-small!important; text-align: right; color: #666;">
+                            <MudText Typo="Typo.caption" Style=" font-size: xx-small!important; text-align: right; color: #666;">
                                 @DateTime.Now.ToString("HH:mm'h'")
                             </MudText>
                         </div>
@@ -160,12 +165,11 @@
             }
             }
         </div>
-
+</MudPaper>
 
         <!-- Campo para envio de mensagem -->
-        <div style="bottom: 0;
-    position: fixed;
-    display: flex;">
+        <MudPaper Style="background-color: #e6e6e6"  Class="d-flex justify-center pt-2 pb-2 m-0" Width="100%" Height="10vh">
+
 
 
 
@@ -211,9 +215,9 @@
                 </button>
             </div>
 
-          
-          
-        </div>
+
+        </MudPaper>
+       
 
     </MudPaper>
     
@@ -227,16 +231,19 @@
     function scrollToElement(elementId) {
         const element = document.getElementById(elementId);
         if (element) {
-          
-            element.scrollTop = 1500;
-            console.log(`Rolagem para o elemento com ID: ${elementId} realizada com sucesso.`);
+            // Rola até o final do elemento
+            element.scrollTop = element.scrollHeight;
+            console.log(`Rolagem até o final do elemento com ID: ${elementId} realizada com sucesso.`);
+
+            // Agora rola para 2000px do topo (ou outro valor desejado)
+            setTimeout(() => {
+                element.scrollTop = 2000; // Substitua o 2000 por qualquer valor que deseja
+                console.log(`Rolagem para 2000px no elemento com ID: ${elementId} realizada com sucesso.`);
+            }, 1); // Atraso para garantir que a rolagem para o final tenha ocorrido
         } else {
             console.log(`Elemento com ID: ${elementId} não encontrado.`);
         }
     }
-
-
-
 
 </script>
 
@@ -296,6 +303,7 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
                   SendMessage();
                 await Task.Delay(1);
                 newMessageContent = string.Empty; // Limpa o campo de entrada após o envio
+                await JSRuntime.InvokeVoidAsync("scrollToElement", "chatContainer");
             }
 
         }
@@ -321,8 +329,9 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
             });
 
             newMessageContent = string.Empty; // Limpa o campo de entrada
-            await JSRuntime.InvokeVoidAsync("scrollToElement", "chatContainer");
+            
             StateHasChanged(); // Atualiza a interface
+          
         }
     }
 

@@ -14,12 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Remove="Pages\Teste.razor" />
       <Content Remove="Pages\Chat.razor" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Pages\Teste.razor.cs" />
     </ItemGroup>
 
     <ItemGroup>
