@@ -277,7 +277,7 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
 {
     newMessageContent = string.Empty;
 }
-            // Envia a mensagem se não estiver vazia
+            // Envia a mensagem
             if (!string.IsNullOrEmpty(newMessageContent) && !System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
             {
                 // Conteúdo não é vazio e não contém apenas quebras de linha
