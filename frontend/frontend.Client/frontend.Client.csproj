@@ -27,6 +27,9 @@
       <None Update="Pages\ChatWhat.razor.css">
         <DependentUpon>ChatWhats.razor</DependentUpon>
       </None>
+      <None Update="Layout\NavMenu.razor.css">
+        <DependentUpon>NavMenu.razor</DependentUpon>
+      </None>
     </ItemGroup>
 
 </Project>
