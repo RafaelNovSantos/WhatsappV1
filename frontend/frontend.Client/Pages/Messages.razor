@@ -223,10 +223,19 @@
 
 
 <script>
-// scripts.js
-function scrollToBottom() {
-window.scrollTo(0, document.body.scrollHeight);
-}
+
+    function scrollToElement(elementId) {
+        const element = document.getElementById(elementId);
+        if (element) {
+          
+            element.scrollTop = 1500;
+            console.log(`Rolagem para o elemento com ID: ${elementId} realizada com sucesso.`);
+        } else {
+            console.log(`Elemento com ID: ${elementId} não encontrado.`);
+        }
+    }
+
+
 
 
 </script>
@@ -284,7 +293,7 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
             if (!string.IsNullOrEmpty(newMessageContent) && !System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
             {
                 // Conteúdo não é vazio e não contém apenas quebras de linha
-                 SendMessage();
+                  SendMessage();
                 await Task.Delay(1);
                 newMessageContent = string.Empty; // Limpa o campo de entrada após o envio
             }
@@ -299,7 +308,7 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
     private string newMessageContent;
 
 
-    private void SendMessage()
+    private async void SendMessage()
     {
         if (!string.IsNullOrEmpty(newMessageContent) && !string.IsNullOrEmpty(ContactId))
         {
@@ -312,6 +321,7 @@ if(System.Text.RegularExpressions.Regex.IsMatch(newMessageContent, @"^\n*$"))
             });
 
             newMessageContent = string.Empty; // Limpa o campo de entrada
+            await JSRuntime.InvokeVoidAsync("scrollToElement", "chatContainer");
             StateHasChanged(); // Atualiza a interface
         }
     }
