@@ -137,3 +137,10 @@
     fill: #3c3c3c;
     stroke: white;
 }
+
+@media (max-width: 600px) {
+    .hide-text-sm {
+        display: none !important;
+    }
+
+}
