@@ -5,31 +5,42 @@
     <MudToolBar Dense="true" Class="px-4">
         @if (string.IsNullOrEmpty(ContactId))
         {
-        <MudIcon Icon="@Icons.Material.Outlined.Person"  Color="Color.Primary"></MudIcon>
-        <MudText Typo="Typo.h6" Color="Color.Primary">Chat</MudText>
+        <MudIcon Class="ma-2" Icon="@Icons.Material.Outlined.Person"  Color="Color.Primary"></MudIcon>
+        <MudHidden Breakpoint="Breakpoint.MdAndDown">
+            <MudText Typo="Typo.h6">Chat</MudText>
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.LgAndUp">
+            <p style="font-weight: bold" Class="ma-2 mud-typography  ma-2" >Chat</p>
+                        
+        </MudHidden>
         }
         else
         {
-        <MudIcon Icon="@Icons.Material.Outlined.ChatBubble" Style="margin-right:10px" Color="Color.Primary"></MudIcon>
-        <MudText Typo="Typo.h6">@ContactEmail</MudText>
+
+                    <MudAvatar Class="ma-2">
+                        @ContactEmail.ToUpper().FirstOrDefault()
+                    </MudAvatar>
+                    <MudHidden Breakpoint="Breakpoint.MdAndDown">
+                        <MudText Typo="Typo.h6">@ContactEmail</MudText>
+                    </MudHidden>
+                    <MudHidden Breakpoint="Breakpoint.LgAndUp">
+                        <p style="font-weight: bold" Class="ma-2 mud-typography  ma-2" >@ContactEmail</p>
+                        
+                    </MudHidden>
         }
-
-        <div Class="full-width flex-end" style="width: 100%;
-    justify-content: end;
-    display: flex
-;">
-
-
-
-            <MudMenu FullWidth="true">
+        <MudSpacer />
+        <div  Class="dimensionIcon" >
+            <MudMenu Class="ma-2">
                 <ActivatorContent>
+                    <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Filled.PublishedWithChanges">
+                    </MudIcon>
                     <MudButton
 
 
                         Variant="Variant.Outlined"
-                        EndIcon="@Icons.Custom.Brands.GitHub"
+                        EndIcon="@Icons.Material.Filled.PublishedWithChanges"
                         Color="Color.Tertiary"
-
+                        Class="hide-text-sm"
                     >
                         <span class="hide-text-sm">Transferir</span>
                     </MudButton>
@@ -42,15 +53,17 @@
                 </ChildContent>
             </MudMenu>
 
-            <MudMenu FullWidth="true">
+            <MudMenu Class="ma-2">
                 <ActivatorContent>
+                    <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Outlined.Label">
+                    </MudIcon>
                     <MudButton
 
 
                         Variant="Variant.Outlined"
-                        EndIcon="@Icons.Custom.Brands.GitHub"
+                        EndIcon="@Icons.Material.Outlined.Label"
                         Color="Color.Tertiary"
-
+                        Class="hide-text-sm"
                     >
                         <span class="hide-text-sm">Etiquetas</span>
                     </MudButton>
@@ -63,15 +76,17 @@
                 </ChildContent>
             </MudMenu>
 
-            <MudMenu FullWidth="true">
+            <MudMenu Class="ma-2">
                 <ActivatorContent>
+                    <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Outlined.CalendarMonth">
+                    </MudIcon>
                     <MudButton
 
 
                         Variant="Variant.Outlined"
-                        EndIcon="@Icons.Custom.Brands.GitHub"
+                        EndIcon="@Icons.Material.Outlined.CalendarMonth"
                         Color="Color.Tertiary"
-
+                        Class="hide-text-sm"
                     >
                         <span class="hide-text-sm">Agendar</span>
                     </MudButton>
@@ -84,15 +99,15 @@
                 </ChildContent>
             </MudMenu>
 
-            <MudMenu FullWidth="true">
+            <MudMenu Class="ma-2">
                 <ActivatorContent>
-                    <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Filled.MoreVert">
+                    <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Outlined.Check">
                     </MudIcon>
                     <MudButton
 
 
                         Variant="Variant.Outlined"
-                        EndIcon="@Icons.Custom.Brands.GitHub"
+                        EndIcon="@Icons.Material.Outlined.Check"
                         Color="Color.Tertiary"
                         Class="hide-text-sm"
                     >

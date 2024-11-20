@@ -2296,7 +2296,7 @@ ul {
     width: 100%
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 
     .mud-button-label .mud-button-icon-end {
         margin-left: 0px !important;
@@ -2309,6 +2309,13 @@ ul {
         display: unset !important;
     }
 
+    .dimensionIcon{
+      
+        justify-content: space-between !important;
+        
+    ;
+    }
+    
     .hide-text-sm {
         display: none !important;
     }
@@ -2316,6 +2323,13 @@ ul {
 
 .activeIconMenu{
     display: none;
+}
+
+.dimensionIcon{
+    width: 100%;
+    justify-content: end;
+    display: flex
+;
 }
 
 .mud-button-label .mud-button-icon-start {
@@ -10312,7 +10326,7 @@ ul {
     font-size: var(--mud-typography-h6-size);
     font-family: var(--mud-typography-h6-family);
     font-weight: var(--mud-typography-h6-weight);
-    line-height: var(--mud-typography-h6-lineheight);
+   /* line-height: var(--mud-typography-h6-lineheight);*/
     letter-spacing: var(--mud-typography-h6-letterspacing);
     text-transform: var(--mud-typography-h6-text-transform)
 }
