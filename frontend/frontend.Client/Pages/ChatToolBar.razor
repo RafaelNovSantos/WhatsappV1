@@ -1,0 +1,127 @@
+﻿@inject IJSRuntime JsRuntime
+
+<MudPaper Width="100%" >
+    <!-- Barra de título do chat -->
+    <MudToolBar Dense="true" Class="px-4">
+        @if (string.IsNullOrEmpty(ContactId))
+        {
+        <MudIcon Icon="@Icons.Material.Outlined.Person"  Color="Color.Primary"></MudIcon>
+        <MudText Typo="Typo.h6" Color="Color.Primary">Chat</MudText>
+        }
+        else
+        {
+        <MudIcon Icon="@Icons.Material.Outlined.ChatBubble" Style="margin-right:10px" Color="Color.Primary"></MudIcon>
+        <MudText Typo="Typo.h6">@ContactEmail</MudText>
+        }
+
+        <div Class="full-width flex-end" style="width: 100%;
+    justify-content: end;
+    display: flex
+;">
+
+
+
+            <MudMenu FullWidth="true">
+                <ActivatorContent>
+                    <MudButton
+
+
+                        Variant="Variant.Outlined"
+                        EndIcon="@Icons.Custom.Brands.GitHub"
+                        Color="Color.Tertiary"
+
+                    >
+                        <span class="hide-text-sm">Transferir</span>
+                    </MudButton>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>Theme</MudMenuItem>
+                    <MudMenuItem>Usage</MudMenuItem>
+                    <MudMenuItem>Sign Out</MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+
+            <MudMenu FullWidth="true">
+                <ActivatorContent>
+                    <MudButton
+
+
+                        Variant="Variant.Outlined"
+                        EndIcon="@Icons.Custom.Brands.GitHub"
+                        Color="Color.Tertiary"
+
+                    >
+                        <span class="hide-text-sm">Etiquetas</span>
+                    </MudButton>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>Theme</MudMenuItem>
+                    <MudMenuItem>Usage</MudMenuItem>
+                    <MudMenuItem>Sign Out</MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+
+            <MudMenu FullWidth="true">
+                <ActivatorContent>
+                    <MudButton
+
+
+                        Variant="Variant.Outlined"
+                        EndIcon="@Icons.Custom.Brands.GitHub"
+                        Color="Color.Tertiary"
+
+                    >
+                        <span class="hide-text-sm">Agendar</span>
+                    </MudButton>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>Theme</MudMenuItem>
+                    <MudMenuItem>Usage</MudMenuItem>
+                    <MudMenuItem>Sign Out</MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+
+            <MudMenu FullWidth="true">
+                <ActivatorContent>
+                    <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Filled.MoreVert">
+                    </MudIcon>
+                    <MudButton
+
+
+                        Variant="Variant.Outlined"
+                        EndIcon="@Icons.Custom.Brands.GitHub"
+                        Color="Color.Tertiary"
+                        Class="hide-text-sm"
+                    >
+                        <span class="hide-text-sm">Finalizar</span>
+                    </MudButton>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>Theme</MudMenuItem>
+                    <MudMenuItem>Usage</MudMenuItem>
+                    <MudMenuItem>Sign Out</MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+
+
+
+            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert">
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Archive">Arquivar Chat</MudMenuItem>
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Success" Icon="@Icons.Material.Outlined.NotificationsOff">Silenciar Chat</MudMenuItem>
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.Block">Bloquear</MudMenuItem>
+            </MudMenu>
+        </div>
+    </MudToolBar>
+</MudPaper>
+
+@code {
+    [Parameter] public string ContactId { get; set; }
+    [Parameter] public string ContactEmail { get; set; }
+
+    private Origin TransformOrigin { get; set; } = Origin.BottomCenter;
+    private Origin AnchorOrigin { get; set; } = Origin.TopCenter;
+}

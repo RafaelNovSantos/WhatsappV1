@@ -10,206 +10,30 @@
 
 <div class="d-flex flex-grow-1 flex-row " style="position: fixed; height: 100vh; width: 100vw;">
     <!-- Barra lateral com contatos -->
-    <MudPaper Elevation="25" Class="pa-3" Style="width: 25%; overflow: auto; background-color: #f5f5f5;">
-        <MudTextField T="string" Placeholder="Buscar mensagens" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Search" />
+    <ContactSidebar
+        SelectedContactId="@ContactId"
+        Chats="_chatService.Chats"
+        OnChatSelected="LoadUserChat" />
 
-        <MudToolBar Dense="true" Class="mt-4">
-            <MudText Typo="Typo.h6" Inline="true" Class="mr-2 text-primary">#</MudText>
-            <MudText Typo="Typo.h6" Color="Color.Primary">Contatos</MudText>
-        </MudToolBar>
-
-        <div class="d-flex flex-column px-4" style="max-height:70vh; overflow:auto;">
-            <MudList T="ChatService" Clickable="true">
-                @foreach (var chat in _chatService.Chats)
-                {
-                <MudListItem T="Chat" Class="pa-0 mb-3" OnClick="@(() => LoadUserChat(chat.Username))">
-                    <div class="d-flex flex-row align-items-center">
-                        <MudAvatar Color="@(chat.Username == ContactId ? Color.Primary : Color.Dark)" Style="height:40px; width:40px;">
-                            @chat.Username.ToUpper().FirstOrDefault()
-                        </MudAvatar>
-                        <div class="ml-3">
-                            <MudText Typo="Typo.subtitle2">@chat.Username</MudText>
-                            <MudText Typo="Typo.caption" Color="Color.Primary">@chat.Tag</MudText>
-                            @if (chat.HasUnreadMessages)
-                            {
-                            <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error" Size="Size.Small" Class="ml-1"/>
-                            }
-                        </div>
-                    </div>
-                </MudListItem>
-                }
-            </MudList>
-        </div>
-    </MudPaper>
 
     <!-- Área Principal de Chat -->
     <MudPaper Elevation="25" Class="flex-grow-1  " Style="width: 100vw; background: #fafafa">
-        <MudPaper Width="100%" >
-        <!-- Barra de título do chat -->
-        <MudToolBar Dense="true" Class="px-4">
-            @if (string.IsNullOrEmpty(ContactId))
-            {
-                <MudIcon Icon="@Icons.Material.Outlined.Person"  Color="Color.Primary"></MudIcon>
-                <MudText Typo="Typo.h6" Color="Color.Primary">Chat</MudText>
-            }
-            else
-            {
-                <MudIcon Icon="@Icons.Material.Outlined.ChatBubble" Style="margin-right:10px" Color="Color.Primary"></MudIcon>
-                <MudText Typo="Typo.h6">@ContactEmail</MudText>
-            }
-
-            <div Class="full-width flex-end" >
-
-            
-
-                <MudMenu FullWidth="true">
-                    <ActivatorContent>
-                        <MudButton
-
-
-                            Variant="Variant.Outlined"
-                            EndIcon="@Icons.Custom.Brands.GitHub"
-                            Color="Color.Tertiary"
-
-                        >
-                            <span class="hide-text-sm">Transferir</span>
-                        </MudButton>
-                    </ActivatorContent>
-                    <ChildContent>
-                        <MudMenuItem>Profile</MudMenuItem>
-                        <MudMenuItem>Theme</MudMenuItem>
-                        <MudMenuItem>Usage</MudMenuItem>
-                        <MudMenuItem>Sign Out</MudMenuItem>
-                    </ChildContent>
-                </MudMenu>
-
-                <MudMenu FullWidth="true">
-                <ActivatorContent>
-                    <MudButton 
-                            
-                            
-                        Variant="Variant.Outlined"
-                        EndIcon="@Icons.Custom.Brands.GitHub"
-                        Color="Color.Tertiary"
-                                   
-                    >
-                        <span class="hide-text-sm">Etiquetas</span>
-                    </MudButton>
-                </ActivatorContent>
-                <ChildContent>
-                    <MudMenuItem>Profile</MudMenuItem>
-                    <MudMenuItem>Theme</MudMenuItem>
-                    <MudMenuItem>Usage</MudMenuItem>
-                    <MudMenuItem>Sign Out</MudMenuItem>
-                </ChildContent>
-            </MudMenu>
-
-                <MudMenu FullWidth="true">
-                    <ActivatorContent>
-                        <MudButton
-
-
-                            Variant="Variant.Outlined"
-                            EndIcon="@Icons.Custom.Brands.GitHub"
-                            Color="Color.Tertiary"
-
-                        >
-                            <span class="hide-text-sm">Agendar</span>
-                        </MudButton>
-                    </ActivatorContent>
-                    <ChildContent>
-                        <MudMenuItem>Profile</MudMenuItem>
-                        <MudMenuItem>Theme</MudMenuItem>
-                        <MudMenuItem>Usage</MudMenuItem>
-                        <MudMenuItem>Sign Out</MudMenuItem>
-                    </ChildContent>
-                </MudMenu>
-
-                <MudMenu FullWidth="true">
-                    <ActivatorContent>
-                        <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Filled.MoreVert">
-                        </MudIcon>
-                        <MudButton
-
-
-                            Variant="Variant.Outlined"
-                            EndIcon="@Icons.Custom.Brands.GitHub"
-                            Color="Color.Tertiary"
-                            Class="hide-text-sm"
-                        >
-                            <span class="hide-text-sm">Finalizar</span>
-                        </MudButton>
-                    </ActivatorContent>
-                    <ChildContent>
-                        <MudMenuItem>Profile</MudMenuItem>
-                        <MudMenuItem>Theme</MudMenuItem>
-                        <MudMenuItem>Usage</MudMenuItem>
-                        <MudMenuItem>Sign Out</MudMenuItem>
-                    </ChildContent>
-                </MudMenu>
-
-           
-            
-            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert">
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Archive">Arquivar Chat</MudMenuItem>
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Success" Icon="@Icons.Material.Outlined.NotificationsOff">Silenciar Chat</MudMenuItem>
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.Block">Bloquear</MudMenuItem>
-            </MudMenu>
-            </div>
-        </MudToolBar>
-       </MudPaper>
+        <ChatToolBar ContactId="@ContactId" ContactEmail="@ContactEmail" />
+        
         <!-- Área de mensagens -->
         <MudPaper    Style="height: calc(100vh - 182px);"  >
-        <div class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">      @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
-            {
-            @if (message.Sender == "Você")
-            {
-            <div class="d-flex my-4 justify-end" >
-                <!-- Mensagens enviadas por você -->
-                <div class="message-bubble" style="max-width: 40vw; background-color: #def9c8; overflow: auto;">
-                    <MudText Typo="Typo.body1" Style="font-weight: bold;">@message.Sender</MudText>
-                    <pre style=" white-space: pre-wrap;
-word-wrap: break-word;
-" Typo="Typo.body2">@message.Content</pre>
-                    <div class="justify-end d-flex">
-                        <MudText Typo="Typo.caption" Style=" font-size: xx-small!important; text-align: right; color: #666;">
-                            @DateTime.Now.ToString("HH:mm'h'")
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify iconify--ph" width="1em" height="1em" viewBox="0 0 256 256" style="vertical-align: -0.125em;"><path fill="currentColor" d="m152.41 88.56l-89.6 88a12 12 0 0 1-16.82 0l-38.4-37.71a12 12 0 0 1 16.82-17.13l30 29.46l81.19-79.74a12 12 0 0 1 16.82 17.12Zm96.15-17a12 12 0 0 0-17-.15l-81.16 79.77l-7.88-7.74a12 12 0 0 0-16.82 17.12l16.29 16a12 12 0 0 0 16.82 0l89.6-88a12 12 0 0 0 .15-16.97Z"></path></svg>
-                        </MudText>
-                    </div>
-                    </div>
+            <div  class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">      @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                            <ChatMessage Sender="@message.Sender"
+                                                                                                                                                                                                                                         Content="@message.Content"
+                                                                                                                                                                                                                                         SentAt="@message.SentAt"
+                                                                                                                                                                                                                                         _group="@_group" />
+                                                                                                                                                                                                                        }
             </div>
-            }
-            else
-            {
-                <!-- Mensagens enviadas por outros usuários -->
-                <div class="d-flex my-4" >
-                    @if(_group == true)
-                    {
-                        <div class="mr-2">
-                            <MudAvatar Color="Color.Secondary" Style="height:40px; width:40px;">@message.Sender.ToUpper().FirstOrDefault()</MudAvatar>
-                        </div>
-                    }
-                    <div class="message-bubble" style="height:100%; background-color: white; overflow: auto;">
-                        @if(_group == true)
-                        {
-                            <pre Typo="Typo.body1" Style="font-weight: bold; white-space: normal;
-    word-wrap: break-word;">@message.Sender</pre>
-                        }
-                        <pre Typo="Typo.body2" style=" white-space: normal;
-    word-wrap: break-word;">@message.Content</pre>
-                        <div class="justify-end d-flex">
-                            <MudText Typo="Typo.caption" Style=" font-size: xx-small!important; text-align: right; color: #666;">
-                                @DateTime.Now.ToString("HH:mm'h'")
-                            </MudText>
-                        </div>
-                    </div>
-                </div>
-            }
-            }
-        </div>
+         
 </MudPaper>
 
+        
         <!-- Campo para envio de mensagem -->
         <MudPaper Style="background-color: #e6e6e6"  Class="d-flex justify-center pt-2 pb-2 m-0" Width="100%" Height="10vh">
 
@@ -269,37 +93,6 @@ word-wrap: break-word;
 
 
 
-<script>
-
-    function scrollToElement(elementId) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            // Rola até o final do elemento
-            element.scrollTop = element.scrollHeight;
-            console.log(`Rolagem até o final do elemento com ID: ${elementId} realizada com sucesso.`);
-
-         
-           
-        } else {
-            console.log(`Elemento com ID: ${elementId} não encontrado.`);
-        }
-    }
-
-    window.blockEnterKey = function (elementId) {
-        const element = document.querySelector(elementId);
-        if (element) {
-            element.addEventListener('keydown', function (e) {
-                // Se for Enter e não Shift, impede a inserção de uma nova linha
-                if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault(); // Bloqueia o comportamento de criar nova linha
-                    console.log("Enter impedido")
-                }
-            });
-        }
-    };
-
-
-</script>
 
 @code {
     private Origin TransformOrigin { get; set; } = Origin.BottomCenter;
@@ -324,10 +117,11 @@ word-wrap: break-word;
 
           
     
-    private void LoadUserChat(string username)
+    private async void LoadUserChat(string username)
     {
         ContactId = username;
         StateHasChanged(); // Atualiza a interface
+       
     }
 
     private void HandleInput(ChangeEventArgs e)
@@ -393,7 +187,7 @@ word-wrap: break-word;
                 Sender = "Você",
                 Receiver = ContactId,
                 Content = _newMessageContent,
-                Timestamp = DateTime.Now
+                SentAt = DateTime.Now
             });
 
             _newMessageContent = string.Empty; // Limpa o campo de entrada

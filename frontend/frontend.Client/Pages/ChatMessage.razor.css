@@ -1,0 +1,7 @@
+﻿.message-bubble {
+    max-width: 55%;
+    padding: 8px 12px;
+    border-radius: 18px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 2px 0;
+}

@@ -1,0 +1,42 @@
+﻿<div class="d-flex my-4 @(Sender == "Você" ? "justify-end" : "")">
+    @if (Sender != "Você" && _group)
+    {
+    <div class="mr-2">
+        <MudAvatar Color="Color.Secondary" Style="height:40px; width:40px;">
+            @Sender.ToUpper().FirstOrDefault()
+        </MudAvatar>
+    </div>
+    }
+
+    <div class="message-bubble" style="max-width: 40vw; background-color: @(Sender == "Você" ? "#def9c8" : "white"); overflow: auto;">
+        @if (Sender == "Você")
+        {
+        <pre Typo="Typo.body1" Style="font-weight: bold; white-space: pre-wrap; word-wrap: break-word;">
+            @Sender
+        </pre>
+        }
+        <pre Typo="Typo.body2" Style="white-space: pre-wrap; word-wrap: break-word;">
+            @Content
+        </pre>
+        
+        <div class="justify-end d-flex">
+            <MudText Typo="Typo.caption" Style="font-size: xx-small!important; text-align: right; color: #666;">
+                @SentAt.ToString("HH:mm'h'")
+                @if (Sender == "Você")
+                {
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify iconify--ph" width="1em" height="2em" viewBox="0 0 256 256" style="vertical-align: -0.125em;"><path fill="currentColor" d="m152.41 88.56l-89.6 88a12 12 0 0 1-16.82 0l-38.4-37.71a12 12 0 0 1 16.82-17.13l30 29.46l81.19-79.74a12 12 0 0 1 16.82 17.12Zm96.15-17a12 12 0 0 0-17-.15l-81.16 79.77l-7.88-7.74a12 12 0 0 0-16.82 17.12l16.29 16a12 12 0 0 0 16.82 0l89.6-88a12 12 0 0 0 .15-16.97Z"></path></svg>
+                }
+
+            </MudText>
+
+        </div>
+    </div>
+</div>
+
+@code {
+[Parameter] public string Sender { get; set; }
+[Parameter] public string Content { get; set; }
+[Parameter] public DateTime SentAt { get; set; }
+[Parameter] public bool _group { get; set; }
+}

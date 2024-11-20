@@ -14,7 +14,7 @@
         public string Sender { get; set; }
         public string Receiver { get; set; }
         public string Content { get; set; }
-        public DateTime Timestamp { get; set; }
+        public DateTime SentAt { get; set; }  // A data e hora de envio
     }
 
     // Coloque as variáveis dentro de uma classe
