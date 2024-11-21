@@ -2324,6 +2324,17 @@ ul {
         width: 100% !important;}
 }
 
+@media (max-width: 1240px) {
+    .hide-text-1240{
+        display: none !important;
+    }
+}
+
+@media (min-width: 1240px){
+    .hide-text-1240Down{
+     display: none !important;   
+    }
+}
 
 
 .contactbar{

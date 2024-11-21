@@ -6,6 +6,7 @@
 @inject IJSRuntime JsRuntime
 
 
+
 <PageTitle>Chat</PageTitle>
 
 <div class="d-flex flex-grow-1 flex-row " style="position: fixed; height: 100vh; width: 100vw;">
@@ -23,7 +24,8 @@
         
         <!-- Área de mensagens -->
         <MudPaper    Style="height: calc(100vh - 182px);"  >
-            <div  class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">      @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
+            <div  class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">      
+                @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
                                                                                                                                                                                                                         {
                                                                                                                                                                                                                             <ChatMessage Sender="@message.Sender"
                                                                                                                                                                                                                                          Content="@message.Content"

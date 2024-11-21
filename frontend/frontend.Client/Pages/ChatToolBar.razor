@@ -21,13 +21,12 @@
             <MudAvatar Class="ma-2">
                 @ContactEmail.ToUpper().FirstOrDefault()
             </MudAvatar>
-            <MudHidden Breakpoint="Breakpoint.MdAndDown">
-                <MudText Typo="Typo.h6">@ContactEmail</MudText>
-            </MudHidden>
-            <MudHidden Breakpoint="Breakpoint.LgAndUp">
-                <p style="font-weight: bold" Class="ma-2 mud-typography  ma-2">@ContactEmail</p>
+ 
+                <MudText Typo="Typo.h6" Class="hide-text-1240">@ContactEmail</MudText>
 
-            </MudHidden>
+                <p style="font-weight: bold" Class="ma-2 mud-typography hide-text-1240Down ma-2">@ContactEmail</p>
+
+   
         }
         <MudSpacer/>
         <div Class="dimensionIcon">
