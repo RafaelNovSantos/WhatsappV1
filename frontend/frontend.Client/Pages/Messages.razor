@@ -11,6 +11,7 @@
 <div class="d-flex flex-grow-1 flex-row " style="position: fixed; height: 100vh; width: 100vw;">
     <!-- Barra lateral com contatos -->
     <ContactSidebar
+        contactHide="@contactHide"
         SelectedContactId="@ContactId"
         Chats="_chatService.Chats"
         OnChatSelected="LoadUserChat" />
@@ -18,7 +19,7 @@
 
     <!-- Área Principal de Chat -->
     <MudPaper Elevation="25" Class="flex-grow-1  " Style="width: 100vw; background: #fafafa">
-        <ChatToolBar ContactId="@ContactId" ContactEmail="@ContactEmail" />
+        <ChatToolBar ContactId="@ContactId" ContactHideChanged="OnContactHideChanged" ContactEmail="@ContactEmail" />
         
         <!-- Área de mensagens -->
         <MudPaper    Style="height: calc(100vh - 182px);"  >
@@ -100,7 +101,15 @@
     private readonly bool _group = false;
     private readonly ChatService _chatService = new ChatService();
     private string _newMessageContent = "";
-  
+    private bool contactHide = false;
+
+
+    private void OnContactHideChanged(bool newStatus)
+    {
+        contactHide = newStatus;
+
+    }
+    
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

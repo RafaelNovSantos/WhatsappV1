@@ -2319,6 +2319,15 @@ ul {
     .hide-text-sm {
         display: none !important;
     }
+
+    .contactbar{
+        width: 100% !important;}
+}
+
+
+
+.contactbar{
+    width: 25%; overflow: auto; background-color: #f5f5f5;
 }
 
 .activeIconMenu{

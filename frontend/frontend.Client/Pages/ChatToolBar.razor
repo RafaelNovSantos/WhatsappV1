@@ -3,33 +3,34 @@
 <MudPaper Width="100%" >
     <!-- Barra de título do chat -->
     <MudToolBar Dense="true" Class="px-4">
+        <MudIconButton Class="activeIconMenu" OnClick="@ToggleVisibility" Icon="@Icons.Material.Filled.ArrowBack" aria-label="Voltar" />
         @if (string.IsNullOrEmpty(ContactId))
         {
-        <MudIcon Class="ma-2" Icon="@Icons.Material.Outlined.Person"  Color="Color.Primary"></MudIcon>
-        <MudHidden Breakpoint="Breakpoint.MdAndDown">
-            <MudText Typo="Typo.h6">Chat</MudText>
-        </MudHidden>
-        <MudHidden Breakpoint="Breakpoint.LgAndUp">
-            <p style="font-weight: bold" Class="ma-2 mud-typography  ma-2" >Chat</p>
-                        
-        </MudHidden>
+            <MudIcon Class="ma-2" Icon="@Icons.Material.Outlined.Person" Color="Color.Primary"></MudIcon>
+            <MudHidden Breakpoint="Breakpoint.MdAndDown">
+                <MudText Typo="Typo.h6">Chat</MudText>
+            </MudHidden>
+            <MudHidden Breakpoint="Breakpoint.LgAndUp">
+                <p style="font-weight: bold" Class="ma-2 mud-typography  ma-2">Chat</p>
+
+            </MudHidden>
         }
         else
         {
 
-                    <MudAvatar Class="ma-2">
-                        @ContactEmail.ToUpper().FirstOrDefault()
-                    </MudAvatar>
-                    <MudHidden Breakpoint="Breakpoint.MdAndDown">
-                        <MudText Typo="Typo.h6">@ContactEmail</MudText>
-                    </MudHidden>
-                    <MudHidden Breakpoint="Breakpoint.LgAndUp">
-                        <p style="font-weight: bold" Class="ma-2 mud-typography  ma-2" >@ContactEmail</p>
-                        
-                    </MudHidden>
+            <MudAvatar Class="ma-2">
+                @ContactEmail.ToUpper().FirstOrDefault()
+            </MudAvatar>
+            <MudHidden Breakpoint="Breakpoint.MdAndDown">
+                <MudText Typo="Typo.h6">@ContactEmail</MudText>
+            </MudHidden>
+            <MudHidden Breakpoint="Breakpoint.LgAndUp">
+                <p style="font-weight: bold" Class="ma-2 mud-typography  ma-2">@ContactEmail</p>
+
+            </MudHidden>
         }
-        <MudSpacer />
-        <div  Class="dimensionIcon" >
+        <MudSpacer/>
+        <div Class="dimensionIcon">
             <MudMenu Class="ma-2">
                 <ActivatorContent>
                     <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Filled.PublishedWithChanges">
@@ -40,8 +41,7 @@
                         Variant="Variant.Outlined"
                         EndIcon="@Icons.Material.Filled.PublishedWithChanges"
                         Color="Color.Tertiary"
-                        Class="hide-text-sm"
-                    >
+                        Class="hide-text-sm">
                         <span class="hide-text-sm">Transferir</span>
                     </MudButton>
                 </ActivatorContent>
@@ -63,8 +63,7 @@
                         Variant="Variant.Outlined"
                         EndIcon="@Icons.Material.Outlined.Label"
                         Color="Color.Tertiary"
-                        Class="hide-text-sm"
-                    >
+                        Class="hide-text-sm">
                         <span class="hide-text-sm">Etiquetas</span>
                     </MudButton>
                 </ActivatorContent>
@@ -86,8 +85,7 @@
                         Variant="Variant.Outlined"
                         EndIcon="@Icons.Material.Outlined.CalendarMonth"
                         Color="Color.Tertiary"
-                        Class="hide-text-sm"
-                    >
+                        Class="hide-text-sm">
                         <span class="hide-text-sm">Agendar</span>
                     </MudButton>
                 </ActivatorContent>
@@ -109,8 +107,7 @@
                         Variant="Variant.Outlined"
                         EndIcon="@Icons.Material.Outlined.Check"
                         Color="Color.Tertiary"
-                        Class="hide-text-sm"
-                    >
+                        Class="hide-text-sm">
                         <span class="hide-text-sm">Finalizar</span>
                     </MudButton>
                 </ActivatorContent>
@@ -136,6 +133,17 @@
 @code {
     [Parameter] public string ContactId { get; set; }
     [Parameter] public string ContactEmail { get; set; }
+    
+    private bool _contactHide = false;
+    
+    [Parameter]
+    public EventCallback<bool> ContactHideChanged { get; set; }
+
+    private void ToggleVisibility()
+    {
+        _contactHide = !_contactHide;
+        ContactHideChanged.InvokeAsync(_contactHide); // Notifica o componente pai
+    }
 
     private Origin TransformOrigin { get; set; } = Origin.BottomCenter;
     private Origin AnchorOrigin { get; set; } = Origin.TopCenter;

@@ -1,42 +1,69 @@
-﻿<MudPaper Elevation="25" Class="pa-3" Style="width: 25%; overflow: auto; background-color: #f5f5f5;">
-    <MudTextField T="string" Placeholder="Buscar mensagens" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Search" />
+﻿
+    <MudPaper Elevation="25" Class="pa-3 hide-text-sm" hidden="@contactHide">
+        <MudTextField T="string" Placeholder="Buscar mensagens" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Search" />
 
-    <MudToolBar Dense="true" Class="mt-4">
-        <MudText Typo="Typo.h6" Inline="true" Class="mr-2 text-primary">#</MudText>
-        <MudText Typo="Typo.h6" Color="Color.Primary">Contatos</MudText>
-    </MudToolBar>
+        <MudToolBar Dense="true" Class="mt-4">
+            <MudText Typo="Typo.h6" Inline="true" Class="mr-2 text-primary">#</MudText>
+            <MudText Typo="Typo.h6" Color="Color.Primary">Contatos</MudText>
+        </MudToolBar>
 
-    <div class="d-flex flex-column px-4" style="max-height:70vh; overflow:auto;">
-        <MudList T="ChatService" Clickable="true">
-            @foreach (var chat in Chats)
-            {
-                <MudListItem T="Chat" Class="pa-0 mb-3" OnClick="@(() => OnChatSelected.InvokeAsync(chat.Username))">
-                    <div class="d-flex flex-row align-items-center">
-                        <MudAvatar Color="@(chat.Username == SelectedContactId ? Color.Primary : Color.Dark)" Style="height:40px; width:40px;">
-                            @chat.Username.ToUpper().FirstOrDefault()
-                        </MudAvatar>
-                        <div class="ml-3">
-                            <MudText Typo="Typo.subtitle2">@chat.Username</MudText>
-                            <MudText Typo="Typo.caption" Color="Color.Primary">@chat.Tag</MudText>
-                            @if (chat.HasUnreadMessages)
-                            {
-                                <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error" Size="Size.Small" Class="ml-1" />
-                            }
+        <div class="d-flex flex-column px-4" style="max-height:70vh; overflow:auto;">
+            <MudList T="ChatService" Clickable="true">
+                @foreach (var chat in Chats)
+                {
+                    <MudListItem T="Chat" Class="pa-0 mb-3" OnClick="@(() => OnChatSelected.InvokeAsync(chat.Username))">
+                        <div class="d-flex flex-row align-items-center">
+                            <MudAvatar Color="@(chat.Username == SelectedContactId ? Color.Primary : Color.Dark)" Style="height:40px; width:40px;">
+                                @chat.Username.ToUpper().FirstOrDefault()
+                            </MudAvatar>
+                            <div class="ml-3">
+                                <MudText Typo="Typo.subtitle2">@chat.Username</MudText>
+                                <MudText Typo="Typo.caption" Color="Color.Primary">@chat.Tag</MudText>
+                                @if (chat.HasUnreadMessages)
+                                {
+                                    <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error" Size="Size.Small" Class="ml-1" />
+                                }
+                            </div>
                         </div>
-                    </div>
-                </MudListItem>
-            }
-        </MudList>
-    </div>
-</MudPaper>
+                    </MudListItem>
+                }
+            </MudList>
+        </div>
+    </MudPaper>
+
 
 @code {
-    [Parameter]
-    public string SelectedContactId { get; set; } = string.Empty;
+    private string _selectedContactId = string.Empty;
+    private bool _contactHide = false;
+    private List<Chat> _chats = new();
+    private EventCallback<string> _onChatSelected;
 
     [Parameter]
-    public List<Chat> Chats { get; set; } = new();
+    public string SelectedContactId
+    {
+        get => _selectedContactId;
+        set => _selectedContactId = value;
+    }
 
     [Parameter]
-    public EventCallback<string> OnChatSelected { get; set; }
+    public bool contactHide
+    {
+        get => _contactHide;
+        set => _contactHide = value;
+    }
+
+    [Parameter]
+    public List<Chat> Chats
+    {
+        get => _chats;
+        set => _chats = value;
+    }
+
+    [Parameter]
+    public EventCallback<string> OnChatSelected
+    {
+        get => _onChatSelected;
+        set => _onChatSelected = value;
+    }
+
 }
