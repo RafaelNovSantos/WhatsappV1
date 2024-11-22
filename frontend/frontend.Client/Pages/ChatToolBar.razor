@@ -133,17 +133,19 @@
     [Parameter] public string ContactId { get; set; }
     [Parameter] public string ContactEmail { get; set; }
     
-    private bool _contactHide = false;
+    private bool _buttonHide = false;
     
     [Parameter]
     public EventCallback<bool> ContactHideChanged { get; set; }
 
     private void ToggleVisibility()
     {
-        _contactHide = !_contactHide;
-        ContactHideChanged.InvokeAsync(_contactHide); // Notifica o componente pai
+        _buttonHide = !_buttonHide;
+        ContactHideChanged.InvokeAsync(_buttonHide); // Notifica o componente pai
+        _buttonHide = false;
+        
     }
 
-    private Origin TransformOrigin { get; set; } = Origin.BottomCenter;
+    private Origin TransformOrigin { get; set; } = Origin.BottomLeft;
     private Origin AnchorOrigin { get; set; } = Origin.TopCenter;
 }

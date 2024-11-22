@@ -30,7 +30,10 @@
             new Chat { Username = "Felipe", Tag = "ATA", AvatarUrl = "AvatarUrls/avatar9.png", Message = "Atualização programada para amanhã.", HasUnreadMessages = true },
             new Chat { Username = "Juliana", Tag = "DEV", AvatarUrl = "AvatarUrls/avatar10.png", Message = "Code review concluído.", HasUnreadMessages = false },
             new Chat { Username = "Ricardo", Tag = "OPS", AvatarUrl = "AvatarUrls/avatar11.png", Message = "Sistemas operacionais atualizados.", HasUnreadMessages = true },
-            new Chat { Username = "Bianca", Tag = "QA", AvatarUrl = "AvatarUrls/avatar12.png", Message = "Nenhum bug encontrado na última rodada de testes.", HasUnreadMessages = false }
+            new Chat { Username = "Maria", Tag = "QA", AvatarUrl = "AvatarUrls/avatar12.png", Message = "Nenhum bug encontrado na última rodada de testes.", HasUnreadMessages = false },
+            new Chat { Username = "Bianca", Tag = "QA", AvatarUrl = "AvatarUrls/avatar12.png", Message = "Nenhum bug encontrado na última rodada de testes.", HasUnreadMessages = false },
+        new Chat { Username = "Jose", Tag = "QA", AvatarUrl = "AvatarUrls/avatar12.png", Message = "Nenhum bug encontrado na última rodada de testes.", HasUnreadMessages = false },
+        new Chat { Username = "Antonio Souza da Silva", Tag = "QA", AvatarUrl = "AvatarUrls/avatar12.png", Message = "Nenhum bug encontrado na última rodada de testes.", HasUnreadMessages = false }
         };
 
         public List<Message> Messages { get; set; } = new List<Message>

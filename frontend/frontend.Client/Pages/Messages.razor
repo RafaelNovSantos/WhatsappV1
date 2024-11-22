@@ -10,42 +10,40 @@
 <PageTitle>Chat</PageTitle>
 
 <div class="d-flex flex-grow-1 flex-row " style="position: fixed; height: 100vh; width: 100vw;">
+
     <!-- Barra lateral com contatos -->
     <ContactSidebar
         contactHide="@contactHide"
+        width100="@width100"
         SelectedContactId="@ContactId"
         Chats="_chatService.Chats"
-        OnChatSelected="LoadUserChat" />
+        OnChatSelected="LoadUserChat"/>
 
 
     <!-- Área Principal de Chat -->
-    <MudPaper Elevation="25" Class="flex-grow-1  " Style="width: 100vw; background: #fafafa">
-        <ChatToolBar ContactId="@ContactId" ContactHideChanged="OnContactHideChanged" ContactEmail="@ContactEmail" />
-        
+    <MudPaper Elevation="25" Class="flex-grow-1" hidden="@chatHide" Style="width: 100vw; background: #fafafa">
+        <ChatToolBar ContactId="@ContactId" ContactHideChanged="OnContactHideChanged" ContactEmail="@ContactEmail"/>
+
         <!-- Área de mensagens -->
-        <MudPaper    Style="height: calc(100vh - 182px);"  >
-            <div  class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">      
+        <MudPaper Style="height: calc(100vh - 182px);">
+            <div class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">
                 @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
-                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                            <ChatMessage Sender="@message.Sender"
-                                                                                                                                                                                                                                         Content="@message.Content"
-                                                                                                                                                                                                                                         SentAt="@message.SentAt"
-                                                                                                                                                                                                                                         _group="@_group" />
-                                                                                                                                                                                                                        }
+                {
+                    <ChatMessage Sender="@message.Sender"
+                                 Content="@message.Content"
+                                 SentAt="@message.SentAt"
+                                 _group="@_group"/>
+                }
             </div>
-         
-</MudPaper>
 
-        
+        </MudPaper>
+
+
         <!-- Campo para envio de mensagem -->
-        <MudPaper Style="background-color: #e6e6e6"  Class="d-flex justify-center pt-2 pb-2 m-0" Width="100%" Height="10vh">
-
-
-
-
-            <div class="messageBox mud-elevation-1">
+        <MudPaper Style="background-color: #e6e6e6" Class="d-flex justify-center pt-2 pb-2 m-0" Width="100%" Height="10vh">
+<div class="messageBox mud-elevation-1">
                 <div class="fileUploadWrapper">
-                    <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.Add" AriaLabel="Abrir menu">
+                    <MudMenu  AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.Add" AriaLabel="Abrir menu">
                         <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Image">
                             Foto e Vídeo
                         </MudMenuItem>
@@ -69,30 +67,19 @@
                     id="messageInput"
                     style="resize: none;"></textarea>
                 <button id="sendButton" @onclick="SendMessage">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 664 663">
-                        <path
-                            fill="none"
-                            d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
-                        ></path>
-                        <path
-                            stroke-linejoin="round"
-                            stroke-linecap="round"
-                            stroke-width="33.67"
-                            stroke="#6c6c6c"
-                            d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
-                        ></path>
-                    </svg>
+                    <img style="
+width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
+                   
                 </button>
             </div>
 
 
         </MudPaper>
-       
+
 
     </MudPaper>
-    
-</div>
 
+</div>
 
 
 
@@ -103,24 +90,81 @@
     private readonly bool _group = false;
     private readonly ChatService _chatService = new ChatService();
     private string _newMessageContent = "";
+    private bool buttonHide = false;
+    private bool chatHide = false;
+    private bool ChatOpen = false;
+    private ScreenSize screenSize = new ScreenSize();
+    private string width100 = "";
     private bool contactHide = false;
+
 
 
     private void OnContactHideChanged(bool newStatus)
     {
-        contactHide = newStatus;
-
+    
+        buttonHide = newStatus;
+        if (buttonHide == true && screenSize.Width <= 800) 
+        {
+            //Deixa somente a aba de contatos a mostra e com largra de 100%
+            width100 = "w-full";
+            chatHide = true;
+            contactHide = false;
+            buttonHide = false;
+        }
+        else
+        {
+            width100 = "";
+            chatHide = false;
+        }
+    }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        width100 = "w-25";
     }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+           
+            var dotNetObjectReference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("setDotNetResizeCallback", dotNetObjectReference);
             // Invoca o JavaScript para bloquear a tecla Enter
             await JSRuntime.InvokeVoidAsync("blockEnterKey", "#messageInput");
+            // Atualiza o tamanho da tela após o primeiro carregamento
+            // Chama a função getScreenSize para obter o tamanho inicial da tela
+            screenSize = await JSRuntime.InvokeAsync<ScreenSize>("getScreenSize");
+            
+            StateHasChanged(); // Solicita uma atualização da interface
         }
+        
     }
-    
+
+    [JSInvokable]
+    public Task UpdateScreenSize(ScreenSize newScreenSize)
+    {
+        
+        screenSize = newScreenSize; // Atualiza a propriedade screenSize
+        if (screenSize.Width <= 800 && buttonHide == false)
+        {
+            contactHide = true;
+            
+            width100 = "";
+        }
+        else
+        {
+            //deixa o chat e a aba de contatos a mostra quando a tela for maior que 800px
+            contactHide = false;
+            width100 = "w-25";
+            chatHide = false;
+            
+        }
+        StateHasChanged(); // Solicita uma atualização da interface do usuário
+        return Task.CompletedTask;
+    }
+
+
     // Variáveis para armazenar o ID e o email do contato atual
     [Parameter]
     public string ContactId { get; set; } = ""; // ID do contato (usado na barra de título)
@@ -131,6 +175,15 @@
     private async void LoadUserChat(string username)
     {
         ContactId = username;
+        
+        if (buttonHide == false && screenSize.Width <= 800) 
+        {
+            
+            chatHide = false;
+            contactHide = true;
+            width100 = "";
+}
+
         StateHasChanged(); // Atualiza a interface
        
     }

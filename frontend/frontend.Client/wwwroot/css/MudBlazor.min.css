@@ -6153,6 +6153,15 @@ ul {
     margin-bottom: 4px
 }
 
+.w-full{
+    
+    width: 100%;
+}
+
+.w-25{
+    width: 25%;
+}
+
 .mud-list-item-text-inset {
     padding-left: 56px;
     padding-inline-start: 56px;

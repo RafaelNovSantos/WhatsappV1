@@ -1,16 +1,15 @@
 ﻿
-    <MudPaper Elevation="25" Class="pa-3 hide-text-sm" hidden="@contactHide">
-        <MudTextField T="string" Placeholder="Buscar mensagens" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Search" />
 
-        <MudToolBar Dense="true" Class="mt-4">
-            <MudText Typo="Typo.h6" Inline="true" Class="mr-2 text-primary">#</MudText>
-            <MudText Typo="Typo.h6" Color="Color.Primary">Contatos</MudText>
-        </MudToolBar>
+<div class="@width100">
+<MudPaper Elevation="25" hidden="@contactHide" Style="height: 100%;" Class="">
+        <MudTextField T="string" Style="margin: 10px" Placeholder="Buscar mensagens" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Search" />
 
-        <div class="d-flex flex-column px-4" style="max-height:70vh; overflow:auto;">
-            <MudList T="ChatService" Clickable="true">
-                @foreach (var chat in Chats)
-                {
+    <MudTabs Elevation="2"  Rounded="true" Centered="true" Color="Color.Dark">
+        <MudTabPanel  Icon="@Icons.Material.Filled.Api"  BadgeData='"!"' BadgeColor="Color.Error">
+            <div class="d-flex flex-column px-4 mt-2" style=" overflow:auto; height: 75vh;">
+                <MudList T="ChatService" Clickable="true">
+                    @foreach (var chat in Chats)
+                    {
                     <MudListItem T="Chat" Class="pa-0 mb-3" OnClick="@(() => OnChatSelected.InvokeAsync(chat.Username))">
                         <div class="d-flex flex-row align-items-center">
                             <MudAvatar Color="@(chat.Username == SelectedContactId ? Color.Primary : Color.Dark)" Style="height:40px; width:40px;">
@@ -21,20 +20,29 @@
                                 <MudText Typo="Typo.caption" Color="Color.Primary">@chat.Tag</MudText>
                                 @if (chat.HasUnreadMessages)
                                 {
-                                    <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error" Size="Size.Small" Class="ml-1" />
+                                <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error" Size="Size.Small" Class="ml-1" />
                                 }
                             </div>
                         </div>
                     </MudListItem>
-                }
-            </MudList>
-        </div>
+                    }
+                </MudList>
+            </div>
+        </MudTabPanel>
+        <MudTabPanel Icon="@Icons.Material.Filled.Build" BadgeData="1" BadgeColor="Color.Success" />
+        <MudTabPanel Icon="@Icons.Material.Filled.BugReport"  BadgeData="0" />
+        <MudTabPanel Icon="@Icons.Material.Filled.AccessTime"  BadgeDot="true" BadgeColor="Color.Error" />
+    </MudTabs>
+
+
     </MudPaper>
 
-
+</div>
 @code {
     private string _selectedContactId = string.Empty;
+    private bool _buttonHide = false;
     private bool _contactHide = false;
+    private string _width100 = "";
     private List<Chat> _chats = new();
     private EventCallback<string> _onChatSelected;
 
@@ -43,6 +51,13 @@
     {
         get => _selectedContactId;
         set => _selectedContactId = value;
+    }
+    
+    [Parameter]
+    public string width100
+    {
+        get => _width100;
+        set => _width100 = value;
     }
 
     [Parameter]
@@ -66,4 +81,5 @@
         set => _onChatSelected = value;
     }
 
+    
 }

@@ -11,6 +11,31 @@
     @*<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />*@
     <link rel="icon" type="image/ico" href="favicon.ico"/>
     <HeadOutlet @rendermode="InteractiveWebAssembly"/>
+    <script>
+        window.getScreenSize = () => {
+            return {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        };
+
+        window.onresize = () => {
+            if (window.dotNetResizeCallback) {
+                window.dotNetResizeCallback.invokeMethodAsync('UpdateScreenSize', {
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                });
+            }
+        };
+
+        window.setDotNetResizeCallback = (dotNetHelper) => {
+            window.dotNetResizeCallback = dotNetHelper;
+        };
+
+      
+
+    </script>
+
 </head>
 
 <body>
