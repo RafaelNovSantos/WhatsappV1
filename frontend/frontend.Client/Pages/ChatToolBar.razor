@@ -3,7 +3,7 @@
 <MudPaper Width="100%" >
     <!-- Barra de título do chat -->
     <MudToolBar Dense="true" Class="px-4">
-        <MudIconButton Class="activeIconMenu" OnClick="@ToggleVisibility" Icon="@Icons.Material.Filled.ArrowBack" aria-label="Voltar" />
+        <MudIconButton Class="activeIconOpenContacts" OnClick="@ToggleVisibility" Icon="@Icons.Material.Filled.ArrowBack" aria-label="Voltar" />
         @if (string.IsNullOrEmpty(ContactId))
         {
             <MudIcon Class="ma-2" Icon="@Icons.Material.Outlined.Person" Color="Color.Primary"></MudIcon>
@@ -11,7 +11,7 @@
                 <MudText Typo="Typo.h6">Chat</MudText>
             </MudHidden>
             <MudHidden Breakpoint="Breakpoint.LgAndUp">
-                <p style="font-weight: bold" Class="ma-2 mud-typography  ma-2">Chat</p>
+                <p style="font-weight: bold" Class="ma-2 mud-typography  ma-3">Chat</p>
 
             </MudHidden>
         }
@@ -24,7 +24,7 @@
  
                 <MudText Typo="Typo.h6" Class="hide-text-1240">@ContactEmail</MudText>
 
-                <p style="font-weight: bold" Class="ma-2 mud-typography hide-text-1240Down ma-2">@ContactEmail</p>
+                <p style="font-weight: bold" Class="ma-2 mud-typography hide-text-1240Down ma-3">@ContactEmail</p>
 
    
         }

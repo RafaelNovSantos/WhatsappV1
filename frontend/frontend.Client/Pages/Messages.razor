@@ -96,6 +96,7 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
     private ScreenSize screenSize = new ScreenSize();
     private string width100 = "";
     private bool contactHide = false;
+    private bool contactOpen = false;
 
 
 
@@ -106,6 +107,7 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
         if (buttonHide == true && screenSize.Width <= 800) 
         {
             //Deixa somente a aba de contatos a mostra e com largra de 100%
+            contactOpen = true;
             width100 = "w-full";
             chatHide = true;
             contactHide = false;
@@ -120,7 +122,7 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
     
     protected override async Task OnInitializedAsync()
     {
-        width100 = "w-350px";
+        width100 = "w-300px";
     }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -146,17 +148,19 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
     {
         
         screenSize = newScreenSize; // Atualiza a propriedade screenSize
-        if (screenSize.Width <= 800 && buttonHide == false)
+        if (screenSize.Width <= 800 && buttonHide == false && contactOpen == false)
         {
             contactHide = true;
             
             width100 = "";
         }
-        else
+        else if (!contactOpen == true)
         {
+            
             //deixa o chat e a aba de contatos a mostra quando a tela for maior que 800px
+            contactOpen = false;
             contactHide = false;
-            width100 = "w-350px";
+            width100 = "w-300px";
             chatHide = false;
             
         }
@@ -176,14 +180,21 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
     {
         ContactId = username;
         
-        if (buttonHide == false && screenSize.Width <= 800) 
+        
+        if (buttonHide == false && contactOpen == true) 
         {
-            
+            contactOpen = false;
             chatHide = false;
             contactHide = true;
             width100 = "";
-}
 
+            if (screenSize.Width >= 800)
+            {
+                contactHide = false;
+            }
+            return;
+}
+        contactOpen = false;
         StateHasChanged(); // Atualiza a interface
        
     }

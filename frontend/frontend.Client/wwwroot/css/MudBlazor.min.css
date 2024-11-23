@@ -2298,6 +2298,14 @@ ul {
 
 @media (max-width: 800px) {
 
+
+    .activeIconOpenContacts {
+        display: unset !important;
+    }
+}
+
+@media (max-width: 1100px) {
+
     .mud-button-label .mud-button-icon-end {
         margin-left: 0px !important;
         margin-right: 0px !important;
@@ -2342,6 +2350,11 @@ ul {
 }
 
 .activeIconMenu{
+    display: none;
+}
+
+
+.activeIconOpenContacts{
     display: none;
 }
 
@@ -6158,8 +6171,8 @@ ul {
     width: 100%;
 }
 
-.w-350px{
-    width: 350px;
+.w-300px{
+    width: 300px;
 }
 
 .mud-list-item-text-inset {
