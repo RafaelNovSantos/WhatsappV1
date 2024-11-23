@@ -6158,8 +6158,8 @@ ul {
     width: 100%;
 }
 
-.w-25{
-    width: 25%;
+.w-350px{
+    width: 350px;
 }
 
 .mud-list-item-text-inset {
@@ -11079,6 +11079,8 @@ ul {
         }
     }
 
+
+
     @media(max-width: 1280px) {
         .mud-md-table .mud-table-root .mud-table-head, .mud-md-table .mud-table-root .mud-table-foot {
             display: none
@@ -11474,6 +11476,7 @@ ul {
                 width: 100%;
                 border-radius: 0px;
                 height: 32px
+               
             }
 
                 .mud-tabs-tabbar.mud-tabs-vertical .mud-tabs-tabbar-inner .mud-tabs-scroll-button .mud-button-root .mud-icon-button-label .mud-icon-root {
