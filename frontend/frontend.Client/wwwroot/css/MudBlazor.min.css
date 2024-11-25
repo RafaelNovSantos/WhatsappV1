@@ -6168,7 +6168,12 @@ ul {
 
 .w-full{
     
-    width: 100%;
+    /*width: 100%;*/
+    width: calc(100% - 58px);
+}
+
+.w-100vw{
+    width: 100vw;
 }
 
 .w-300px{
@@ -29441,8 +29446,13 @@ margin: 35px -40px 0;
     .mud-main-content {
         margin: 0;
         flex: 1 1 auto;
-        padding-top: 62px;
+       /* padding-top: 62px;*/
         transition: margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms
+    }
+    
+    
+    .widthChatArea{
+        width: calc(100vw - 358px);
     }
 
     @media(min-width: 0px)and (orientation: landscape) {

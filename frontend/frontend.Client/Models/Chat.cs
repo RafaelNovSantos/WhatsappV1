@@ -23,6 +23,7 @@
         public List<Chat> Chats { get; set; } = new List<Chat>
         {
             new Chat { Username = "Laura", Tag = "FIN", AvatarUrl = "AvatarUrls/avatar4.png", Message = "Precisamos revisar os relatórios financeiros.", HasUnreadMessages = true },
+            new Chat { Username = "Marco", Tag = "FIN", AvatarUrl = "AvatarUrls/avatar4.png", Message = "Precisamos revisar os relatórios financeiros.", HasUnreadMessages = true },
             new Chat { Username = "Marcos MR Automação GO Ata", Tag = "ENG", AvatarUrl = "AvatarUrls/avatar5.png", Message = "O projeto está em fase final de testes.", HasUnreadMessages = false },
             new Chat { Username = "Sofia", Tag = "HR", AvatarUrl = "AvatarUrls/avatar6.png", Message = "Lembrete: Reunião às 15h.", HasUnreadMessages = true },
             new Chat { Username = "Carlos", Tag = "MKT", AvatarUrl = "AvatarUrls/avatar7.png", Message = "Campanha lançada com sucesso!", HasUnreadMessages = true },
@@ -43,7 +44,8 @@
             new Message { Sender = "Sofia", Content = "Conseguiu verificar as inscrições para o evento?" },
             new Message { Sender = "Carlos", Content = "Vamos monitorar os resultados da campanha nas próximas 48h." },
             new Message { Sender = "Ana", Content = "Você pode me passar os detalhes do problema?" },
-            new Message { Sender = "Felipe", Content = "O backup foi concluído com sucesso." }
+            new Message { Sender = "Felipe", Content = "O backup foi concluído com sucesso." },
+
 
         };
     }

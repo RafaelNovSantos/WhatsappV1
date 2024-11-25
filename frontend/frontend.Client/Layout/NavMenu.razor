@@ -32,9 +32,13 @@
                 <span>Books</span>
             </a>
         </li>
+     
+        <MudSpacer></MudSpacer>
+    
         <li>
+            <MudDivider></MudDivider>
             <a href="#">
-                <MudIcon Icon="@Icons.Material.Filled.Notifications" Title="Favorite" />
+                <MudIcon Icon="@Icons.Material.Filled.Notifications" Title="Favorite"/>
                 <span>Notifications</span>
             </a>
         </li>
@@ -70,18 +74,19 @@
     ul {
         z-index: 1;
         left: 0;
-        top: 62px;
-        height: 100%;
-      
+        /* top: 62px; */
+        height: 100vh;
         list-style: none;
         position: fixed;
-        padding: 0.75rem;
-        background-color: #05043e;
-        display: flex;
+        padding: 0.3rem;
+        background-color: #1ec8a5;
+        display: flex
+    ;
+        width: 58px;
         flex-direction: column;
-        justify-content: space-between;
-        padding-bottom: 70px;
-        border-radius: 10px;
+      /*  justify-content: space-between;*/
+        /* padding-bottom: 70px; */
+        border-radius: 5px;
         box-shadow: 0 10px 50px rgba(5, 4, 62, 0.25);
     }
 

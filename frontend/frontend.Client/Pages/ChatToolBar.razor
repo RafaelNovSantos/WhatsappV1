@@ -1,6 +1,6 @@
 ﻿@inject IJSRuntime JsRuntime
 
-<MudPaper Width="100%" >
+<MudPaper Width="100%" Style="    background: #1ec8a5;">
     <!-- Barra de título do chat -->
     <MudToolBar Dense="true" Class="px-4">
         <MudIconButton Class="activeIconOpenContacts" OnClick="@ToggleVisibility" Icon="@Icons.Material.Filled.ArrowBack" aria-label="Voltar" />
@@ -30,7 +30,7 @@
         }
         <MudSpacer/>
         <div Class="dimensionIcon">
-            <MudMenu Class="ma-2">
+            <MudMenu ActivationEvent="@MouseEvent.MouseOver" Class="ma-2">
                 <ActivatorContent>
                     <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Filled.PublishedWithChanges">
                     </MudIcon>
@@ -52,7 +52,7 @@
                 </ChildContent>
             </MudMenu>
 
-            <MudMenu Class="ma-2">
+            <MudMenu ActivationEvent="@MouseEvent.MouseOver" Class="ma-2">
                 <ActivatorContent>
                     <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Outlined.Label">
                     </MudIcon>
@@ -74,7 +74,7 @@
                 </ChildContent>
             </MudMenu>
 
-            <MudMenu Class="ma-2">
+            <MudMenu ActivationEvent="@MouseEvent.MouseOver" Class="ma-2">
                 <ActivatorContent>
                     <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Outlined.CalendarMonth">
                     </MudIcon>
@@ -96,7 +96,7 @@
                 </ChildContent>
             </MudMenu>
 
-            <MudMenu Class="ma-2">
+            <MudMenu ActivationEvent="@MouseEvent.MouseOver" Class="ma-2">
                 <ActivatorContent>
                     <MudIcon Class="activeIconMenu" Icon="@Icons.Material.Outlined.Check">
                     </MudIcon>
@@ -120,7 +120,7 @@
 
 
 
-            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert">
+            <MudMenu ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert">
                 <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Archive">Arquivar Chat</MudMenuItem>
                 <MudMenuItem IconSize="Size.Small" IconColor="Color.Success" Icon="@Icons.Material.Outlined.NotificationsOff">Silenciar Chat</MudMenuItem>
                 <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.Block">Bloquear</MudMenuItem>

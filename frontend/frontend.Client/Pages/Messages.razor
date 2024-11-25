@@ -9,7 +9,7 @@
 
 <PageTitle>Chat</PageTitle>
 
-<div class="d-flex flex-grow-1 flex-row " style="position: fixed; height: 100vh; width: 100vw;">
+<div class="d-flex flex-grow-1 flex-row " style="position: fixed; width: 100%; height: 100vh; ">
 
     <!-- Barra lateral com contatos -->
     <ContactSidebar
@@ -21,11 +21,11 @@
 
 
     <!-- Área Principal de Chat -->
-    <MudPaper Elevation="25" Class="flex-grow-1" hidden="@chatHide" Style="width: 100vw; background: #fafafa">
+    <MudPaper Elevation="25" Class="@widthChatArea" hidden="@chatHide" Style=" height: 100vh; background: #fafafa">
         <ChatToolBar ContactId="@ContactId" ContactHideChanged="OnContactHideChanged" ContactEmail="@ContactEmail"/>
 
         <!-- Área de mensagens -->
-        <MudPaper Style="height: calc(100vh - 182px);">
+        <MudPaper Style="height: calc(100vh - 122px);">
             <div class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">
                 @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
                 {
@@ -40,7 +40,7 @@
 
 
         <!-- Campo para envio de mensagem -->
-        <MudPaper Style="background-color: #e6e6e6" Class="d-flex justify-center pt-2 pb-2 m-0" Width="100%" Height="10vh">
+        <MudPaper Style="background-color: #e6e6e6" Class="d-flex justify-center pt-2 pb-2 m-0" Width="100%" >
 <div class="messageBox mud-elevation-1">
                 <div class="fileUploadWrapper">
                     <MudMenu  AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.Add" AriaLabel="Abrir menu">
@@ -97,6 +97,7 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
     private string width100 = "";
     private bool contactHide = false;
     private bool contactOpen = false;
+    private string widthChatArea = "widthChatArea";
 
 
 
@@ -115,6 +116,8 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
         }
         else
         {
+            //Deixa somente a aba de chat aberta
+            widthChatArea = "w-full";
             width100 = "";
             chatHide = false;
         }
@@ -149,15 +152,17 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
         
         screenSize = newScreenSize; // Atualiza a propriedade screenSize
         if (screenSize.Width <= 800 && buttonHide == false && contactOpen == false)
-        {
+        { 
+            //Deixa somente a aba de chat aberta
             contactHide = true;
-            
+            widthChatArea = "w-full";
             width100 = "";
         }
         else if (!contactOpen == true)
         {
             
             //deixa o chat e a aba de contatos a mostra quando a tela for maior que 800px
+            widthChatArea = "widthChatArea";
             contactOpen = false;
             contactHide = false;
             width100 = "w-300px";
