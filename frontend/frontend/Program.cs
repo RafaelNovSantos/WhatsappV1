@@ -1,6 +1,6 @@
 using MudBlazor.Services;
-using frontend.Client.Pages;
 using frontend.Components;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

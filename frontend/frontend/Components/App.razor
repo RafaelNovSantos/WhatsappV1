@@ -5,9 +5,11 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <base href="/"/>
-    <link rel="stylesheet" href="frontend.styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="frontend.styles.css" />
+    <link rel="stylesheet" href="css/Messages.css" />
     <link href="css/MudBlazor.min.css" rel="stylesheet" />
+    <link href="css/ChatMessage.css" rel="stylesheet" />
     @*<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />*@
     <link rel="icon" type="image/ico" href="favicon.ico"/>
     <HeadOutlet @rendermode="InteractiveWebAssembly"/>
@@ -42,7 +44,7 @@
 <Routes @rendermode="InteractiveWebAssembly"/>
 <script src="_framework/blazor.web.js"></script>
 <script src="_content/MudBlazor/MudBlazor.min.js"></script>
-<script src="pages/Messages.razor.js"></script>
+<script src="pages/chat/Messages.razor.js"></script>
 </body>
 
 </html>

@@ -7,13 +7,16 @@
 <MudSnackbarProvider />
 <MudLayout>
 
-    <MudDrawer Width="58px" Elevation="1" @bind-Open="_open" Variant="@DrawerVariant.Mini">
+
         <NavMenu>
 
         </NavMenu>
-    </MudDrawer>
+  
 
-    <MudMainContent Style="position: fixed; ">
+    <MudMainContent Style="height: 100vh;
+    position: fixed;
+    width: 100%;
+    margin-left: 58px;">
         @Body
     </MudMainContent>
 </MudLayout>

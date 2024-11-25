@@ -2,27 +2,31 @@
 
 
 <MudPaper Elevation="25" hidden="@contactHide" Style="height: 100%;" Class="@width100">
-   
-    <div class="InputContainer mud-elevation-1">
-        <input type="text"             placeholder="Buscar mensagens"
+   <MudPaper Class="d-flex" Style="padding: 10px 0px 10px 0px;
+    background: #e6e6e6; justify-content: center;    align-items: center;">
+       <MudIconButton Icon="@Icons.Material.Filled.PersonAddAlt1" aria-label="delete" />
+       <div class="InputContainer mud-elevation-1">
+           <input type="text"             placeholder="Buscar mensagens"
           
-               @bind="searchTerm"
-               @bind:event="oninput" name="text" class="searchinput" id="input" >
+                  @bind="searchTerm"
+                  @bind:event="oninput" name="text" class="searchinput" id="input" >
 
 
-        <div class="border"></div>
+           <div class="border"></div>
 
-        <label for="input" class="labelforsearch">
-            <svg viewBox="0 0 512 512" class="searchIcon"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>
-        </label>
+           <label for="input" class="labelforsearch">
+               <svg viewBox="0 0 512 512" class="searchIcon"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>
+           </label>
 
-    </div>
+       </div>
+       <MudIconButton Icon="@Icons.Material.Filled.RemoveRedEye" aria-label="delete" />
+       <MudIconButton Icon="@Icons.Material.Filled.FilterList" aria-label="delete" />
+   </MudPaper>
 
 
-
-    <MudTabs MinimumTabWidth="70px" Style="width: 100%" Rounded="true" Outlined="true" Centered="true" Color="Color.Dark">
+    <MudTabs MinimumTabWidth="87px" Style="width: 100%" Rounded="true" Outlined="true" Centered="true" Color="Color.Dark">
         <MudTabPanel Icon="@Icons.Material.Filled.Api" BadgeData='"!"' BadgeColor="Color.Error">
-            <div class="d-flex flex-column" style="overflow:auto; height: 86vh;">
+            <div class="d-flex flex-column" style="overflow:auto;     height: calc(100vh - 118px);">
                 <MudList T="ChatService" Color="@Color.Info">
                     @foreach (var chat in FilteredChats)
                     {
@@ -58,6 +62,7 @@
         height: 40px;
         display: flex
     ;
+        width: 100%;
         align-items: center;
         justify-content: center;
         background-color: rgb(255, 255, 255);
@@ -65,7 +70,7 @@
         overflow: hidden;
         cursor: pointer;
         padding-right: 15px;
-        margin: 20px;
+        /*margin: 20px;*/
     }
 
     .searchinput {

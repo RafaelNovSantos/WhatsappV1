@@ -1,7 +1,9 @@
 ﻿
-
-@*@page "/{ContacId}"*@
-@page "/"
+@if(!string.IsNullOrWhiteSpace(ContactId)){
+    @page "/chat/{ContactId}"
+    }else{
+    @page "/chat"
+    }
 
 @inject IJSRuntime JsRuntime
 
@@ -27,13 +29,17 @@
         <!-- Área de mensagens -->
         <MudPaper Style="height: calc(100vh - 122px);">
             <div class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">
-                @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
+                @if (!string.IsNullOrWhiteSpace(ContactId)) 
                 {
-                    <ChatMessage Sender="@message.Sender"
-                                 Content="@message.Content"
-                                 SentAt="@message.SentAt"
-                                 _group="@_group"/>
+                    @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))
+                    {
+                        <ChatMessage Sender="@message.Sender"
+                                     Content="@message.Content"
+                                     SentAt="@message.SentAt"
+                                     _group="@_group"/>
+                    }
                 }
+                
             </div>
 
         </MudPaper>
@@ -125,7 +131,7 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
     
     protected override async Task OnInitializedAsync()
     {
-        width100 = "w-300px";
+        width100 = "w-350px";
     }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -165,7 +171,7 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
             widthChatArea = "widthChatArea";
             contactOpen = false;
             contactHide = false;
-            width100 = "w-300px";
+            width100 = "w-350px";
             chatHide = false;
             
         }
