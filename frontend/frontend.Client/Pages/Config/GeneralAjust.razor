@@ -1,0 +1,215 @@
+﻿<MudContainer  Class="mt-4" Style="overflow: auto">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Ajustes Gerais</MudText>
+    <MudText Class="mb-6" Align="Align.Center">Os principais ajustes da plataforma estão aqui. Mensagens de boas-vindas/finalização, regras de utilização, horário de atendimento e mais.</MudText>
+    <div>
+        <MudCard Elevation="4" Class="mb-6 rounded-xl pa-1">
+
+            <!-- Reiniciar Instância -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Reiniciar Instância</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Reinicie sua instância para corrigir erros automaticamente. Será necessário escanear um novo QR Code para o WhatsApp.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudToggleIconButton @bind-Toggled="RestartOn"
+                                     Icon="@Icons.Material.Filled.RestartAlt"
+                                     Color="@Color.Error"
+                                     ToggledIcon="@Icons.Material.Filled.Check"
+                                     ToggledColor="@Color.Success"
+                                     title="@(RestartOn ? "On" : "Off")" />
+
+                <span>Instância @(RestartOn ? "reiniciada" : "não está reiniciada")</span>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Nome da Instância -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Nome da Instância</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Defina ou altere o nome da instância exibido nos registros e relatórios.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudTextField Margin="Margin.Dense" @bind-Value="NameInstance" Label="Nome da instância" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Logotipo -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Logotipo</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Personalize o logotipo que será exibido nos seus atendimentos e notificações.</MudText>
+            </MudCardContent>
+            @if (string.IsNullOrEmpty(_imageUrl))
+            {
+            <MudCardActions>
+                <MudFileUpload T="IBrowserFile" Accept=".svg" MaximumFileCount="1" FilesChanged="UploadFile">
+                    <ActivatorContent>
+                        <MudIconButton Color="Color.Info" Icon="@Icons.Material.Filled.PhotoCamera">
+                        </MudIconButton>
+                    </ActivatorContent>
+                </MudFileUpload>
+            </MudCardActions>
+            }
+            @if (!string.IsNullOrEmpty(_imageUrl))
+            {
+                <MudPaper Style="margin: 16px;
+    width: max-content;
+    background: #1ec8a5;" Class="d-flex align-center">
+               
+                <MudList T="string">
+                 
+                    
+
+                    <MudMenu Style="width: max-content; margin: 5px;" FullWidth="false" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+                        <ActivatorContent>
+                            <MudImage Width="50" Height="50" Fluid="true" Src="@_imageUrl" Alt="Uploaded Image" Class="rounded-lg" />
+                        </ActivatorContent>
+                        <ChildContent>
+                            <MudMenuItem>Trocar</MudMenuItem>
+                            <MudMenuItem>Excluir</MudMenuItem>
+                        </ChildContent>
+                    </MudMenu>
+
+                  
+                </MudList>
+                </MudPaper>
+                <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Exclur Logo</MudButton>
+                <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Send" Color="Color.Primary">Trocar Logo</MudButton>
+            }
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Mensagem de Boas-Vindas -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Mensagem de Boas-Vindas</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Configure a mensagem inicial enviada automaticamente para novos atendimentos.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Configurar Mensagem</MudButton>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Mensagem de Finalização -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Mensagem de Finalização</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Defina a mensagem enviada automaticamente ao encerrar um atendimento.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Configurar Mensagem</MudButton>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Avaliação de Atendimento -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Avaliação de Atendimento</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Ative ou desative a solicitação de feedback ao final de um atendimento.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Configurar Avaliação</MudButton>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Usuário Padrão -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Usuário Padrão</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Configure o usuário padrão para carteirização dos atendimentos.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Alterar Usuário</MudButton>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Horário de Atendimento -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Horário de Atendimento</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Defina os horários em que os atendimentos estão disponíveis.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Alterar Horário</MudButton>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Fuso Horário -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Fuso Horário</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Ajuste o fuso horário padrão para os seus atendimentos.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Alterar Fuso Horário</MudButton>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Código do País -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Código do País</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Configure o código do país para chamadas e WhatsApp.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Alterar Código</MudButton>
+            </MudCardActions>
+
+        </MudCard>
+    </div>
+</MudContainer>
+
+
+
+
+
+
+@code {
+    public bool RestartOn { get; set; }
+    public string NameInstance { get; set; } = "Plataforma de atendimento";
+    
+    IBrowserFile _file; // Variável para armazenar apenas 1 arquivo
+    string _imageUrl; // Variável para armazenar a URL da imagem
+
+    private async Task UploadFile(IBrowserFile file)
+    {
+        _file = file; // Substitui o arquivo atual
+
+        // Converta o arquivo para uma string base64
+        var buffer = new byte[file.Size];
+        await file.OpenReadStream(maxAllowedSize: 1024 * 1024 * 5).ReadAsync(buffer); // Tamanho máximo de 5MB
+        var base64String = Convert.ToBase64String(buffer);
+
+        // Gere a URL da imagem
+        _imageUrl = $"data:{file.ContentType};base64,{base64String}";
+    }
+}

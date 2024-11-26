@@ -6168,7 +6168,16 @@ ul {
     margin-bottom: 4px
 }
 
-
+.titleTabPanel{
+    text-align: center;
+    z-index: 1;
+    right: 0;
+    font-weight: bold;
+    position: fixed;
+    padding-top: 30px;
+    font-size: 22px;
+    width: 242px;
+}
 
 .w-full{
     
