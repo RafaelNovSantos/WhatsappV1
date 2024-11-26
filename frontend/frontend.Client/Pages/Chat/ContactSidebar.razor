@@ -24,7 +24,7 @@
    </MudPaper>
 
 
-    <MudTabs MinimumTabWidth="87px" Style="width: 100%" Rounded="true" Outlined="true" Centered="true" Color="Color.Dark">
+    <MudTabs MinimumTabWidth="87px" Style="width: 100%" Rounded="true" Outlined="true" SliderColor="Color.Primary"  Centered="true" Color="Color.Dark">
         <MudTabPanel Icon="@Icons.Material.Filled.Api" BadgeData='"!"' BadgeColor="Color.Error">
             <div class="d-flex flex-column" style="overflow:auto;     height: calc(100vh - 118px);">
                 <MudList T="ChatService" Color="@Color.Info">
@@ -36,8 +36,10 @@
                                 @chat.Username.ToUpper().FirstOrDefault()
                             </MudAvatar>
                             <div class="ml-3">
-                                <MudText Typo="Typo.subtitle2">@chat.Username</MudText>
-                                <MudText Typo="Typo.caption" Color="Color.Primary">@chat.Tag</MudText>
+                                <MudText Style="overflow: hidden;
+    white-space: nowrap;" Typo="Typo.subtitle2" Color="Color.Secondary">@chat.Username</MudText>
+                                <MudText Style="overflow: hidden;
+    white-space: nowrap;" Typo="Typo.caption" Color="Color.Primary">@chat.Tag</MudText>
                                 @if (chat.HasUnreadMessages)
                                 {
                                 <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error" Size="Size.Small" Class="ml-1" />

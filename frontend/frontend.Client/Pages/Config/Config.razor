@@ -2,48 +2,136 @@
 
 
 
-<div class="ma-2">
-    <MudTabs Centered="true" Color="Color.Dark" Style="    margin: 20px 20px 0px 0px;" Outlined="true" Class="mt-0 w-full h-full "  Position="Position.End" Rounded="true" Border="true"
-             ApplyEffectsToContainer="true"  >
-        <MudTabPanel Icon="@Icons.Material.Filled.Tune" Text="Ajustes gerais">
-          
-            <MudText>Ajustes gerais</MudText>
-        </MudTabPanel>
-        <MudTabPanel Icon="@Icons.Material.Filled.Bolt" Text="Respostas Rápidas">
+<div class="">
+    <MudTabs Centered="true" SliderColor="Color.Primary" Color="Color.Tertiary" Outlined="true" Class="mt-0 w-full h-full" Position="Position.End" Rounded="true" Border="true" ApplyEffectsToContainer="true">
 
-            <MudText>Respostas Rápidas</MudText>
+        <!-- Ajustes Gerais Tab -->
+        <MudTabPanel Icon="@Icons.Material.Filled.Tune" Text="Ajustes gerais">
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Configurações principais</MudText>
+                    <MudTextField T="string" Label="Tema" Variant="Variant.Text" FullWidth="true" Margin="Margin.Dense" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Salvar Configurações</MudButton>
+                </MudCardContent>
+            </MudCard>
         </MudTabPanel>
+
+        <!-- Respostas Rápidas Tab -->
+        <MudTabPanel Icon="@Icons.Material.Filled.Bolt" Text="Respostas Rápidas">
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Gerenciar Respostas</MudText>
+                    <MudTextField T="string" Label="Nova resposta" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudSelect T="string" Label="Categoria" FullWidth="true" Margin="Margin.Dense">
+                        <MudSelectItem T="string" >FAQ</MudSelectItem>
+                        <MudSelectItem T="string" >Atendimento</MudSelectItem>
+                    </MudSelect>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Adicionar Resposta</MudButton>
+                </MudCardContent>
+            </MudCard>
+        </MudTabPanel>
+
+        <!-- Departamentos Tab -->
         <MudTabPanel Icon="@Icons.Material.Filled.PeopleAlt" Text="Departamentos">
-       
-            <MudText>Departamentos</MudText>
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Gerenciar Departamentos</MudText>
+                    <MudTextField T="string" Label="Nome do Departamento" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudSelect T="string" Label="Tipo" FullWidth="true" Margin="Margin.Dense">
+                        <MudSelectItem T="string" >Suporte</MudSelectItem>
+                        <MudSelectItem T="string" >Vendas</MudSelectItem>
+                    </MudSelect>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Criar Departamento</MudButton>
+                </MudCardContent>
+            </MudCard>
         </MudTabPanel>
+
+        <!-- Usuários Tab -->
         <MudTabPanel Icon="@Icons.Material.Filled.Person" Text="Usuários">
-        
-            <MudText>Usuários</MudText>
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Adicionar Novo Usuário</MudText>
+                    <MudTextField T="string" Label="Nome Completo" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudTextField T="string" Label="Email" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Adicionar Usuário</MudButton>
+                </MudCardContent>
+            </MudCard>
         </MudTabPanel>
+
+        <!-- Contatos Tab -->
         <MudTabPanel Icon="@Icons.Material.Filled.Contacts" Text="Contatos">
-         
-            <MudText>Contatos</MudText>
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Gerenciar Contatos</MudText>
+                    <MudTextField T="string" Label="Nome do Contato" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudTextField T="string" Label="Email" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Salvar Contato</MudButton>
+                </MudCardContent>
+            </MudCard>
         </MudTabPanel>
+
+        <!-- Etiquetas Tab -->
         <MudTabPanel Icon="@Icons.Material.Filled.Label" Text="Etiquetas">
-          
-            <MudText>Etiquetas</MudText>
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Adicionar Etiqueta</MudText>
+                    <MudTextField T="string" Label="Nome da Etiqueta" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Criar Etiqueta</MudButton>
+                </MudCardContent>
+            </MudCard>
         </MudTabPanel>
+
+        <!-- Motivos de Finalização Tab -->
         <MudTabPanel Icon="@Icons.Material.Filled.CheckCircle" Text="Motivos de Finalização">
-           
-            <MudText>Motivos de Finalização</MudText>
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Definir Motivos</MudText>
+                    <MudTextField T="string" Label="Motivo" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Adicionar Motivo</MudButton>
+                </MudCardContent>
+            </MudCard>
         </MudTabPanel>
-   
+
+        <!-- Pagamento Tab -->
         <MudTabPanel Icon="@Icons.Material.Filled.Payment" Text="Pagamento">
-          
-            <MudText>Pagamento</MudText>
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Configurações de Pagamento</MudText>
+                    <MudTextField T="string" Label="Método de Pagamento" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Salvar Método</MudButton>
+                </MudCardContent>
+            </MudCard>
         </MudTabPanel>
+
+        <!-- Meus Dados Tab -->
         <MudTabPanel Icon="@Icons.Material.Filled.AccountBox" Text="Meus dados">
-       
-            <MudText>Meus dados</MudText>
+            <MudCard Class="mt-3">
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">Atualizar Meus Dados</MudText>
+                    <MudTextField T="string" Label="Nome" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudTextField T="string" Label="Email" Variant="Variant.Filled" FullWidth="true" Margin="Margin.Dense" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-2">Salvar Dados</MudButton>
+                </MudCardContent>
+            </MudCard>
         </MudTabPanel>
+
     </MudTabs>
 </div>
+
+
+
+<style>
+    .mud-tabs-panels{
+    
+        justify-content: center;
+        align-content: center !important;
+    }
+    
+    .mud-tabs-panels.mud-tabs-vertical{
+        display: grid
+        !important;
+    }
+</style>
 @code {
     
 }

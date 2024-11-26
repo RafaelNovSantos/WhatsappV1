@@ -8,10 +8,14 @@
         {
             <MudIcon Class="ma-2" Icon="@Icons.Material.Outlined.Person" Color="Color.Primary"></MudIcon>
             <MudHidden Breakpoint="Breakpoint.MdAndDown">
-                <MudText Typo="Typo.h6">Chat</MudText>
+                <MudText style="     overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;"  Color="Color.Secondary"  Typo="Typo.h6">Chat</MudText>
             </MudHidden>
             <MudHidden Breakpoint="Breakpoint.LgAndUp">
-                <p style="font-weight: bold" Class="ma-2 mud-typography  ma-3">Chat</p>
+                <p style="        overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis; color: var(--mud-palette-secondary);" Class="ma-2 mud-typography  ma-3">Chat</p>
 
             </MudHidden>
         }
@@ -22,9 +26,13 @@
                 @ContactEmail.ToUpper().FirstOrDefault()
             </MudAvatar>
  
-                <MudText Typo="Typo.h6" Class="hide-text-1240">@ContactEmail</MudText>
+            <MudText style="     overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;" Typo="Typo.h6" Color="Color.Secondary" Class="hide-text-1240">@ContactEmail</MudText>
 
-                <p style="font-weight: bold" Class="ma-2 mud-typography hide-text-1240Down ma-3">@ContactEmail</p>
+            <p style="     overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis; color: var(--mud-palette-secondary); " Class="ma-2 mud-typography hide-text-1240Down ma-3">@ContactEmail</p>
 
    
         }
@@ -39,7 +47,7 @@
 
                         Variant="Variant.Outlined"
                         EndIcon="@Icons.Material.Filled.PublishedWithChanges"
-                        Color="Color.Tertiary"
+                        Color="Color.Secondary"
                         Class="hide-text-sm">
                         <span class="hide-text-sm">Transferir</span>
                     </MudButton>
@@ -61,7 +69,7 @@
 
                         Variant="Variant.Outlined"
                         EndIcon="@Icons.Material.Outlined.Label"
-                        Color="Color.Tertiary"
+                        Color="Color.Secondary"
                         Class="hide-text-sm">
                         <span class="hide-text-sm">Etiquetas</span>
                     </MudButton>
@@ -83,7 +91,7 @@
 
                         Variant="Variant.Outlined"
                         EndIcon="@Icons.Material.Outlined.CalendarMonth"
-                        Color="Color.Tertiary"
+                        Color="Color.Secondary"
                         Class="hide-text-sm">
                         <span class="hide-text-sm">Agendar</span>
                     </MudButton>
@@ -105,7 +113,7 @@
 
                         Variant="Variant.Outlined"
                         EndIcon="@Icons.Material.Outlined.Check"
-                        Color="Color.Tertiary"
+                        Color="Color.Secondary"
                         Class="hide-text-sm">
                         <span class="hide-text-sm">Finalizar</span>
                     </MudButton>
@@ -128,6 +136,7 @@
         </div>
     </MudToolBar>
 </div>
+
 
 @code {
     [Parameter] public string ContactId { get; set; }

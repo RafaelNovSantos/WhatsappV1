@@ -28,6 +28,9 @@
     <a class="dismiss">🗙</a>
 </div>
 
+
+
+
 @code {
     private bool _drawerOpen = false;
     private bool _isDarkMode = false;
@@ -44,13 +47,33 @@
     {
         base.OnInitialized();
         BadgeContent = 2;
-        _theme = new()
+        _theme = new MudTheme()
         {
-            PaletteLight = _lightPalette,
-            PaletteDark = _darkPalette,
-            LayoutProperties = new LayoutProperties()
+            PaletteLight = _lightPalette,  // Sua paleta de cores clara
+            PaletteDark = _darkPalette,    // Sua paleta de cores escuras
+            LayoutProperties = new LayoutProperties(),
+            Typography = new Typography()
+            {
+                Default = new Default()
+                {
+                    FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" }
+                },
+                H1 = new H1() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                H2 = new H2() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                H3 = new H3() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                H4 = new H4() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                H5 = new H5() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                H6 = new H6() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                Body1 = new Body1() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                Body2 = new Body2() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                Button = new Button() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                Caption = new Caption() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } },
+                Overline = new Overline() { FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" } }
+            }
         };
     }
+    
+
 
 
     private void DrawerToggle()
@@ -65,18 +88,22 @@
 
     private readonly PaletteLight _lightPalette = new()
     {
+        Primary = "#1ec8a5",
         Black = "#110e2d",
         AppbarText = "#424242",
         AppbarBackground = "rgba(255,255,255,0.8)",
         DrawerBackground = "#ffffff",
         GrayLight = "#e8e8e8",
         GrayLighter = "#f9f9f9",
-        Tertiary = "#2b2b2b",
+        Secondary = "#000",
+        SecondaryContrastText = "#000",
+        Tertiary = "#e6e6e6",
+        TertiaryContrastText = "#000",
     };
 
     private readonly PaletteDark _darkPalette = new()
     {
-        Primary = "#7e6fff",
+        Primary = "#1ec8a5",
         Surface = "#1e1e2d",
         Background = "#1a1a27",
         BackgroundGray = "#151521",
@@ -87,7 +114,7 @@
         ActionDisabled = "#9999994d",
         ActionDisabledBackground = "#605f6d4d",
         TextPrimary = "#b2b0bf",
-        TextSecondary = "#92929f",
+        TextSecondary = "#000",
         TextDisabled = "#ffffff33",
         DrawerIcon = "#92929f",
         DrawerText = "#92929f",
