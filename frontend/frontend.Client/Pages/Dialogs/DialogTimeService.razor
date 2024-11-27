@@ -1,0 +1,57 @@
+﻿<MudDialog>
+    <TitleContent>
+        Configurar horário de atendimento
+    </TitleContent>
+    <DialogContent>
+        <MudTextField AutoGrow MaxLines="10" Margin="Margin.Dense" @bind-Value="AbsenceMessage" Label="Mensagem de ausência" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
+        <MudSelect @bind-Value="_value"
+                   Variant="Variant.Outlined"
+                   Margin="Margin.Dense"
+                   Dense="true"
+              
+                   Placeholder="teste"
+
+                   Clearable="true">
+            @foreach (var finishService in finishServices)
+            {
+                <MudSelectItem Value="finishService">@finishService</MudSelectItem>
+            }
+        </MudSelect>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+
+    .mud-list-item.mud-list-item-dense{
+        max-width: none;
+    }
+</style>
+
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    public string[] finishServices =  {
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California",
+        "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
+        "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
+        "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
+        "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
+        "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
+        "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
+        "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+        "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+        "Washington", "West Virginia", "Wisconsin", "Wyoming"
+};
+
+    public string _value = "Mensagem";
+    public string AbsenceMessage = "Volto Logo";
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+
+    private void Cancel() => MudDialog.Cancel();
+}

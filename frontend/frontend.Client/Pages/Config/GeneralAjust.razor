@@ -1,5 +1,5 @@
-﻿<MudContainer  Class="mt-4" Style="overflow: auto">
-    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Ajustes Gerais</MudText>
+﻿<MudContainer   Style="overflow: auto">
+    <MudText Class="mt-4" Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Ajustes Gerais</MudText>
     <MudText Class="mb-6" Align="Align.Center">Os principais ajustes da plataforma estão aqui. Mensagens de boas-vindas/finalização, regras de utilização, horário de atendimento e mais.</MudText>
     <div>
         <MudCard Elevation="4" Class="mb-6 rounded-xl pa-1">
@@ -50,7 +50,7 @@
             </MudCardContent>
             @if (string.IsNullOrEmpty(_imageUrl))
             {
-            <MudCardActions>
+            <MudCardActions  Style="    width: max-content;">
                 <MudFileUpload T="IBrowserFile" Accept=".svg" MaximumFileCount="1" FilesChanged="UploadFile">
                     <ActivatorContent>
                         <MudIconButton Color="Color.Info" Icon="@Icons.Material.Filled.PhotoCamera">
@@ -61,30 +61,49 @@
             }
             @if (!string.IsNullOrEmpty(_imageUrl))
             {
+                <div class="d-flex">
                 <MudPaper Style="margin: 16px;
     width: max-content;
     background: #1ec8a5;" Class="d-flex align-center">
                
-                <MudList T="string">
-                 
-                    
+                    <MudCard  Class="py-1 align-center  justify-start " Elevation="0" Style="width: 40px; height: 100%; color: white; background: #1ec8a5" T="string">
 
-                    <MudMenu Style="width: max-content; margin: 5px;" FullWidth="false" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
-                        <ActivatorContent>
-                            <MudImage Width="50" Height="50" Fluid="true" Src="@_imageUrl" Alt="Uploaded Image" Class="rounded-lg" />
-                        </ActivatorContent>
-                        <ChildContent>
-                            <MudMenuItem>Trocar</MudMenuItem>
-                            <MudMenuItem>Excluir</MudMenuItem>
-                        </ChildContent>
-                    </MudMenu>
 
+                        <MudImage  Width="25" Height="25" Fluid="true" Src="@_imageUrl" Alt="Uploaded Image" Class="rounded-lg mt-2" />
+                        <MudIcon Icon="@Icons.Material.Filled.Chat" Title="Chat" />
+                        <MudSpacer></MudSpacer>
+
+                       <div class="justify-center" style="color: white; display: grid;">
+                            <MudDivider></MudDivider>
+                            <MudIcon Class="mb-1" Icon="@Icons.Material.Filled.Notifications" Title="Favorite"/>
+              
+                            <MudIcon Class="mb-1" Icon="@Icons.Material.Filled.Settings" Title="Favorite" />
+              
+                            <MudIcon Class="mb-1" Icon="@Icons.Material.Filled.SupervisedUserCircle" Title="Favorite" />
+                       </div>
                   
-                </MudList>
+                    </MudCard>
+                    <MudCard Class="px-1" Style="    display: -webkit-inline-box;" Elevation="0">
+                        <MudCardContent Class="pa-1">
+                            <MudSkeleton Animation="Animation.Wave" Width="44px" Class="my-1" Height="20px"  />
+                            <MudSkeleton Animation="Animation.Wave" Width="44px" Class="my-1" Height="124px"  />
+                        </MudCardContent>
+                        <MudCardContent Class="pa-1">
+                            <MudSkeleton Animation="Animation.Wave" Width="155px" Class="my-1" Height="20px"  />
+                            <MudSkeleton Animation="Animation.Wave" Width="155px" Class="my-1" Height="100px"  />
+                            <MudSkeleton Animation="Animation.Wave"  Width="155px" Class="my-1" Height="20px"  />
+                        </MudCardContent>
+
+                    </MudCard>
+   
                 </MudPaper>
-                <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Exclur Logo</MudButton>
-                <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Send" Color="Color.Primary">Trocar Logo</MudButton>
-            }
+                <MudMenu Icon="@Icons.Material.Filled.MoreVert" Style="width: max-content; margin: 5px;" FullWidth="false" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+
+                    <MudMenuItem IconSize="Size.Small" IconColor="Color.Info" Icon="@Icons.Material.Outlined.ChangeCircle">Trocar Logo</MudMenuItem>
+                    <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Outlined.DeleteForever">Excluir Logo</MudMenuItem>
+                </MudMenu>
+                </div>
+                        }
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
             <!-- Mensagem de Boas-Vindas -->
@@ -97,7 +116,8 @@
                 <MudText>Configure a mensagem inicial enviada automaticamente para novos atendimentos.</MudText>
             </MudCardContent>
             <MudCardActions>
-                <MudButton Variant="Variant.Text" Color="Color.Primary">Configurar Mensagem</MudButton>
+                <MudTextField AutoGrow MaxLines="10" Margin="Margin.Dense" @bind-Value="WelcomeMessage" Label="Mensagem de Boas-Vindas" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
+
             </MudCardActions>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
@@ -111,7 +131,7 @@
                 <MudText>Defina a mensagem enviada automaticamente ao encerrar um atendimento.</MudText>
             </MudCardContent>
             <MudCardActions>
-                <MudButton Variant="Variant.Text" Color="Color.Primary">Configurar Mensagem</MudButton>
+                <MudTextField AutoGrow MaxLines="10" Margin="Margin.Dense" @bind-Value="FinishMessage" Label="Mensagem de Finalização" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
             </MudCardActions>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
@@ -125,7 +145,13 @@
                 <MudText>Ative ou desative a solicitação de feedback ao final de um atendimento.</MudText>
             </MudCardContent>
             <MudCardActions>
-                <MudButton Variant="Variant.Text" Color="Color.Primary">Configurar Avaliação</MudButton>
+                  
+              
+                <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+
             </MudCardActions>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
@@ -139,7 +165,94 @@
                 <MudText>Configure o usuário padrão para carteirização dos atendimentos.</MudText>
             </MudCardContent>
             <MudCardActions>
-                <MudButton Variant="Variant.Text" Color="Color.Primary">Alterar Usuário</MudButton>
+                <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+                </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+            
+            <!-- Identificar nome do usuário -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Identificar nome do usuário</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Inclui o nome do usuário nas mensagens enviadas.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Ocultar números de telefone -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Ocultar números de telefone</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Oculta os 4 últimos dígitos do telefone (privacidade).</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Ocultar conversas iniciadas via disparos -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Ocultar conversas iniciadas via disparos</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Não exibe as conversas sem interação que foram iniciadas através da opção de Disparos.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+            </MudCardActions>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+
+            <!-- Finalizar atendimento por inatividade -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Finalizar atendimento por inatividade</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>Caso o usuário ou cliente não enviem uma mensagem por determinado período, o atendimento será finalizado automaticamente.</MudText>
+            </MudCardContent>
+            <MudCardActions Style="    justify-content: space-around;
+    width: 230px;">
+                <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+
+              
+                <input class="modern-number-input" type="number" value="0">
+                
+            </MudCardActions>
+            <MudCardActions Style="    justify-content: space-around;
+    width: 230px;">
+                <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+
+
+                <input class="modern-number-input" type="number" value="0">
+
             </MudCardActions>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
@@ -153,8 +266,15 @@
                 <MudText>Defina os horários em que os atendimentos estão disponíveis.</MudText>
             </MudCardContent>
             <MudCardActions>
-                <MudButton Variant="Variant.Text" Color="Color.Primary">Alterar Horário</MudButton>
-            </MudCardActions>
+                <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+
+                <MudButton @onclick="OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">
+                    Open Simple Dialog
+                </MudButton>
+                </MudCardActions>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
             <!-- Fuso Horário -->
@@ -189,16 +309,164 @@
 </MudContainer>
 
 
+<style>
+    .mud-skeleton-text{
+        transform: none;
+    }
 
+    .modern-number-input {
+        width: 120px;
+        height: 40px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 0 10px;
+        font-size: 16px;
+        font-family: 'Arial', sans-serif;
+        outline: none;
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+        background-color: #f9f9f9;
+    }
+
+    .modern-number-input:hover {
+        border-color: #007bff;
+    }
+
+    .modern-number-input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        background-color: #fff;
+    }
+
+    /* Estilizar as setas para adicionar espaçamento */
+    .modern-number-input::-webkit-inner-spin-button {
+        width: 18px; /* Largura das setas */
+        height: 40px;
+        margin: 0 2px; /* Espaçamento entre setas e conteúdo */
+    }
+
+    .modern-number-input::-webkit-outer-spin-button {
+        width: 18px; /* Largura das setas */
+        height: 40px;
+        margin: 0 2px; /* Espaçamento entre setas e conteúdo */
+    }
+
+    /* Compatibilidade com Firefox */
+    .modern-number-input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+
+    .switch {
+        font-size: 17px;
+        position: relative;
+        display: inline-block;
+        width: 4em;
+        height: 2em;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 30px;
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 1.6em;
+        width: 1.6em;
+        border-radius: 20px;
+        left: 0.2em;
+        bottom: 0.2em;
+        background-color: white;
+        transition: 0.4s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .switch input:checked + .slider {
+        background-color: #1ec8a5;
+    }
+
+    .switch input:focus + .slider {
+        box-shadow: 0 0 1px #1ec8a5;
+    }
+
+    .switch input:checked + .slider:before {
+        transform: translateX(2em);
+        background-color: #1ec8a5;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Add some cool effects */
+    .slider:after {
+        content: "OFF";
+        color: white;
+        position: absolute;
+        right: 0.5em;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8em;
+        transition: opacity 0.4s;
+        opacity: 1;
+    }
+
+    .switch input:checked + .slider:after {
+        content: "ON";
+        left: 0.5em;
+        opacity: 1;
+        right: auto;
+    }
+
+</style>
 
 
 
 @code {
     public bool RestartOn { get; set; }
     public string NameInstance { get; set; } = "Plataforma de atendimento";
+    public string WelcomeMessage { get; set; } = "Seja Bem-Vindo";
+    public string FinishMessage { get; set; } = "Até logo!";
+    public int TimefinishClient { get; set; } = 0;
+    bool _checked3 = false;
     
     IBrowserFile _file; // Variável para armazenar apenas 1 arquivo
     string _imageUrl; // Variável para armazenar a URL da imagem
+    
+    private List<QuickResponse> quickResponses = new List<QuickResponse>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Exemplo de inicialização
+        quickResponses = new List<QuickResponse>
+        {
+            new QuickResponse { Id = "1", Message = "Olá, seja bem vindo" },
+            new QuickResponse { Id = "2", Message = "Como posso te ajudar?" },
+        };
+    }
+    
+    
+    private Task OpenDialogAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+
+        return DialogService.ShowAsync<DialogTimeService>("Simple Dialog", options);
+    }
 
     private async Task UploadFile(IBrowserFile file)
     {

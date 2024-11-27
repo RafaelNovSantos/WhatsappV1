@@ -1,0 +1,206 @@
+﻿
+
+<MudTable T="QuickResponse" Items="@WelcomeMessages"
+          Filter="new Func<QuickResponse, bool>(Procurar)"
+          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
+
+
+    <ToolBarContent >
+
+        <MudText Class="MudTextSize">Equipamentos Configurados</MudText>
+        <MudTextField @bind-Value="criterio"
+                      Placeholder="Procurar..."
+                      Class="searchBar" Style="    display: flex;
+    justify-content: end;" />
+        <MudIconButton Icon="@Icons.Material.Filled.Search" Color="Color.Tertiary" />
+    </ToolBarContent>
+
+    <HeaderContent >
+    
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<QuickResponse, object>(e => e.Id)">
+                ID
+            </MudTableSortLabel>
+        </MudTh>
+
+
+   
+      
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<QuickResponse, object>(e => e.Message)">
+               Mensagem
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh Style="">Editar</MudTh>
+
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="ID">@context.Id</MudTd>
+        <MudTd DataLabel="Mensagem">@context.Message</MudTd>
+
+        <MudTd DataLabel="Editar">
+            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
+                     AriaLabel="Abrir menu" >
+
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Edit">
+                    Editar
+                </MudMenuItem>
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Success" Icon="@Icons.Material.Filled.Send">
+                    Enviar configuração
+                </MudMenuItem>
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Info" Icon="@Icons.Material.Filled.Autorenew">
+                    Recuperar configuração
+                </MudMenuItem>
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.DeleteOutline" >Apagar</MudMenuItem>
+
+            </MudMenu>
+
+        </MudTd>
+    </RowTemplate>
+
+
+    <PagerContent >
+        <MudTablePager PageSizeOptions="[5, 15, 25, 50, 100]"
+
+
+                       RowsPerPageString="Máximo de Equipamentos por página:"
+
+        />
+    </PagerContent>
+</MudTable>
+
+
+
+
+
+
+
+
+<style>
+    body {
+        background-color: #f7f9fc;
+        margin: 0;
+    }
+
+    h1 {
+        color: #333;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .tableEdit {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin: 20px;
+        background-color: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    main {
+        align-content: start !important;
+    }
+
+
+    .action-btn {
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .action-btn:hover {
+        transform: scale(1.15);
+    }
+
+    th {
+        background-color: #00357a;
+        color: #fff;
+        text-align: center !important;
+        font-weight: 600;
+    }
+
+
+
+    td {
+        color: #555;
+        text-align: center !important;
+        font-weight: 500;
+        vertical-align: middle;
+        padding: 16px 24px;
+        transition: background-color 0.3s ease;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f7f9fc;
+    }
+
+    tr:hover {
+        background-color: #f8f9fc;
+    }
+
+    input {
+        border: 2px solid transparent !important;
+        width: 15em !important;
+        height: 1.5em !important;
+        outline: none !important;
+        overflow: hidden !important;
+        background-color: #F3F3F3 !important;
+        border-radius: 10px !important;
+        transition: all 0.5s !important;
+        text-align: center !important;
+    }
+
+    input:hover,
+    input:focus {
+        border: 2px solid #4A9DEC !important;
+        box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%) !important;
+        background-color: white !important;
+    }
+
+
+
+
+    .mud-input-control > .mud-input-control-input-container {
+        display: unset !important;
+    }
+
+    .mud-input-control {
+
+        flex: unset;
+
+    }
+</style>
+
+
+@code{
+    [Parameter]
+    public List<QuickResponse> WelcomeMessages { get; set; } = new List<QuickResponse>();
+
+    public Origin TransformOrigin { get; set; } = Origin.TopCenter;
+    public Origin AnchorOrigin { get; set; } = Origin.BottomLeft;
+    private string criterio = "";
+    private bool _readOnly;
+
+
+    private bool Procurar(QuickResponse welcomemessage)
+    {
+        if (string.IsNullOrWhiteSpace(criterio))
+            return true;
+
+        return welcomemessage.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || welcomemessage.Message.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+    }
+
+ 
+
+}
