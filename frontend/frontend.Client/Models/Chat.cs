@@ -6,8 +6,11 @@
         public string Tag { get; set; }
         public string AvatarUrl { get; set; }
         public string Username { get; set; }
+        public string? Telefone_Number { get; set; }
         public bool HasUnreadMessages { get; set; }
-    }
+
+        
+}
 
     public class Message
     {
@@ -22,6 +25,7 @@
     {
         public List<Chat> Chats { get; set; } = new List<Chat>
         {
+            new Chat { Username = "Teste", Tag = "EU", AvatarUrl = "AvatarUrls/avatar4.png", Message = "Precisamos revisar os relatórios financeiros.", Telefone_Number = "5511975208157", HasUnreadMessages = true },
             new Chat { Username = "Laura", Tag = "FIN", AvatarUrl = "AvatarUrls/avatar4.png", Message = "Precisamos revisar os relatórios financeiros.", HasUnreadMessages = true },
             new Chat { Username = "Marco", Tag = "ENG", AvatarUrl = "AvatarUrls/avatar5.png", Message = "O projeto está em fase final de testes.", HasUnreadMessages = false },
             new Chat { Username = "Sofia", Tag = "HR", AvatarUrl = "AvatarUrls/avatar6.png", Message = "Lembrete: Reunião às 15h.", HasUnreadMessages = true },
