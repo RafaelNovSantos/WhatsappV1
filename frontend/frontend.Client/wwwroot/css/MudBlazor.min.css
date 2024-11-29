@@ -6161,6 +6161,11 @@ ul {
     padding-right: 16px
 }
 
+.mud-list-item.mud-list-item-dense{
+    max-width: none !important;
+}
+
+
 .mud-list-item-text {
     flex: 1 1 auto;
     min-width: 0;
@@ -10588,7 +10593,7 @@ ul {
     }
 
 .mud-table-toolbar {
-    background: #00357a !important;
+    background: #1ec8a5 !important;
     color: #fff;
     padding-left: 16px;
     padding-right: 8px;

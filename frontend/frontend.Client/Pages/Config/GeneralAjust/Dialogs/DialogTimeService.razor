@@ -3,13 +3,13 @@
         Configurar horário de atendimento
     </TitleContent>
     <DialogContent>
-        <MudTextField AutoGrow MaxLines="10" Margin="Margin.Dense" @bind-Value="AbsenceMessage" Label="Mensagem de ausência" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
-        <MudSelect @bind-Value="_value"
+        <MudTextField Style="width: 100%" AutoGrow MaxLines="10" Margin="Margin.Dense" @bind-Value="AbsenceMessage" Label="Mensagem de ausência" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
+        <MudSelect Style="width: 100%"  @bind-Value="_value"
                    Variant="Variant.Outlined"
                    Margin="Margin.Dense"
                    Dense="true"
-              
-                   Placeholder="teste"
+                   Label="Motivo de finalização (opcional)"
+            
 
                    Clearable="true">
             @foreach (var finishService in finishServices)
@@ -17,6 +17,27 @@
                 <MudSelectItem Value="finishService">@finishService</MudSelectItem>
             }
         </MudSelect>
+<div class="d-flex">
+        <MudSelect Style="width: 100%"   T="string"
+                   Variant="Variant.Outlined"
+                   Margin="Margin.Dense"
+                   Dense="true"
+                   Label="Adicionar Dia"
+
+
+                   Clearable="true">
+            @foreach (var _day in _days)
+            {
+                <MudSelectItem Style="width: 100%" Value="_day">@_day</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudTimePicker PickerVariant="PickerVariant.Dialog" Label="das" @bind-Time="_timeStart" />
+        <MudTimePicker PickerVariant="PickerVariant.Dialog" Label="às" @bind-Time="_timeFinish" />
+        
+        <MudIconButton Icon="@Icons.Material.Filled.Add"></MudIconButton>
+</div>
+        <TableDays></TableDays>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
@@ -25,15 +46,20 @@
 </MudDialog>
 
 <style>
+.mud-dialog-width-sm{
+    width: max-content !important;
+}
 
-    .mud-list-item.mud-list-item-dense{
-        max-width: none;
-    }
+.mud-input{
+    width: 100%;
+}
 </style>
 
 @code {
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; }
+    private TimeSpan? _timeStart = new TimeSpan(00, 45, 00);
+    private TimeSpan? _timeFinish = new TimeSpan(00, 45, 00);
 
     public string[] finishServices =  {
             "Alabama", "Alaska", "Arizona", "Arkansas", "California",
@@ -47,6 +73,12 @@
         "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
         "Washington", "West Virginia", "Wisconsin", "Wyoming"
 };
+
+    public string[] _days =
+    {
+        "Domingo",  "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sabado"
+    };
+    
 
     public string _value = "Mensagem";
     public string AbsenceMessage = "Volto Logo";

@@ -27,4 +27,19 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Dialogs\DialogTimeService.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Config\GeneralAjust\Dialogs\DialogTimeService.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Config\GeneralAjust\GeneralAjust.razor" />
+      <_ContentIncludedByDefault Remove="Models\GeneralAjust\Dialogs\DialogTimeService.razor" />
+      <_ContentIncludedByDefault Remove="Models\GeneralAjust\GeneralAjust.razor" />
+      <_ContentIncludedByDefault Remove="Pages\LayoutComponents\TableLayout.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Pages\Config\GeneralAjust\Dialogs\DialogTimeService.razor" />
+      <AdditionalFiles Include="Pages\Config\GeneralAjust\GeneralAjust.razor" />
+      <AdditionalFiles Include="Pages\Config\QuickResponse\LayoutComponents\TableQuickResponse.razor" />
+    </ItemGroup>
+
 </Project>
