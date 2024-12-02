@@ -28,7 +28,7 @@
 
         <!-- Área de mensagens -->
         <MudPaper Style="height: calc(100vh - 122px);">
-            <div class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/fundo_Whatsapp.png'); background-size: cover; background-position: center;" id="chatContainer">
+            <div class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/chat-messages-bg-light-77174616.png'); background-size: cover; background-position: center;" id="chatContainer">
                 @if (!string.IsNullOrWhiteSpace(ContactId)) 
                 {
                     @foreach (var message in _chatService.Messages.Where(m => m.Sender == ContactId || m.Receiver == ContactId))

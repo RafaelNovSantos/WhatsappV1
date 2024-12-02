@@ -37,6 +37,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AdditionalFiles Include="Pages\Config\Department\Department.razor" />
       <AdditionalFiles Include="Pages\Config\GeneralAjust\Dialogs\DialogTimeService.razor" />
       <AdditionalFiles Include="Pages\Config\GeneralAjust\GeneralAjust.razor" />
       <AdditionalFiles Include="Pages\Config\QuickResponse\LayoutComponents\TableQuickResponse.razor" />

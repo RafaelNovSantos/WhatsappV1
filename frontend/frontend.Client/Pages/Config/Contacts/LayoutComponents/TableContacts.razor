@@ -7,7 +7,7 @@
 
     <ToolBarContent >
 
-        <MudText Class="MudTextSize">Respostas Rápidas</MudText>
+        <MudText Class="MudTextSize">Contatos</MudText>
         @*<MudTextField @bind-Value="criterio"
                       Placeholder="Procurar..."
                       Class="searchBar input" Style="    display: flex;
@@ -49,7 +49,7 @@
 
         <MudTh>
             <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Message)">
-                Respostas Rápidas
+               Contatos
             </MudTableSortLabel>
         </MudTh>
 
@@ -59,7 +59,7 @@
 
     <RowTemplate>
         <MudTd DataLabel="ID">@context.Id</MudTd>
-        <MudTd DataLabel="Respostas Rápidas">@context.Message</MudTd>
+        <MudTd DataLabel="Contatos">@context.Message</MudTd>
 
         <MudTd DataLabel="Editar">
             <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
@@ -79,7 +79,7 @@
         <MudTablePager PageSizeOptions="[5, 15, 25, 50, 100]"
 
 
-                       RowsPerPageString="Máximo de respostas rápidas por página:"
+                       RowsPerPageString="Máximo de contatos por página:"
 
         />
     </PagerContent>
