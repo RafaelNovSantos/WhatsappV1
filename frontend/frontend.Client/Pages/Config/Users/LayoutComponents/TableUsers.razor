@@ -1,7 +1,7 @@
 ﻿
 
-<MudTable T="MessageQuickResponse" Items="@WelcomeMessages"
-          Filter="new Func<MessageQuickResponse, bool>(Procurar)" 
+<MudTable T="UsersClass" Items="@Users"
+          Filter="new Func<UsersClass, bool>(Procurar)" 
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
 
 
@@ -38,7 +38,7 @@
     
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Id)">
+            <MudTableSortLabel SortBy="new Func<UsersClass, object>(e => e.Id)">
                 ID
             </MudTableSortLabel>
         </MudTh>
@@ -48,7 +48,7 @@
       
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Message)">
+            <MudTableSortLabel SortBy="new Func<UsersClass, object>(e => e.Name)">
                Usuários
             </MudTableSortLabel>
         </MudTh>
@@ -59,7 +59,7 @@
 
     <RowTemplate>
         <MudTd DataLabel="ID">@context.Id</MudTd>
-        <MudTd DataLabel="Usuários">@context.Message</MudTd>
+        <MudTd DataLabel="Usuários">@context.Name</MudTd>
 
         <MudTd DataLabel="Editar">
             <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
@@ -86,28 +86,19 @@
 </MudTable>
 
 
-
-
-
-
-
-
-
-
-
 @code{
     [Parameter]
-    public List<MessageQuickResponse> WelcomeMessages { get; set; } = new List<MessageQuickResponse>();
+    public List<UsersClass> Users { get; set; } = new List<UsersClass>();
     
     /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
 
     protected override async Task OnInitializedAsync()
     {
         // Exemplo de inicialização
-        WelcomeMessages = new List<MessageQuickResponse>
+        Users = new List<UsersClass>
         {
-            new MessageQuickResponse { Id = "1", Message = "Olá, seja bem vindo" },
-            new MessageQuickResponse { Id = "2", Message = "Como posso te ajudar?" },
+            new UsersClass { Id = 1, Name = "Rafael" },
+            new UsersClass { Id = 2, Name = "Lucas" },
         };
     }
 
@@ -118,13 +109,13 @@
     private bool _readOnly;
 
 
-    private bool Procurar(MessageQuickResponse welcomemessage)
+    private bool Procurar(UsersClass welcomemessage)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
         return welcomemessage.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Message.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+               || welcomemessage.Name.Contains(criterio, StringComparison.OrdinalIgnoreCase);
     }
 
  

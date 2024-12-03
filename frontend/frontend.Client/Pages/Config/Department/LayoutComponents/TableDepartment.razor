@@ -1,7 +1,7 @@
 ﻿
 
-<MudTable T="MessageQuickResponse" Items="@WelcomeMessages"
-          Filter="new Func<MessageQuickResponse, bool>(Procurar)" 
+<MudTable T="DepartmentClass" Items="@WelcomeMessages"
+          Filter="new Func<DepartmentClass, bool>(Procurar)" 
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
 
 
@@ -35,21 +35,11 @@
     </ToolBarContent>
 
     <HeaderContent >
-    
+
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Id)">
-                ID
-            </MudTableSortLabel>
-        </MudTh>
-
-
-   
-      
-
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Message)">
-                Departamentos
+            <MudTableSortLabel SortBy="new Func<DepartmentClass, object>(e => e.Title)">
+                Título
             </MudTableSortLabel>
         </MudTh>
 
@@ -58,8 +48,8 @@
     </HeaderContent>
 
     <RowTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
-        <MudTd DataLabel="Departamentos">@context.Message</MudTd>
+
+        <MudTd DataLabel="Título">@context.Title</MudTd>
 
         <MudTd DataLabel="Editar">
             <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
@@ -97,17 +87,17 @@
 
 @code{
     [Parameter]
-    public List<MessageQuickResponse> WelcomeMessages { get; set; } = new List<MessageQuickResponse>();
+    public List<DepartmentClass> WelcomeMessages { get; set; } = new List<DepartmentClass>();
     
     /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
 
     protected override async Task OnInitializedAsync()
     {
         // Exemplo de inicialização
-        WelcomeMessages = new List<MessageQuickResponse>
+        WelcomeMessages = new List<DepartmentClass>
         {
-            new MessageQuickResponse { Id = "1", Message = "Olá, seja bem vindo" },
-            new MessageQuickResponse { Id = "2", Message = "Como posso te ajudar?" },
+            new DepartmentClass { Id = 1, Title = "Suporte" },
+            new DepartmentClass { Id = 2, Title = "Financeiro" },
         };
     }
 
@@ -118,13 +108,13 @@
     private bool _readOnly;
 
 
-    private bool Procurar(MessageQuickResponse welcomemessage)
+    private bool Procurar(DepartmentClass departmentsearch)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
-        return welcomemessage.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Message.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+        return departmentsearch.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || departmentsearch.Title.Contains(criterio, StringComparison.OrdinalIgnoreCase);
     }
 
  

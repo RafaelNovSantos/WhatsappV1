@@ -10593,6 +10593,7 @@ ul {
     }
 
 .mud-table-toolbar {
+    height: 80px;
     background: #1ec8a5 !important;
     color: #fff;
     padding-left: 16px;
@@ -12147,6 +12148,7 @@ ul {
     }
 
     .mud-input > input.mud-input-root, div.mud-input-slot.mud-input-root {
+        text-align: center;
         font: inherit;
         color: currentColor;
         width: 100%;

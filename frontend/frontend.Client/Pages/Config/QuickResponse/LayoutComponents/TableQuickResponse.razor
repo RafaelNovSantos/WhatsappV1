@@ -1,7 +1,7 @@
 ﻿
 
-<MudTable T="MessageQuickResponse" Items="@WelcomeMessages"
-          Filter="new Func<MessageQuickResponse, bool>(Procurar)" 
+<MudTable T="QuickResponseClass" Items="@QuickResponse"
+          Filter="new Func<QuickResponseClass, bool>(Procurar)" 
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
 
 
@@ -38,8 +38,8 @@
     
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Id)">
-                ID
+            <MudTableSortLabel SortBy="new Func<QuickResponseClass, object>(e => e.Title)">
+                Título
             </MudTableSortLabel>
         </MudTh>
 
@@ -48,18 +48,34 @@
       
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Message)">
-                Respostas Rápidas
+            <MudTableSortLabel SortBy="new Func<QuickResponseClass, object>(e => e.Description)">
+                Descrição
             </MudTableSortLabel>
         </MudTh>
+        
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<QuickResponseClass, object>(e => e.Type)">
+               Tipo
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<QuickResponseClass, object>(e => e.Visibility)">
+                Visibilidade
+            </MudTableSortLabel>
+        </MudTh>
+
+
 
         <MudTh Style="">Editar</MudTh>
 
     </HeaderContent>
 
     <RowTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
-        <MudTd DataLabel="Respostas Rápidas">@context.Message</MudTd>
+        <MudTd DataLabel="Título">@context.Title</MudTd>
+        <MudTd DataLabel="Descrição">@context.Description</MudTd>
+        <MudTd DataLabel="Tipo">@context.Type</MudTd>
+        <MudTd DataLabel="Visibilidade">@context.Visibility</MudTd>
 
         <MudTd DataLabel="Editar">
             <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
@@ -97,17 +113,17 @@
 
 @code{
     [Parameter]
-    public List<MessageQuickResponse> WelcomeMessages { get; set; } = new List<MessageQuickResponse>();
+    public List<QuickResponseClass> QuickResponse { get; set; } = new List<QuickResponseClass>();
     
     /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
 
     protected override async Task OnInitializedAsync()
     {
         // Exemplo de inicialização
-        WelcomeMessages = new List<MessageQuickResponse>
+        QuickResponse = new List<QuickResponseClass>
         {
-            new MessageQuickResponse { Id = "1", Message = "Olá, seja bem vindo" },
-            new MessageQuickResponse { Id = "2", Message = "Como posso te ajudar?" },
+            new QuickResponseClass { Id = 1, Title = "Olá, seja bem vindo", Description = "Mesagem", Type = "text", Visibility = "Privado" },
+            new QuickResponseClass { Id = 2, Title = "Como posso te ajudar?", Description = "Imagem", Type = "png", Visibility = "Instância" },
         };
     }
 
@@ -118,13 +134,16 @@
     private bool _readOnly;
 
 
-    private bool Procurar(MessageQuickResponse welcomemessage)
+    private bool Procurar(QuickResponseClass welcomemessage)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
         return welcomemessage.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Message.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+               || welcomemessage.Title.Contains(criterio, StringComparison.OrdinalIgnoreCase) || welcomemessage.Description.Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || welcomemessage.Type.Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || welcomemessage.Visibility.Contains(criterio, StringComparison.OrdinalIgnoreCase)
+              ;
     }
 
  

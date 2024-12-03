@@ -1,0 +1,140 @@
+﻿<MudContainer Style="overflow: auto;">
+    <MudText Class="mt-4" Typo="Typo.h3" Align="Align.Center" GutterBottom="true">
+        Meus dados
+    </MudText>
+    <MudText Class="mb-6" Align="Align.Center">
+        Modifique suas informações pessoais e senha de acesso.
+    </MudText>
+
+    <div>
+        <MudCard Elevation="4" Class="mb-6 rounded-xl pa-4">
+            <MudGrid>
+                <!-- Avatar Section -->
+                <MudItem xs="12" sm="4" Class="d-flex justify-center align-center">
+                    <MudAvatar Class="mud-avatar--large" Style="width: 100px; height: 100px;" />
+                </MudItem>
+
+                <!-- Personal Info Section -->
+                <MudItem xs="12" sm="8">
+                    <div class="InputContainer mud-elevation-1 my-3">
+                        <input type="text"             placeholder="Nome Completo"
+
+                               
+                               @bind:event="oninput" name="text" class="searchinput" id="input" >
+
+
+                        <div class="border"></div>
+
+                        <label for="input" class="labelforsearch">
+                            <MudIcon Icon="@Icons.Material.Outlined.DriveFileRenameOutline"></MudIcon>
+                        </label>
+
+                    </div>
+                    <div class="InputContainer mud-elevation-1 my-3">
+                        <input type="text"             placeholder="E-mail"
+
+
+                               @bind:event="oninput" name="text" class="searchinput" id="input" >
+
+
+                        <div class="border"></div>
+
+                        <label for="input" class="labelforsearch">
+                            <MudIcon Icon="@Icons.Material.Outlined.Mail"></MudIcon>
+                        </label>
+
+                    </div>
+
+                    <div class="InputContainer mud-elevation-1 my-3">
+                        <input type="text"             placeholder="Telefone"
+
+
+                               @bind:event="oninput" name="text" class="searchinput" id="input" >
+
+
+                        <div class="border"></div>
+
+                        <label for="input" class="labelforsearch">
+                            <MudIcon Icon="@Icons.Material.Outlined.SettingsCell"></MudIcon>
+                        </label>
+
+                    </div>
+                    <div class="InputContainer mud-elevation-1 my-3">
+                        <input type="text"             placeholder="Endereço"
+
+
+                               @bind:event="oninput" name="text" class="searchinput" id="input" >
+
+
+                        <div class="border"></div>
+
+                        <label for="input" class="labelforsearch">
+                            <MudIcon Icon="@Icons.Material.Outlined.House"></MudIcon>
+                        </label>
+
+                    </div>
+                  
+                </MudItem>
+            </MudGrid>
+
+            <!-- Change Password Section -->
+            <MudDivider Class="my-4" />
+
+            <MudText Typo="Typo.h6" Align="Align.Start">Alterar Senha</MudText>
+            <div class="InputContainer mud-elevation-1 my-3">
+                <input type="password"             placeholder="Senha atual"
+
+
+                       @bind:event="oninput" name="text" class="searchinput" id="input" >
+
+
+                <div class="border"></div>
+
+                <label for="input" class="labelforsearch">
+                    <MudIcon Icon="@Icons.Material.Outlined.Password"></MudIcon>
+                </label>
+
+            </div>
+            <div class="InputContainer mud-elevation-1 my-3">
+                <input type="password"             placeholder="Nova senha"
+
+
+                       @bind:event="oninput" name="text" class="searchinput" id="input" >
+
+
+                <div class="border"></div>
+
+                <label for="input" class="labelforsearch">
+                    <MudIcon Icon="@Icons.Material.Outlined.Password"></MudIcon>
+                </label>
+
+            </div>
+            <div class="InputContainer mud-elevation-1 my-3">
+                <input type="password"             placeholder="Confirmar senha"
+
+
+                       @bind:event="oninput" name="text" class="searchinput" id="input" >
+
+
+                <div class="border"></div>
+
+                <label for="input" class="labelforsearch">
+                    <MudIcon Icon="@Icons.Material.Outlined.Password"></MudIcon>
+                </label>
+
+            </div>
+          
+
+            <!-- Save Button -->
+            <div class="d-flex justify-center mt-4">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large">
+                    Salvar Alterações
+                </MudButton>
+            </div>
+        </MudCard>
+    </div>
+</MudContainer>
+
+@code {
+    // Lógica do código pode ser implementada aqui
+}

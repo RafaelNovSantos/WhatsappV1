@@ -2,6 +2,6 @@
 
 public class Day
 {
-    public string Id { get; set; }
-    public string DayWeek { get; set; }
+    public int Id { get; set; }
+    public string DayWeek { get; set; } = string.Empty;
 }

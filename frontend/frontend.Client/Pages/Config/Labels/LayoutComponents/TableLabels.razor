@@ -1,7 +1,7 @@
 ﻿
 
-<MudTable T="MessageQuickResponse" Items="@WelcomeMessages"
-          Filter="new Func<MessageQuickResponse, bool>(Procurar)" 
+<MudTable T="LabelClass" Items="@Label"
+          Filter="new Func<LabelClass, bool>(Procurar)" 
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
 
 
@@ -38,7 +38,7 @@
     
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Id)">
+            <MudTableSortLabel SortBy="new Func<LabelClass, object>(e => e.Id)">
                 ID
             </MudTableSortLabel>
         </MudTh>
@@ -48,7 +48,7 @@
       
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Message)">
+            <MudTableSortLabel SortBy="new Func<LabelClass, object>(e => e.Title)">
                 Etiquetas
             </MudTableSortLabel>
         </MudTh>
@@ -59,7 +59,7 @@
 
     <RowTemplate>
         <MudTd DataLabel="ID">@context.Id</MudTd>
-        <MudTd DataLabel="Etiquetas">@context.Message</MudTd>
+        <MudTd DataLabel="Etiquetas">@context.Title</MudTd>
 
         <MudTd DataLabel="Editar">
             <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
@@ -97,17 +97,17 @@
 
 @code{
     [Parameter]
-    public List<MessageQuickResponse> WelcomeMessages { get; set; } = new List<MessageQuickResponse>();
+    public List<LabelClass> Label { get; set; } = new List<LabelClass>();
     
     /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
 
     protected override async Task OnInitializedAsync()
     {
         // Exemplo de inicialização
-        WelcomeMessages = new List<MessageQuickResponse>
+        Label = new List<LabelClass>
         {
-            new MessageQuickResponse { Id = "1", Message = "Olá, seja bem vindo" },
-            new MessageQuickResponse { Id = "2", Message = "Como posso te ajudar?" },
+            new LabelClass { Id = 1, Title = "Olá, seja bem vindo" },
+            new LabelClass { Id = 2, Title = "Como posso te ajudar?" },
         };
     }
 
@@ -118,13 +118,13 @@
     private bool _readOnly;
 
 
-    private bool Procurar(MessageQuickResponse welcomemessage)
+    private bool Procurar(LabelClass welcomemessage)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
         return welcomemessage.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Message.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+               || welcomemessage.Title.Contains(criterio, StringComparison.OrdinalIgnoreCase);
     }
 
  

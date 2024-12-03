@@ -1,7 +1,7 @@
 ﻿
 
-<MudTable T="MessageQuickResponse" Items="@WelcomeMessages"
-          Filter="new Func<MessageQuickResponse, bool>(Procurar)" 
+<MudTable T="ReasonForTerminationClass" Items="@ReasonForTermination"
+          Filter="new Func<ReasonForTerminationClass, bool>(Procurar)" 
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
 
 
@@ -38,7 +38,7 @@
     
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Id)">
+            <MudTableSortLabel SortBy="new Func<ReasonForTerminationClass, object>(e => e.Id)">
                 ID
             </MudTableSortLabel>
         </MudTh>
@@ -48,7 +48,7 @@
       
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Message)">
+            <MudTableSortLabel SortBy="new Func<ReasonForTerminationClass, object>(e => e.Title)">
                 Motivos de finalização
             </MudTableSortLabel>
         </MudTh>
@@ -59,7 +59,7 @@
 
     <RowTemplate>
         <MudTd DataLabel="ID">@context.Id</MudTd>
-        <MudTd DataLabel="Motivos de finalização">@context.Message</MudTd>
+        <MudTd DataLabel="Motivos de finalização">@context.Title</MudTd>
 
         <MudTd DataLabel="Editar">
             <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
@@ -97,17 +97,17 @@
 
 @code{
     [Parameter]
-    public List<MessageQuickResponse> WelcomeMessages { get; set; } = new List<MessageQuickResponse>();
+    public List<ReasonForTerminationClass> ReasonForTermination { get; set; } = new List<ReasonForTerminationClass>();
     
     /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
 
     protected override async Task OnInitializedAsync()
     {
         // Exemplo de inicialização
-        WelcomeMessages = new List<MessageQuickResponse>
+        ReasonForTermination = new List<ReasonForTerminationClass>
         {
-            new MessageQuickResponse { Id = "1", Message = "Olá, seja bem vindo" },
-            new MessageQuickResponse { Id = "2", Message = "Como posso te ajudar?" },
+            new ReasonForTerminationClass { Id = 1, Title = "Olá, seja bem vindo" },
+            new ReasonForTerminationClass { Id = 2, Title = "Como posso te ajudar?" },
         };
     }
 
@@ -118,13 +118,13 @@
     private bool _readOnly;
 
 
-    private bool Procurar(MessageQuickResponse welcomemessage)
+    private bool Procurar(ReasonForTerminationClass welcomemessage)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
         return welcomemessage.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Message.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+               || welcomemessage.Title.Contains(criterio, StringComparison.OrdinalIgnoreCase);
     }
 
  

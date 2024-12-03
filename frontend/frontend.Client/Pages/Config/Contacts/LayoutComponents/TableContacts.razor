@@ -1,7 +1,7 @@
 ﻿
 
-<MudTable T="MessageQuickResponse" Items="@WelcomeMessages"
-          Filter="new Func<MessageQuickResponse, bool>(Procurar)" 
+<MudTable T="ContactsClass" Items="@Contacts"
+          ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Filter="new Func<ContactsClass, bool>(Procurar)" Hover="true"
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
 
 
@@ -37,29 +37,34 @@
     <HeaderContent >
     
 
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Id)">
-                ID
-            </MudTableSortLabel>
-        </MudTh>
-
 
    
       
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<MessageQuickResponse, object>(e => e.Message)">
-               Contatos
+            <MudTableSortLabel SortBy="new Func<ContactsClass, object>(e => e.Name)">
+                Contatos
             </MudTableSortLabel>
         </MudTh>
+
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<ContactsClass, object>(e => e.Tel)">
+                Telefone
+            </MudTableSortLabel>
+        </MudTh>
+
 
         <MudTh Style="">Editar</MudTh>
 
     </HeaderContent>
 
     <RowTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
-        <MudTd DataLabel="Contatos">@context.Message</MudTd>
+
+        <MudTd DataLabel="Contatos">@context.Name</MudTd>
+        <MudTd DataLabel="ID">@context.Tel</MudTd>
+
+       
 
         <MudTd DataLabel="Editar">
             <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
@@ -73,6 +78,28 @@
             </MudMenu>
         </MudTd>
     </RowTemplate>
+    <RowEditingTemplate>
+
+        <MudTd DataLabel="Contatos">
+            <MudTextField  @bind-Value="context.Name" Required />
+            </MudTd>
+        <MudTd DataLabel="ID"> <MudTextField @bind-Value="context.Tel" Required /></MudTd>
+
+        <MudTd DataLabel="Editar">
+            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
+                     AriaLabel="Abrir menu" >
+
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Edit">
+                    Editar
+                </MudMenuItem>
+
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.DeleteOutline" >Apagar</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+
+       
+        
+    </RowEditingTemplate>
 
 
     <PagerContent >
@@ -83,12 +110,10 @@
 
         />
     </PagerContent>
+    <EditButtonContent Context="button">
+        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" Class="pa-0" OnClick="@button.ButtonAction"  />
+    </EditButtonContent>
 </MudTable>
-
-
-
-
-
 
 
 
@@ -97,17 +122,17 @@
 
 @code{
     [Parameter]
-    public List<MessageQuickResponse> WelcomeMessages { get; set; } = new List<MessageQuickResponse>();
+    public List<ContactsClass> Contacts { get; set; } = new List<ContactsClass>();
     
     /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
 
     protected override async Task OnInitializedAsync()
     {
         // Exemplo de inicialização
-        WelcomeMessages = new List<MessageQuickResponse>
+        Contacts = new List<ContactsClass>
         {
-            new MessageQuickResponse { Id = "1", Message = "Olá, seja bem vindo" },
-            new MessageQuickResponse { Id = "2", Message = "Como posso te ajudar?" },
+            new ContactsClass { Id = 1, Name = "Mauricio", Tel = "11 96483-3456"},
+            new ContactsClass { Id = 2, Name = "Douglas", Tel = "11 98374-9487"},
         };
     }
 
@@ -118,13 +143,13 @@
     private bool _readOnly;
 
 
-    private bool Procurar(MessageQuickResponse welcomemessage)
+    private bool Procurar(ContactsClass welcomemessage)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
         return welcomemessage.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Message.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+               || welcomemessage.Name.Contains(criterio, StringComparison.OrdinalIgnoreCase);
     }
 
  

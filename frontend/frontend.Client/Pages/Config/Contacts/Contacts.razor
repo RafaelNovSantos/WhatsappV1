@@ -1,16 +1,24 @@
-﻿<MudContainer   Style="overflow: auto">
+﻿<MudContainer Style="overflow: auto">
     <MudText Class="mt-4" Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Contatos</MudText>
     <MudText Class="mb-6" Align="Align.Center">Gerencie seus contatos no chatPro. No momento, está disponível a Importação de contatos</MudText>
     <div>
-
+        <!-- Passando as expressões para o componente Table -->
+        @*<Table Items="contactsitems"
+               SortByName="@(item => item.Name)"
+               SortByTel="@(item => item.Tel)" />*@
         <TableContacts></TableContacts>
- 
     </div>
 </MudContainer>
 
-
-
-
 @code {
-    
+    private List<ContactsClass> contactsitems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        contactsitems = new List<ContactsClass>
+        {
+            new ContactsClass { Id = 1, Name = "Mauricio", Tel = "11 96483-3456" },
+            new ContactsClass { Id = 2, Name = "Douglas", Tel = "11 98374-9487" }
+        };
+    }
 }

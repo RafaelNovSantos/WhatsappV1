@@ -1,0 +1,115 @@
+﻿@typeparam TItem
+
+<MudTable T="TItem" Items="@Items"
+          ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"
+          EditTrigger="TableEditTrigger.EditButton" Filter="new Func<TItem, bool>(Procurar)" Hover="true"
+          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
+
+    <ToolBarContent >
+        <MudText Class="MudTextSize">Contatos</MudText>
+
+        <div class="InputContainer ma-5 mud-elevation-1">
+            <input type="text" placeholder="Procurar..." @bind="criterio" name="text" class="searchinput" id="input" >
+            <div class="border"></div>
+            <label for="input" class="labelforsearch">
+                <svg viewBox="0 0 512 512" class="searchIcon"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>
+            </label>
+        </div>
+
+        <button class="bookmarkBtn">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
+            </span>
+            <p class="text">Adicionar</p>
+        </button>
+    </ToolBarContent>
+
+    <HeaderContent >
+        <!-- Agora, as expressões são passadas dinamicamente -->
+        <MudTh>
+            <MudTableSortLabel SortBy="SortByName">
+                Contatos
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh>
+            <MudTableSortLabel SortBy="SortByTel">
+                Telefone
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh Style="">Editar</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <!-- Usando as expressões para renderizar as células -->
+        <MudTd DataLabel="Contatos">@SortByName(@context)</MudTd>
+        <MudTd DataLabel="Telefone">@SortByTel(@context)</MudTd>
+        <MudTd DataLabel="Editar">
+            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
+                     AriaLabel="Abrir menu" >
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Edit">
+                    Editar
+                </MudMenuItem>
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.DeleteOutline">Apagar</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+    </RowTemplate>
+
+    <RowEditingTemplate>
+
+        @*<MudTd DataLabel="Contatos">
+            <MudTextField  @bind-Value="SortByName(@context)" Required />
+        </MudTd>
+        <MudTd DataLabel="ID"> <MudTextField @bind-Value="SortByTel(@context)" Required /></MudTd>*@
+
+        <MudTd DataLabel="Editar">
+            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
+                     AriaLabel="Abrir menu" >
+
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Edit">
+                    Editar
+                </MudMenuItem>
+
+                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.DeleteOutline" >Apagar</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+
+
+
+    </RowEditingTemplate>
+
+    <PagerContent >
+        <MudTablePager PageSizeOptions="[5, 15, 25, 50, 100]" RowsPerPageString="Máximo de contatos por página:" />
+    </PagerContent>
+    <EditButtonContent Context="button">
+        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" Class="pa-0" OnClick="@button.ButtonAction" />
+    </EditButtonContent>
+</MudTable>
+
+@code {
+    [Parameter]
+    public List<TItem> Items { get; set; } = new List<TItem>();
+
+    // Expressões passadas para o componente
+    [Parameter]
+    public Func<TItem, object> SortByName { get; set; }
+
+    [Parameter]
+    public Func<TItem, object> SortByTel { get; set; }
+
+    public Origin TransformOrigin { get; set; } = Origin.TopCenter;
+    public Origin AnchorOrigin { get; set; } = Origin.BottomLeft;
+    private string criterio = "";
+    private bool _readOnly;
+
+    private bool Procurar(TItem item)
+    {
+        if (string.IsNullOrWhiteSpace(criterio))
+            return true;
+
+        // A pesquisa vai usar reflexão, considerando qualquer propriedade que tenha "criterio"
+        return item.GetType().GetProperty("Id")?.GetValue(item)?.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase) ?? false
+           ;
+    }
+}
