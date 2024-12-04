@@ -38,16 +38,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="LayoutComponents\TableContacts.razor" />
       <AdditionalFiles Include="Pages\Config\Department\Department.razor" />
       <AdditionalFiles Include="Pages\Config\GeneralAjust\Dialogs\DialogTimeService.razor" />
       <AdditionalFiles Include="Pages\Config\GeneralAjust\GeneralAjust.razor" />
-      <AdditionalFiles Include="Pages\Config\Profile\LayoutComponents\TableDays.razor" />
       <AdditionalFiles Include="Pages\Config\QuickResponse\LayoutComponents\TableQuickResponse.razor" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Pages\Config\Profile\LayoutComponents\" />
     </ItemGroup>
 
 </Project>

@@ -10593,7 +10593,7 @@ ul {
     }
 
 .mud-table-toolbar {
-    height: 80px;
+    height: max-content;
     background: #1ec8a5 !important;
     color: #fff;
     padding-left: 16px;
@@ -28383,9 +28383,20 @@ margin: 35px -40px 0;
 
     @media(min-width: 600px) {
         .mud-appbar .mud-toolbar-appbar {
+            flex-direction: column;
           /*  height: var(--mud-appbar-height)*/
         }
     }
+
+
+@media(max-width: 1000px) {
+    .mud-table-toolbar {
+        flex-direction: column;
+        /*  height: var(--mud-appbar-height)*/
+    }
+
+}
+
 
     .mud-appbar.mud-appbar-dense .mud-toolbar-appbar {
       /*  height: calc(var(--mud-appbar-height) - var(--mud-appbar-height)/4)*/

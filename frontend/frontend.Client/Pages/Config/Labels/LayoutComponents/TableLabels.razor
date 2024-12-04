@@ -1,11 +1,13 @@
 ﻿
 
 <MudTable T="LabelClass" Items="@Label"
-          Filter="new Func<LabelClass, bool>(Procurar)" 
+          Filter="new Func<LabelClass, bool>(Procurar)"
+          ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Hover="true"
+          MultiSelection="true"
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
 
 
-    <ToolBarContent >
+<ToolBarContent >
 
         <MudText Class="MudTextSize">Etiquetas</MudText>
         @*<MudTextField @bind-Value="criterio"
@@ -24,13 +26,20 @@
             </label>
 
         </div>
-        
-        <button class="bookmarkBtn">
+
+    <button class="bookmarkBtn ma-1">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
+            </span>
+        <p class="text">Adicionar</p>
+    </button>
+
+    <button class="bookmarkBtn ma-1">
   <span class="IconContainer">
-   <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
+   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
   </span>
-            <p class="text">Adicionar</p>
-        </button>
+        <p class="text">Deletar</p>
+    </button>
 
     </ToolBarContent>
 
@@ -53,7 +62,7 @@
             </MudTableSortLabel>
         </MudTh>
 
-        <MudTh Style="">Editar</MudTh>
+
 
     </HeaderContent>
 
@@ -61,18 +70,24 @@
         <MudTd DataLabel="ID">@context.Id</MudTd>
         <MudTd DataLabel="Etiquetas">@context.Title</MudTd>
 
-        <MudTd DataLabel="Editar">
-            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
-                     AriaLabel="Abrir menu" >
-
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Edit">
-                    Editar
-                </MudMenuItem>
-           
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.DeleteOutline" >Apagar</MudMenuItem>
-            </MudMenu>
-        </MudTd>
+       
     </RowTemplate>
+    <RowEditingTemplate>
+
+        <MudTd DataLabel="ID">
+            <MudTextField  @bind-Value="context.Id" Required />
+        </MudTd>
+        
+        <MudTd DataLabel="Etiquetas">
+            <MudTextField  @bind-Value="context.Title" Required />
+        </MudTd>
+
+
+
+
+
+
+    </RowEditingTemplate>
 
 
     <PagerContent >

@@ -2,6 +2,7 @@
 
 <MudTable T="ContactsClass" Items="@Contacts"
           ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Filter="new Func<ContactsClass, bool>(Procurar)" Hover="true"
+          MultiSelection="true"
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
 
 
@@ -25,13 +26,20 @@
 
         </div>
         
-        <button class="bookmarkBtn">
-  <span class="IconContainer">
-   <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
-  </span>
+        <button class="bookmarkBtn ma-1">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
+            </span>
             <p class="text">Adicionar</p>
         </button>
 
+        <button class="bookmarkBtn ma-1">
+  <span class="IconContainer">
+   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
+  </span>
+            <p class="text">Deletar</p>
+        </button>
+        
     </ToolBarContent>
 
     <HeaderContent >
@@ -55,7 +63,7 @@
         </MudTh>
 
 
-        <MudTh Style="">Editar</MudTh>
+        
 
     </HeaderContent>
 
@@ -66,17 +74,7 @@
 
        
 
-        <MudTd DataLabel="Editar">
-            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
-                     AriaLabel="Abrir menu" >
-
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Edit">
-                    Editar
-                </MudMenuItem>
-           
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.DeleteOutline" >Apagar</MudMenuItem>
-            </MudMenu>
-        </MudTd>
+     
     </RowTemplate>
     <RowEditingTemplate>
 
@@ -85,17 +83,7 @@
             </MudTd>
         <MudTd DataLabel="ID"> <MudTextField @bind-Value="context.Tel" Required /></MudTd>
 
-        <MudTd DataLabel="Editar">
-            <MudMenu AnchorOrigin="@AnchorOrigin" TransformOrigin="@TransformOrigin" Dense="true" Icon="@Icons.Material.Filled.MoreVert"
-                     AriaLabel="Abrir menu" >
-
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Dark" Icon="@Icons.Material.Outlined.Edit">
-                    Editar
-                </MudMenuItem>
-
-                <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Filled.DeleteOutline" >Apagar</MudMenuItem>
-            </MudMenu>
-        </MudTd>
+      
 
        
         
