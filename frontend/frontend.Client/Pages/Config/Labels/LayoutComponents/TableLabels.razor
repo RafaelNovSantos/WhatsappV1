@@ -46,11 +46,6 @@
     <HeaderContent >
     
 
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<LabelClass, object>(e => e.Id)">
-                ID
-            </MudTableSortLabel>
-        </MudTh>
 
 
    
@@ -62,29 +57,34 @@
             </MudTableSortLabel>
         </MudTh>
 
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<LabelClass, object>(e => e.Title)">
+                Cor
+            </MudTableSortLabel>
+        </MudTh>
 
 
     </HeaderContent>
 
     <RowTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
         <MudTd DataLabel="Etiquetas">@context.Title</MudTd>
-
-       
+      
+<MudTd>
+        <MudListItem T="LabelClass" Text="2">
+            <div class="mud-width-full rounded py-4" style="@($"background-color:{context.Color};")"></div>
+        </MudListItem>
+</MudTd>
     </RowTemplate>
     <RowEditingTemplate>
-
-        <MudTd DataLabel="ID">
-            <MudTextField  @bind-Value="context.Id" Required />
-        </MudTd>
         
         <MudTd DataLabel="Etiquetas">
             <MudTextField  @bind-Value="context.Title" Required />
         </MudTd>
 
+        <MudTd>
+        <MudColorPicker Value="context.Color" Label="Cor etiqueta" ColorPickerView="ColorPickerView.Spectrum" />
 
-
-
+        </MudTd>
 
 
     </RowEditingTemplate>
@@ -121,8 +121,8 @@
         // Exemplo de inicialização
         Label = new List<LabelClass>
         {
-            new LabelClass { Id = 1, Title = "Olá, seja bem vindo" },
-            new LabelClass { Id = 2, Title = "Como posso te ajudar?" },
+            new LabelClass { Id = 1, Title = "Olá, seja bem vindo", Color = "#ff0000"},
+            new LabelClass { Id = 2, Title = "Como posso te ajudar?", Color = "#000"},
         };
     }
 

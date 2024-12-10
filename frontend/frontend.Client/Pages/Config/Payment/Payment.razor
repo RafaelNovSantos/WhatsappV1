@@ -1,0 +1,265 @@
+﻿<MudContainer   Style="overflow: auto">
+    <MudText Class="mt-4" Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Detalhes do Plano</MudText>
+    <MudText Class="mb-6" Align="Align.Center">Informações da cobrança.</MudText>
+    <div>
+        <MudCard Elevation="4" Class="mb-6 rounded-xl pa-4">
+
+
+            <!-- Plano -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Plano</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <form class="form">
+                    <div class="flex-column">
+                        <label>Tempo do plano </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Person"></MudIcon>
+                        <input type="text" class="input" value="12 meses" disabled=""> 
+                    </div></form>
+                <MudText>Plano Personalizado. Para alterar, entre em contato com o Suporte.</MudText>
+            </MudCardContent>
+
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+            
+            <!-- Cabeçalho -->
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5">Dados de Cobrança</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+
+            <!-- Conteúdo -->
+            <MudCardContent>
+
+                <form class="form">
+                    <div class="flex-column">
+                        <label>Nome </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Person"></MudIcon>
+                        <input type="text" class="input" placeholder="Digite seu nome"/>
+                    </div>
+                    <div class="flex-column">
+                        <label>CPF/CNPJ </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Info"></MudIcon>
+                        <input type="text" class="input" placeholder="Digite seu CPF ou CNPJ"/>
+                    </div>
+
+                    <div class="flex-column">
+                        <label>Celular </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.CellTower"></MudIcon>
+                        <input type="Celular" class="input" placeholder="Digite seu celular"/>
+                    </div>
+
+
+                    <div class="flex-column">
+                        <label>E-mail para envio das faturas </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Email"></MudIcon>
+                        <input type="E-mail" class="input" placeholder="Digite seu e-mail"/>
+                    </div>
+
+                    <div class="flex-column">
+                        <label>E-mail de cópia </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Email"></MudIcon>
+                        <input type="E-mail" class="input" placeholder="Digite seu e-mail"/>
+                    </div>
+
+                    <div class="flex-column">
+                        <label>CEP </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.House"></MudIcon>
+                        <input type="CEP" class="input" placeholder="Digite seu CEP"/>
+                    </div>
+
+                    <div class="flex-column">
+                        <label>Logradouro </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Pending"></MudIcon>
+                        <input type="Logradouro" class="input" placeholder="Logradouro"/>
+                    </div>
+
+                    <div class="flex-column">
+                        <label>Número </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Numbers"></MudIcon>
+                        <input type="Número" class="input" placeholder="Digite o número"/>
+                    </div>
+
+                    <div class="flex-column">
+                        <label>Complemento </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Pending"></MudIcon>
+                        <input type="Complemento" class="input" placeholder="Digite o complemento"/>
+                    </div>
+
+                    <div class="flex-column">
+                        <label>Bairro </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.Pending"></MudIcon>
+                        <input type="Bairro" class="input" placeholder="Digite o bairro"/>
+                    </div>
+
+                    <div class="flex-column">
+                        <label>Cidade </label>
+                    </div>
+                    <div class="inputForm">
+                        <MudIcon Icon="@Icons.Material.Outlined.LocationCity"></MudIcon>
+                        <input type="Cidade" class="input" placeholder="Digite a cidade"/>
+                    </div>
+
+
+                    <button class="button-submit">Salvar</button>
+
+
+                </form>
+
+            </MudCardContent>
+        </MudCard>
+
+    </div>
+</MudContainer>
+
+
+<style>
+    /* From Uiverse.io by R1SH4BH81 */
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #ffffff;
+        width: 450px;
+        border-radius: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+
+    ::placeholder {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+
+    .form button {
+        align-self: flex-end;
+    }
+
+    .flex-column > label {
+        color: #151717;
+        font-weight: 600;
+    }
+
+    .inputForm {
+        border: 1.5px solid #ecedec;
+        border-radius: 10px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        transition: 0.2s ease-in-out;
+    }
+
+    .input {
+        margin-left: 10px;
+        border-radius: 10px;
+        border: none;
+        width: 85%;
+        height: 100%;
+    }
+
+    .input:focus {
+        outline: none;
+    }
+
+    .inputForm:focus-within {
+        border: 1.5px solid #2d79f3;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .flex-row > div > label {
+        font-size: 14px;
+        color: black;
+        font-weight: 400;
+    }
+
+    .span {
+        font-size: 14px;
+        margin-left: 5px;
+        color: #2d79f3;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .button-submit {
+        margin: 20px 0 10px 0;
+        background-color: #151717;
+        border: none;
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+        border-radius: 10px;
+        height: 50px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .button-submit:hover {
+        background-color: #252727;
+    }
+
+    .p {
+        text-align: center;
+        color: black;
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    .btn {
+        margin-top: 10px;
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        gap: 10px;
+        border: 1px solid #ededef;
+        background-color: white;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+        border: 1px solid #2d79f3;
+    }
+
+</style>
+
+
+
+@code {
+  
+}

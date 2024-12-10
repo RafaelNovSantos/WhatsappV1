@@ -35,6 +35,8 @@
       <_ContentIncludedByDefault Remove="Models\GeneralAjust\GeneralAjust.razor" />
       <_ContentIncludedByDefault Remove="Pages\LayoutComponents\TableLayout.razor" />
       <_ContentIncludedByDefault Remove="Pages\Config\Profile\Dialogs\DialogTimeService.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Config\Payment\LayoutComponents\TableDays.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Config\Payment\Dialogs\DialogTimeService.razor" />
     </ItemGroup>
 
     <ItemGroup>

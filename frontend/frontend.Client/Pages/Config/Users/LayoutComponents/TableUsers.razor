@@ -59,7 +59,25 @@
 
         <MudTh>
             <MudTableSortLabel SortBy="new Func<UsersClass, object>(e => e.Name)">
-               Usuários
+                Usuários
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<UsersClass, object>(e => e.Name)">
+                E-mail
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<UsersClass, object>(e => e.Name)">
+                Status
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<UsersClass, object>(e => e.Name)">
+                Perfil
             </MudTableSortLabel>
         </MudTh>
 
@@ -68,6 +86,21 @@
     <RowTemplate>
         <MudTd DataLabel="ID">@context.Id</MudTd>
         <MudTd DataLabel="Usuários">@context.Name</MudTd>
+        <MudTd DataLabel="E-mail">@context.Email</MudTd>
+        @if(_userclass.Status == true){
+            <MudTd DataLabel="Status">
+                <MudIcon Icon="@Icons.Material.Outlined.CheckCircleOutline"></MudIcon>
+            </MudTd>
+        }
+        else
+        {
+            <MudTd DataLabel="Status">
+                <MudIcon Icon="@Icons.Material.Outlined.Clear"></MudIcon>
+            </MudTd>
+        }
+
+        <MudTd DataLabel="Perfil">@context.Profile</MudTd>
+        
 
       
     </RowTemplate>
@@ -80,8 +113,31 @@
         <MudTd DataLabel="Usuários">
             <MudTextField  @bind-Value="context.Name" Required />
         </MudTd>
+        <MudTd DataLabel="E-mail">
+            <MudTextField  @bind-Value="context.Email" Required />
+        </MudTd>
 
-
+        @if(_userclass.Status == true){
+            <MudTd DataLabel="Status">
+                <label style="font-size: 12px !important;"  class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+            </MudTd>
+        }
+        else
+        {
+            <MudTd DataLabel="Status">
+                <label style="font-size: 12px !important;" class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+            </MudTd>
+        }
+        
+        <MudTd DataLabel="Perfil">
+            <MudTextField  @bind-Value="context.Profile" Required />
+        </MudTd>
 
 
 
@@ -110,14 +166,15 @@
         // Exemplo de inicialização
         Users = new List<UsersClass>
         {
-            new UsersClass { Id = 1, Name = "Rafael" },
-            new UsersClass { Id = 2, Name = "Lucas" },
+            new UsersClass { Id = 1, Name = "Rafael", Email = "rafael@email.com.br", Status = true, Profile = "Admin"},
+            new UsersClass { Id = 2, Name = "Lucas", Email = "lucas@email.com.br", Status = true, Profile = "Admin"},
         };
     }
 
 
     public Origin TransformOrigin { get; set; } = Origin.TopCenter;
     public Origin AnchorOrigin { get; set; } = Origin.BottomLeft;
+    public UsersClass _userclass = new UsersClass();
     private string criterio = "";
     private bool _readOnly;
 

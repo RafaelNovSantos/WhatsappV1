@@ -228,3 +228,106 @@
 }
 
 /* Fim do botão */
+
+
+/* Switch */
+
+
+.mud-skeleton-text{
+    transform: none;
+}
+
+.modern-number-input {
+    width: 120px;
+    height: 40px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.modern-number-input:hover {
+    border-color: #007bff;
+}
+
+.modern-number-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background-color: #fff;
+}
+
+/* Estilizar as setas para adicionar espaçamento */
+.modern-number-input::-webkit-inner-spin-button {
+    width: 18px; /* Largura das setas */
+    height: 40px;
+    margin: 0 2px; /* Espaçamento entre setas e conteúdo */
+}
+
+.modern-number-input::-webkit-outer-spin-button {
+    width: 18px; /* Largura das setas */
+    height: 40px;
+    margin: 0 2px; /* Espaçamento entre setas e conteúdo */
+}
+
+/* Compatibilidade com Firefox */
+.modern-number-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* From Uiverse.io by gharsh11032000 */
+/* The switch - the box around the slider */
+.switch {
+    font-size: 13px;
+    position: relative;
+    display: inline-block;
+    width: 3.5em;
+    height: 2.1em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    border: 2px solid #414141;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    left: 0.2em;
+    bottom: 0.2em;
+    background-color: #1ec8a5;
+    border-radius: inherit;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.switch input:checked + .slider {
+    background: #1ec8a5;
+    box-shadow: 0 0 10px rgb(188 188 188 / 80%);
+    border: 2px solid #ffffff;
+
+}
+
+.switch input:checked + .slider:before {
+    background-color: white;
+    transform: translateX(1.5em);
+}
+
+/* Fim do Switch */

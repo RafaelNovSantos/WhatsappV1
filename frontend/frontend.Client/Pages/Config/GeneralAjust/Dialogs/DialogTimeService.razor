@@ -3,8 +3,8 @@
         Configurar horário de atendimento
     </TitleContent>
     <DialogContent>
-        <MudTextField Style="width: 100%" AutoGrow MaxLines="10" Margin="Margin.Dense" @bind-Value="AbsenceMessage" Label="Mensagem de ausência" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
-        <MudSelect Style="width: 100%"  @bind-Value="_value"
+        <MudTextField Class="ma-3" Style="width: 100%" AutoGrow MaxLines="10" Margin="Margin.Dense" @bind-Value="AbsenceMessage" Label="Mensagem de ausência" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
+        <MudSelect Class="ma-3" Style="width: 100%"  @bind-Value="_value"
                    Variant="Variant.Outlined"
                    Margin="Margin.Dense"
                    Dense="true"
@@ -18,7 +18,7 @@
             }
         </MudSelect>
 <div class="d-flex">
-        <MudSelect Style="width: 100%"   T="string"
+        <MudSelect Style="width: 100%" Class="ma-3"  T="string"
                    Variant="Variant.Outlined"
                    Margin="Margin.Dense"
                    Dense="true"
@@ -32,8 +32,9 @@
             }
         </MudSelect>
 
-        <MudTimePicker PickerVariant="PickerVariant.Dialog" Label="das" @bind-Time="_timeStart" />
-        <MudTimePicker PickerVariant="PickerVariant.Dialog" Label="às" @bind-Time="_timeFinish" />
+        <MudTimePicker Style="    border-bottom: 1px solid #00000059;" Class="ma-3" PickerVariant="PickerVariant.Dialog" Label="das" @bind-Time="_timeStart" />
+        <MudText Class="d-flex mud-typography-paragraph justify-center ma-4 align-center">até</MudText>
+        <MudTimePicker Style="    border-bottom: 1px solid #00000059;" Class="ma-3" PickerVariant="PickerVariant.Dialog" Label="às" @bind-Time="_timeFinish" />
         
         <MudIconButton Icon="@Icons.Material.Filled.Add"></MudIconButton>
 </div>
@@ -47,7 +48,7 @@
 
 <style>
 .mud-dialog-width-sm{
-    width: max-content !important;
+    width: 80%
 }
 
 .mud-input{

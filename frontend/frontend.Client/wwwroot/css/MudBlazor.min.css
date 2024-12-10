@@ -4694,7 +4694,7 @@ ul {
 }
 
 .mud-dialog-width-sm {
-    max-width: 600px
+    /*max-width: 600px*/
 }
 
 .mud-dialog-width-md {
@@ -8145,7 +8145,7 @@ ul {
 
 .mud-skeleton-text {
     height: auto;
-    transform: scale(1, 0.6);
+    /*transform: scale(1, 0.6);*/
     margin-top: 0;
     border-radius: var(--mud-default-borderradius);
     margin-bottom: 0;
@@ -11867,7 +11867,8 @@ ul {
     .mud-select {
         display: flex;
         flex-grow: 1;
-        position: relative
+        position: relative;
+
     }
 
         .mud-select.mud-autocomplete {
@@ -11914,7 +11915,8 @@ ul {
         }
 
         .mud-select .mud-select-input {
-            cursor: pointer
+            cursor: pointer;
+            padding: 3px !important;
         }
 
             .mud-select .mud-select-input .mud-input-slot {
@@ -12148,7 +12150,7 @@ ul {
     }
 
     .mud-input > input.mud-input-root, div.mud-input-slot.mud-input-root {
-        text-align: center;
+        /*text-align: center;*/
         font: inherit;
         color: currentColor;
         width: 100%;

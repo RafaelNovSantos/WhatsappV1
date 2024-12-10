@@ -1,13 +1,13 @@
 ﻿
 
-<MudTable T="Day" Items="@Days"
-          Filter="new Func<Day, bool>(Procurar)"
+<MudTable T="DayClass" Items="@Days"
+          Filter="new Func<DayClass, bool>(Procurar)"
           ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Hover="true"
           MultiSelection="true"
           Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
     
 <ToolBarContent >
-        <MudText Class="MudTextSize">Dias</MudText>
+        <MudText Class="MudTextSize">Horário de atendimento</MudText>
         @*<MudTextField @bind-Value="criterio"
                       Placeholder="Procurar..."
                       Class="searchBar input" Style="    display: flex;
@@ -21,13 +21,7 @@
                 <svg viewBox="0 0 512 512" class="searchIcon"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>
             </label>
         </div>
-
-    <button class="bookmarkBtn ma-1">
-            <span class="IconContainer">
-                <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
-            </span>
-        <p class="text">Adicionar</p>
-    </button>
+        
 
     <button class="bookmarkBtn ma-1">
   <span class="IconContainer">
@@ -39,14 +33,26 @@
 
     <HeaderContent >
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<Day, object>(e => e.Id)">
+            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.Id)">
                 ID
             </MudTableSortLabel>
         </MudTh>
 
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<Day, object>(e => e.DayWeek)">
-               Dia
+            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.DayWeek)">
+                Dia
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.DayWeek)">
+                Horário de início
+            </MudTableSortLabel>
+        </MudTh>
+
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.DayWeek)">
+                Horário de término
             </MudTableSortLabel>
         </MudTh>
 
@@ -56,8 +62,9 @@
 
     <RowTemplate>
         <MudTd DataLabel="ID">@context.Id</MudTd>
-        <MudTd DataLabel="Mensagem">@context.DayWeek</MudTd>
-
+        <MudTd DataLabel="Dia">@context.DayWeek</MudTd>
+        <MudTd DataLabel="Horário de início">@context.StarTime</MudTd>
+        <MudTd DataLabel="Horário de término">@context.EndTime</MudTd>
      
     </RowTemplate>
 
@@ -68,8 +75,16 @@
         </MudTd>
 
 
-        <MudTd DataLabel="Mensagem">
+        <MudTd DataLabel="Dia">
             <MudTextField  @bind-Value="context.DayWeek" Required />
+        </MudTd>
+
+        <MudTd DataLabel="Horário de início">
+            <MudTextField  @bind-Value="context.StarTime" Required />
+        </MudTd>
+
+        <MudTd DataLabel="Horário de término">
+            <MudTextField  @bind-Value="context.EndTime" Required />
         </MudTd>
 
 
@@ -97,17 +112,17 @@
 
 @code{
     [Parameter]
-    public List<Day> Days { get; set; } = new List<Day>();
+    public List<DayClass> Days { get; set; } = new List<DayClass>();
     
     /*private List<Day> quickResponses = new List<Day>();*/
 
     protected override async Task OnInitializedAsync()
     {
         // Exemplo de inicialização
-        Days = new List<Day>
+        Days = new List<DayClass>
         {
-            new Day { Id = 1, DayWeek = "Segunda-Feira" },
-            new Day { Id = 2, DayWeek = "Quarta-Feira" },
+            new DayClass { Id = 1, DayWeek = "Segunda-Feira", StarTime = "09:00", EndTime = "15:00"},
+            new DayClass { Id = 2, DayWeek = "Quarta-Feira", StarTime = "08:00", EndTime = "17:00"},
         };
     }
 
@@ -118,13 +133,13 @@
     private bool _readOnly;
 
 
-    private bool Procurar(Day day)
+    private bool Procurar(DayClass dayClass)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
-        return day.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || day.DayWeek.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+        return dayClass.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || dayClass.DayWeek.Contains(criterio, StringComparison.OrdinalIgnoreCase) || dayClass.StarTime.Contains(criterio, StringComparison.OrdinalIgnoreCase) || dayClass.EndTime.Contains(criterio, StringComparison.OrdinalIgnoreCase);
     }
 
  
