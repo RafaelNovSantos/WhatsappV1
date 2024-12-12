@@ -1,71 +1,64 @@
 ﻿
-
 <MudTable T="QuickResponseClass" Items="@QuickResponse"
           Filter="new Func<QuickResponseClass, bool>(Procurar)"
-          ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Hover="true"
+          ApplyButtonPosition="TableApplyButtonPosition.End"
+          EditButtonPosition="TableEditButtonPosition.End"
+          EditTrigger="TableEditTrigger.EditButton"
+          Hover="true"
           MultiSelection="true"
-          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
+          Bordered="true"
+          Dense="true"
+          Class="tableEdit"
+          ReadOnly="@_readOnly"
+          @bind-SelectedItems="selectedItems">
 
-
-
-<ToolBarContent >
-
+    <ToolBarContent>
         <MudText Class="MudTextSize">Respostas Rápidas</MudText>
-        @*<MudTextField @bind-Value="criterio"
-                      Placeholder="Procurar..."
-                      Class="searchBar input" Style="    display: flex;
-    justify-content: end;" />*@
+
         <div class="InputContainer ma-5 mud-elevation-1">
-            <input type="text"             placeholder="Procurar..."
-
+            <input type="text" placeholder="Procurar..."
                    @bind="criterio"
-                   name="text" class="searchinput" id="input" >
+                   name="text" class="searchinput" id="input">
             <div class="border"></div>
-
             <label for="input" class="labelforsearch">
-                <svg viewBox="0 0 512 512" class="searchIcon"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>
+                <svg viewBox="0 0 512 512" class="searchIcon">
+                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
+                </svg>
             </label>
-
         </div>
 
-    <button class="bookmarkBtn ma-1">
+        <button class="bookmarkBtn ma-1" @onclick="() => StartAddItem(new QuickResponseClass())">
             <span class="IconContainer">
                 <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
             </span>
-        <p class="text">Adicionar</p>
-    </button>
+            <p class="text">Adicionar</p>
+        </button>
 
-    <button class="bookmarkBtn ma-1">
-  <span class="IconContainer">
-   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
-  </span>
-        <p class="text">Deletar</p>
-    </button>
+        <button class="bookmarkBtn ma-1" @onclick="DeleteSelectedItems">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
+            </span>
+            <p class="text">Deletar</p>
+        </button>
 
     </ToolBarContent>
 
-    <HeaderContent >
-    
-
+    <HeaderContent>
         <MudTh>
             <MudTableSortLabel SortBy="new Func<QuickResponseClass, object>(e => e.Title)">
                 Título
             </MudTableSortLabel>
         </MudTh>
 
-
-   
-      
-
         <MudTh>
             <MudTableSortLabel SortBy="new Func<QuickResponseClass, object>(e => e.Description)">
                 Descrição
             </MudTableSortLabel>
         </MudTh>
-        
+
         <MudTh>
             <MudTableSortLabel SortBy="new Func<QuickResponseClass, object>(e => e.Type)">
-               Tipo
+                Tipo
             </MudTableSortLabel>
         </MudTh>
 
@@ -74,10 +67,6 @@
                 Visibilidade
             </MudTableSortLabel>
         </MudTh>
-
-
-
-
     </HeaderContent>
 
     <RowTemplate>
@@ -85,85 +74,82 @@
         <MudTd DataLabel="Descrição">@context.Description</MudTd>
         <MudTd DataLabel="Tipo">@context.Type</MudTd>
         <MudTd DataLabel="Visibilidade">@context.Visibility</MudTd>
-
     </RowTemplate>
 
     <RowEditingTemplate>
-
-       
-        <MudTd DataLabel="Etiquetas">
-            <MudTextField  @bind-Value="context.Title" Required />
+        <MudTd DataLabel="Título">
+            <MudTextField @bind-Value="context.Title" Required />
         </MudTd>
 
         <MudTd DataLabel="Descrição">
-            <MudTextField  @bind-Value="context.Description" Required />
+            <MudTextField @bind-Value="context.Description" Required />
         </MudTd>
         <MudTd DataLabel="Tipo">
-            <MudTextField  @bind-Value="context.Type" Required />
+            <MudTextField @bind-Value="context.Type" Required />
         </MudTd>
 
         <MudTd DataLabel="Visibilidade">
-            <MudTextField  @bind-Value="context.Visibility" Required />
+            <MudTextField @bind-Value="context.Visibility" Required />
         </MudTd>
-
-
     </RowEditingTemplate>
 
-    <PagerContent >
-        <MudTablePager PageSizeOptions="[5, 15, 25, 50, 100]"
-
-
-                       RowsPerPageString="Máximo de respostas rápidas por página:"
-
-        />
+    <PagerContent>
+        <MudTablePager PageSizeOptions="[5, 15, 25, 50, 100]" RowsPerPageString="Máximo de respostas rápidas por página:" />
     </PagerContent>
 </MudTable>
 
-
-
-
-
-
-
-
-
-
-
-@code{
+@code {
     [Parameter]
     public List<QuickResponseClass> QuickResponse { get; set; } = new List<QuickResponseClass>();
-    
-    /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
+
+    private HashSet<QuickResponseClass> selectedItems = new HashSet<QuickResponseClass>();  // Changed to HashSet
+    private string criterio = "";
+    private bool _readOnly;
 
     protected override async Task OnInitializedAsync()
     {
-        // Exemplo de inicialização
         QuickResponse = new List<QuickResponseClass>
         {
-            new QuickResponseClass { Id = 1, Title = "Olá, seja bem vindo", Description = "Mesagem", Type = "text", Visibility = "Privado" },
+            new QuickResponseClass { Id = 1, Title = "Olá, seja bem vindo", Description = "Mensagem", Type = "text", Visibility = "Privado" },
             new QuickResponseClass { Id = 2, Title = "Como posso te ajudar?", Description = "Imagem", Type = "png", Visibility = "Instância" },
         };
     }
 
+    private async Task StartAddItem(QuickResponseClass item)
+    {
+        var options = new DialogOptions { CloseButton = true };
+        var dialog = DialogService.Show<DialogAddQuickResponse>("Adicionar resposta rápida", options);
+        var result = await dialog.Result;
 
-    public Origin TransformOrigin { get; set; } = Origin.TopCenter;
-    public Origin AnchorOrigin { get; set; } = Origin.BottomLeft;
-    private string criterio = "";
-    private bool _readOnly;
+        if (!result.Canceled && result.Data is QuickResponseClass newItem)
+        {
+            QuickResponse.Add(newItem);
+            StateHasChanged();
+        }
+    }
 
+    private void DeleteSelectedItems()
+    {
+        if (selectedItems.Count > 0)
+        {
+            foreach (var item in selectedItems)
+            {
+                QuickResponse.Remove(item);
+            }
+            selectedItems.Clear();
+            StateHasChanged(); // Refresh the table after deletion
+        }
+    }
 
-    private bool Procurar(QuickResponseClass welcomemessage)
+    private bool Procurar(QuickResponseClass quickResponse)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
-        return welcomemessage.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Title.Contains(criterio, StringComparison.OrdinalIgnoreCase) || welcomemessage.Description.Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Type.Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || welcomemessage.Visibility.Contains(criterio, StringComparison.OrdinalIgnoreCase)
-              ;
+        return quickResponse.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || quickResponse.Title.Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || quickResponse.Description.Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || quickResponse.Type.Contains(criterio, StringComparison.OrdinalIgnoreCase)
+               || quickResponse.Visibility.Contains(criterio, StringComparison.OrdinalIgnoreCase);
     }
-
- 
-
 }

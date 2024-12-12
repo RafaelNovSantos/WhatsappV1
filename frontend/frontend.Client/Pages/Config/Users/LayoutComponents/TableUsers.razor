@@ -4,16 +4,13 @@
           Filter="new Func<UsersClass, bool>(Procurar)"
           ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Hover="true"
           MultiSelection="true"
-          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
+          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly"
+          @bind-SelectedItems="selectedItems">
 
 
 <ToolBarContent >
 
         <MudText Class="MudTextSize">Usuários</MudText>
-        @*<MudTextField @bind-Value="criterio"
-                      Placeholder="Procurar..."
-                      Class="searchBar input" Style="    display: flex;
-    justify-content: end;" />*@
         <div class="InputContainer ma-5 mud-elevation-1">
             <input type="text"             placeholder="Procurar..."
 
@@ -27,17 +24,17 @@
 
         </div>
 
-    <button class="bookmarkBtn ma-1">
+    <button class="bookmarkBtn ma-1" @onclick="() => StartAddItem(new UsersClass())">
             <span class="IconContainer">
                 <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
             </span>
         <p class="text">Adicionar</p>
     </button>
 
-    <button class="bookmarkBtn ma-1">
-  <span class="IconContainer">
-   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
-  </span>
+    <button class="bookmarkBtn ma-1" @onclick="DeleteSelectedItems">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
+            </span>
         <p class="text">Deletar</p>
     </button>
 
@@ -47,12 +44,7 @@
     <HeaderContent >
     
 
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<UsersClass, object>(e => e.Id)">
-                ID
-            </MudTableSortLabel>
-        </MudTh>
-
+      
 
    
       
@@ -84,7 +76,7 @@
     </HeaderContent>
 
     <RowTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
+     
         <MudTd DataLabel="Usuários">@context.Name</MudTd>
         <MudTd DataLabel="E-mail">@context.Email</MudTd>
         @if(_userclass.Status == true){
@@ -106,10 +98,7 @@
     </RowTemplate>
     <RowEditingTemplate>
 
-        <MudTd DataLabel="ID">
-            <MudTextField  @bind-Value="context.Id" Required />
-        </MudTd>
-
+     
         <MudTd DataLabel="Usuários">
             <MudTextField  @bind-Value="context.Name" Required />
         </MudTd>
@@ -158,8 +147,8 @@
 @code{
     [Parameter]
     public List<UsersClass> Users { get; set; } = new List<UsersClass>();
-    
-    /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
+
+private HashSet<UsersClass> selectedItems = new HashSet<UsersClass>();  // Changed to HashSet
 
     protected override async Task OnInitializedAsync()
     {
@@ -177,6 +166,32 @@
     public UsersClass _userclass = new UsersClass();
     private string criterio = "";
     private bool _readOnly;
+
+    private async Task StartAddItem(UsersClass item)
+    {
+        var options = new DialogOptions { CloseButton = true };
+        var dialog = DialogService.Show<DialogAddUsers>("Adicionar resposta rápida", options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled && result.Data is UsersClass newItem)
+        {
+            Users.Add(newItem);
+            StateHasChanged();
+        }
+    }
+
+    private void DeleteSelectedItems()
+    {
+        if (selectedItems.Count > 0)
+        {
+            foreach (var item in selectedItems)
+            {
+                Users.Remove(item);
+            }
+            selectedItems.Clear();
+            StateHasChanged(); // Refresh the table after deletion
+        }
+    }
 
 
     private bool Procurar(UsersClass welcomemessage)

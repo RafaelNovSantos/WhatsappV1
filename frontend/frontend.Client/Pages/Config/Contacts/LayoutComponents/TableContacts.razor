@@ -3,16 +3,13 @@
 <MudTable T="ContactsClass" Items="@Contacts"
           ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Filter="new Func<ContactsClass, bool>(Procurar)" Hover="true"
           MultiSelection="true"
-          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
+          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly"
+          @bind-SelectedItems="selectedItems">
 
 
     <ToolBarContent >
 
         <MudText Class="MudTextSize">Contatos</MudText>
-        @*<MudTextField @bind-Value="criterio"
-                      Placeholder="Procurar..."
-                      Class="searchBar input" Style="    display: flex;
-    justify-content: end;" />*@
         <div class="InputContainer ma-5 mud-elevation-1">
             <input type="text"             placeholder="Procurar..."
 
@@ -25,21 +22,20 @@
             </label>
 
         </div>
-        
-        <button class="bookmarkBtn ma-1">
+
+        <button class="bookmarkBtn ma-1" @onclick="() => StartAddItem(new ContactsClass())">
             <span class="IconContainer">
                 <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
             </span>
             <p class="text">Adicionar</p>
         </button>
 
-        <button class="bookmarkBtn ma-1">
-  <span class="IconContainer">
-   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
-  </span>
+        <button class="bookmarkBtn ma-1" @onclick="DeleteSelectedItems">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
+            </span>
             <p class="text">Deletar</p>
         </button>
-        
     </ToolBarContent>
 
     <HeaderContent >
@@ -81,7 +77,7 @@
         <MudTd DataLabel="Contatos">
             <MudTextField  @bind-Value="context.Name" Required />
             </MudTd>
-        <MudTd DataLabel="ID"> <MudTextField @bind-Value="context.Tel" Required /></MudTd>
+        <MudTd DataLabel="Telefine"> <MudTextField @bind-Value="context.Tel" Mask="@(new PatternMask("(00) 0000-0000"))" Required /></MudTd>
 
       
 
@@ -112,7 +108,7 @@
     [Parameter]
     public List<ContactsClass> Contacts { get; set; } = new List<ContactsClass>();
     
-    /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
+    private HashSet<ContactsClass> selectedItems = new HashSet<ContactsClass>();  // Changed to HashSet
 
     protected override async Task OnInitializedAsync()
     {
@@ -130,7 +126,32 @@
     private string criterio = "";
     private bool _readOnly;
 
+    private async Task StartAddItem(ContactsClass item)
+    {
+        var options = new DialogOptions { CloseButton = true };
+        var dialog = DialogService.Show<DialogAddContacts>("Adicionar resposta rápida", options);
+        var result = await dialog.Result;
 
+        if (!result.Canceled && result.Data is ContactsClass newItem)
+        {
+            Contacts.Add(newItem);
+            StateHasChanged();
+        }
+    }
+
+    private void DeleteSelectedItems()
+    {
+        if (selectedItems.Count > 0)
+        {
+            foreach (var item in selectedItems)
+            {
+                Contacts.Remove(item);
+            }
+            selectedItems.Clear();
+            StateHasChanged(); // Refresh the table after deletion
+        }
+    }
+    
     private bool Procurar(ContactsClass welcomemessage)
     {
         if (string.IsNullOrWhiteSpace(criterio))

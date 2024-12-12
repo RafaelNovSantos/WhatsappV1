@@ -1,0 +1,108 @@
+﻿<MudDialog Style="width: max-content !important;">
+    <TitleContent>
+        Adicionar motivo de finalização
+    </TitleContent>
+    <DialogContent>
+        <div class="form">
+           
+
+            <div class="flex-column">
+                <label>Descriçao</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.Title" />
+                <input type="text" class="input" placeholder="Digite o título" @bind="AddItem.Title" required />
+            </div>
+
+          
+        </div>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Adicionar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+
+
+    // Define a propriedade que receberá o item editado
+    [Parameter]
+    public List<ReasonForTerminationClass> ReasonForTermination { get; set; } = new List<ReasonForTerminationClass>();
+
+    
+    [Parameter]
+    public ReasonForTerminationClass AddItem { get; set; }
+
+    [Inject]
+    private ISnackbar snackBar { get; set; }
+
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private ReasonForTerminationClass labelsclass = new ReasonForTerminationClass();
+
+  
+
+
+    protected override void OnInitialized()
+    {
+        AddItem ??= new ReasonForTerminationClass();
+    }
+
+   
+
+    private void Submit()
+    {
+        if (ValidateItem(AddItem))
+        {
+            var newItem = new ReasonForTerminationClass
+            {
+                Id = 1,
+                Title = AddItem.Title,
+            };
+
+            ReasonForTermination.Add(newItem);
+            ShowSuccessMessage("Usuário adicionado com sucesso!");
+            MudDialog.Close(DialogResult.Ok(newItem)); // Retorne o novo item adicionado
+        }
+        else
+        {
+            ShowErrorMessage("Preencha todos os campos obrigatórios!");
+        }
+    }
+
+    
+    private void ShowSuccessMessage(string message)
+    {
+        snackBar.Add(message, Severity.Success);
+    }
+
+    private bool ValidateItem(ReasonForTerminationClass item)
+    {
+        if (item == null)
+            return false;
+
+        return !string.IsNullOrWhiteSpace(item.Title)                ;
+    }
+
+
+    // Método para exibir mensagens de erro ao usuário
+    private void ShowErrorMessage(string message)
+    {
+        // Implemente a lógica para mostrar a mensagem de erro, pode ser um MudSnackbar, dialog, etc.
+        snackBar.Add(message, Severity.Error);
+    }
+
+    private void ShowSuccessMessage()
+    {
+       
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel(); // Fecha o diálogo sem fazer nada
+    }
+}

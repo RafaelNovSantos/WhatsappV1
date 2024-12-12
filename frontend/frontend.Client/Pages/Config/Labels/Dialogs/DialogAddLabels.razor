@@ -1,0 +1,125 @@
+﻿<MudDialog Style="width: max-content !important;">
+    <TitleContent>
+        Adicionar etiqueta
+    </TitleContent>
+    <DialogContent>
+        <div class="form">
+           
+
+            <div class="flex-column">
+                <label>Descriçao</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.Title" />
+                <input type="text" class="input" placeholder="Digite o título" @bind="AddItem.Title" required />
+            </div>
+
+            <div class="flex-column">
+                <label>Cor da Etiqueta</label>
+            </div>
+            <div class="inputForm">
+            <MudColorPicker  @bind-Text="AddItem.Color" Style="@($"color: {AddItem.Color};")" Placeholder="Selecionar cor da etiqueta" />
+
+            </div>
+
+
+
+        </div>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Adicionar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+    .form button{
+        align-self: unset;
+    }
+</style>
+
+@code {
+
+
+
+    // Define a propriedade que receberá o item editado
+    [Parameter]
+    public List<LabelClass> Labels { get; set; } = new List<LabelClass>();
+
+    
+    [Parameter]
+    public LabelClass AddItem { get; set; }
+
+    [Inject]
+    private ISnackbar snackBar { get; set; }
+
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private LabelClass labelsclass = new LabelClass();
+
+  
+
+
+    protected override void OnInitialized()
+    {
+        AddItem ??= new LabelClass();
+    }
+
+   
+
+    private void Submit()
+    {
+        if (ValidateItem(AddItem))
+        {
+            var newItem = new LabelClass
+            {
+                Id = 1,
+                Title = AddItem.Title,
+                Color = AddItem.Color,
+            };
+
+            Labels.Add(newItem);
+            ShowSuccessMessage("Etiqueta adicionada com sucesso!");
+            MudDialog.Close(DialogResult.Ok(newItem)); // Retorne o novo item adicionado
+        }
+        else
+        {
+            ShowErrorMessage("Preencha todos os campos obrigatórios!");
+        }
+    }
+
+    
+    private void ShowSuccessMessage(string message)
+    {
+        snackBar.Add(message, Severity.Success);
+    }
+
+    private bool ValidateItem(LabelClass item)
+    {
+        if (item == null)
+            return false;
+
+        return !string.IsNullOrWhiteSpace(item.Title) &&
+               !string.IsNullOrWhiteSpace(item.Color)               ;
+    }
+
+
+    // Método para exibir mensagens de erro ao usuário
+    private void ShowErrorMessage(string message)
+    {
+        // Implemente a lógica para mostrar a mensagem de erro, pode ser um MudSnackbar, dialog, etc.
+        snackBar.Add(message, Severity.Error);
+    }
+
+    private void ShowSuccessMessage()
+    {
+       
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel(); // Fecha o diálogo sem fazer nada
+    }
+}

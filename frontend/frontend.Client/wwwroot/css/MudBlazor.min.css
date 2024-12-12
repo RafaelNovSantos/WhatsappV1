@@ -3253,6 +3253,7 @@ ul {
 }
 
 .mud-icon-button-label {
+    padding: 5px;
     width: 100%;
     display: flex;
     align-items: inherit;
@@ -11455,7 +11456,7 @@ ul {
         }
 
             .mud-tabs.mud-tabs-vertical .mud-tooltip-root {
-                width: auto
+                width: 100%;
             }
 
         .mud-tabs.mud-tabs-vertical-reverse {
@@ -12148,9 +12149,11 @@ ul {
     .mud-input:focus-within.mud-input-underline:after {
         transform: scaleX(1)
     }
+    
+
 
     .mud-input > input.mud-input-root, div.mud-input-slot.mud-input-root {
-        /*text-align: center;*/
+        text-align: center;
         font: inherit;
         color: currentColor;
         width: 100%;

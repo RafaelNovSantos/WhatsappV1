@@ -1,0 +1,136 @@
+﻿<MudDialog Style="width: max-content !important;">
+    <TitleContent>
+        Adicionar resposta rápida
+    </TitleContent>
+    <DialogContent>
+        <div class="form">
+           
+
+            <div class="flex-column">
+                <label>Título</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.Title" />
+                <input type="text" class="input" placeholder="Digite o título" @bind="AddItem.Title" required />
+            </div>
+
+            <div class="flex-column">
+                <label>Descrição</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.Description" />
+                <input type="text" class="input" placeholder="Digite a descrição" @bind="AddItem.Description" required />
+            </div>
+
+            <div class="flex-column">
+                <label>Tipo</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.Category" />
+                <input type="text" class="input" placeholder="Digite o tipo" @bind="AddItem.Type" required />
+            </div>
+
+            <div class="flex-column">
+                <label>Visibilidade</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.Visibility" />
+                <input type="text" class="input" placeholder="Digite a visibilidade" @bind="AddItem.Visibility" required />
+            </div>
+        </div>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Adicionar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+
+
+    // Define a propriedade que receberá o item editado
+    [Parameter]
+    public List<QuickResponseClass> QuickResponse { get; set; } = new List<QuickResponseClass>();
+
+    
+    [Parameter]
+    public QuickResponseClass AddItem { get; set; }
+
+    [Inject]
+    private ISnackbar snackBar { get; set; }
+
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private QuickResponseClass quickresponseclass = new QuickResponseClass();
+
+  
+
+
+    protected override void OnInitialized()
+    {
+        AddItem ??= new QuickResponseClass();
+    }
+
+   
+
+    private void Submit()
+    {
+        if (ValidateItem(AddItem))
+        {
+            var newItem = new QuickResponseClass
+            {
+                Id = 1,
+                Title = AddItem.Title,
+                Description = AddItem.Description,
+                Type = AddItem.Type,
+                Visibility = AddItem.Visibility
+            };
+
+            QuickResponse.Add(newItem);
+            ShowSuccessMessage("Item adicionado com sucesso!");
+            MudDialog.Close(DialogResult.Ok(newItem)); // Retorne o novo item adicionado
+        }
+        else
+        {
+            ShowErrorMessage("Preencha todos os campos obrigatórios!");
+        }
+    }
+
+    
+    private void ShowSuccessMessage(string message)
+    {
+        snackBar.Add(message, Severity.Success);
+    }
+
+    private bool ValidateItem(QuickResponseClass item)
+    {
+        if (item == null)
+            return false;
+
+        return !string.IsNullOrWhiteSpace(item.Title) &&
+               !string.IsNullOrWhiteSpace(item.Description) &&
+               !string.IsNullOrWhiteSpace(item.Type) &&
+               !string.IsNullOrWhiteSpace(item.Visibility);
+    }
+
+
+    // Método para exibir mensagens de erro ao usuário
+    private void ShowErrorMessage(string message)
+    {
+        // Implemente a lógica para mostrar a mensagem de erro, pode ser um MudSnackbar, dialog, etc.
+        snackBar.Add(message, Severity.Error);
+    }
+
+    private void ShowSuccessMessage()
+    {
+       
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel(); // Fecha o diálogo sem fazer nada
+    }
+}

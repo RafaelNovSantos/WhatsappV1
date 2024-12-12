@@ -4,16 +4,14 @@
           Filter="new Func<ReasonForTerminationClass, bool>(Procurar)"
           ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Hover="true"
           MultiSelection="true"
-          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
+          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly"
+          @bind-SelectedItems="selectedItems">
 
 
 <ToolBarContent >
 
         <MudText Class="MudTextSize">Motivos de finalização</MudText>
-        @*<MudTextField @bind-Value="criterio"
-                      Placeholder="Procurar..."
-                      Class="searchBar input" Style="    display: flex;
-    justify-content: end;" />*@
+      
         <div class="InputContainer ma-5 mud-elevation-1">
             <input type="text"             placeholder="Procurar..."
 
@@ -27,17 +25,17 @@
 
         </div>
 
-    <button class="bookmarkBtn ma-1">
+    <button class="bookmarkBtn ma-1" @onclick="() => StartAddItem(new ReasonForTerminationClass())">
             <span class="IconContainer">
                 <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
             </span>
         <p class="text">Adicionar</p>
     </button>
 
-    <button class="bookmarkBtn ma-1">
-  <span class="IconContainer">
-   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
-  </span>
+    <button class="bookmarkBtn ma-1" @onclick="DeleteSelectedItems">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
+            </span>
         <p class="text">Deletar</p>
     </button>
 
@@ -46,11 +44,6 @@
     <HeaderContent >
     
 
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<ReasonForTerminationClass, object>(e => e.Id)">
-                ID
-            </MudTableSortLabel>
-        </MudTh>
 
 
    
@@ -67,7 +60,7 @@
     </HeaderContent>
 
     <RowTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
+     
         <MudTd DataLabel="Motivos de finalização">@context.Title</MudTd>
 
      
@@ -75,9 +68,7 @@
 
     <RowEditingTemplate>
 
-        <MudTd DataLabel="ID">
-            <MudTextField  @bind-Value="context.Id" Required />
-        </MudTd>
+       
 
         <MudTd DataLabel="Motivos de finalização">
             <MudTextField  @bind-Value="context.Title" Required />
@@ -113,7 +104,7 @@
     [Parameter]
     public List<ReasonForTerminationClass> ReasonForTermination { get; set; } = new List<ReasonForTerminationClass>();
     
-    /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
+    private HashSet<ReasonForTerminationClass> selectedItems = new HashSet<ReasonForTerminationClass>();  // Changed to HashSet
 
     protected override async Task OnInitializedAsync()
     {
@@ -131,6 +122,31 @@
     private string criterio = "";
     private bool _readOnly;
 
+    private async Task StartAddItem(ReasonForTerminationClass item)
+    {
+        var options = new DialogOptions { CloseButton = true };
+        var dialog = DialogService.Show<DialogAddReasonForTermination>("Adicionar resposta rápida", options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled && result.Data is ReasonForTerminationClass newItem)
+        {
+            ReasonForTermination.Add(newItem);
+            StateHasChanged();
+        }
+    }
+
+    private void DeleteSelectedItems()
+    {
+        if (selectedItems.Count > 0)
+        {
+            foreach (var item in selectedItems)
+            {
+                ReasonForTermination.Remove(item);
+            }
+            selectedItems.Clear();
+            StateHasChanged(); // Refresh the table after deletion
+        }
+    }
 
     private bool Procurar(ReasonForTerminationClass welcomemessage)
     {

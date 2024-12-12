@@ -35,7 +35,7 @@
                 <MudText>Defina ou altere o nome da instância exibido nos registros e relatórios.</MudText>
             </MudCardContent>
             <MudCardActions>
-                <MudTextField Margin="Margin.Dense" @bind-Value="NameInstance" Label="Nome da instância" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
+                <MudTextField FullWidth="true" Margin="Margin.Dense" @bind-Value="NameInstance" Label="Nome da instância" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
             </MudCardActions>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
@@ -53,8 +53,7 @@
             <MudCardActions  Style="    width: max-content;">
                 <MudFileUpload T="IBrowserFile" Accept=".svg" MaximumFileCount="1" FilesChanged="UploadFile">
                     <ActivatorContent>
-                        <MudIconButton Color="Color.Info" Icon="@Icons.Material.Filled.PhotoCamera">
-                        </MudIconButton>
+                        <MudButton T="string" Variant="Variant.Outlined"  StartIcon="@Icons.Material.Filled.Camera" Color="Color.Primary">Escolher logo</MudButton>
                     </ActivatorContent>
                 </MudFileUpload>
             </MudCardActions>
@@ -69,7 +68,7 @@
                     <MudCard  Class="py-1 align-center  justify-start " Elevation="0" Style="width: 40px; height: 100%; color: white; background: #1ec8a5" T="string">
 
 
-                        <MudImage  Width="25" Height="25" Fluid="true" Src="@_imageUrl" Alt="Uploaded Image" Class="rounded-lg mt-2" />
+                        <MudImage Style="margin-bottom: 3px;" Width="25" Height="25" Fluid="true" Src="@_imageUrl" Alt="Uploaded Image" Class="rounded-lg mt-2" />
                         <MudIcon Icon="@Icons.Material.Filled.Chat" Title="Chat" />
                         <MudSpacer></MudSpacer>
 
@@ -97,11 +96,38 @@
                     </MudCard>
    
                 </MudPaper>
-                <MudMenu Icon="@Icons.Material.Filled.MoreVert" Style="width: max-content; margin: 5px;" FullWidth="false" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+                <MudMenu Style="width: max-content; margin: 5px;" FullWidth="false" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+                    <ActivatorContent>
+                        <MudChip T="string"  Icon="@Icons.Material.Filled.MoreVert" Color="Color.Primary">Configurar Logo</MudChip>
+                    </ActivatorContent>
+                    <ChildContent>
+                        <MudFileUpload T="IBrowserFile" Accept=".svg" MaximumFileCount="1" FilesChanged="UploadFile">
+                            <ActivatorContent>
+                                <MudButton
 
-                    <MudMenuItem IconSize="Size.Small" IconColor="Color.Info" Icon="@Icons.Material.Outlined.ChangeCircle">Trocar Logo</MudMenuItem>
-                    <MudMenuItem IconSize="Size.Small" IconColor="Color.Error" Icon="@Icons.Material.Outlined.DeleteForever">Excluir Logo</MudMenuItem>
-                </MudMenu>
+                                    Target="_blank"
+                                    Variant="Variant.Text"
+                                    IconColor="Color.Info"
+                                    StartIcon="@Icons.Material.Outlined.ChangeCircle"
+                                    Color="Color.Secondary"
+                                    Style="text-transform:none; width: 100%">
+                                    Mudar logo
+                                </MudButton>
+                            </ActivatorContent>
+                        </MudFileUpload>
+                        <MudButton
+
+                            Target="_blank"
+                            Variant="Variant.Text"
+                            IconColor="Color.Error"
+                            StartIcon="@Icons.Material.Outlined.DeleteForever"
+                            Color="Color.Secondary"
+                            Style="text-transform:none; width: 100%"
+                            OnClick="ExcludLogo">
+                            Excluir Logo
+                        </MudButton>
+                    </ChildContent>
+                    </MudMenu>
                 </div>
                         }
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
@@ -148,7 +174,7 @@
                   
               
                 <label class="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked="@_rating" />
                     <span class="slider"></span>
                 </label>
 
@@ -166,7 +192,7 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked="@_userdefault"/>
                     <span class="slider"></span>
                 </label>
                 </MudCardActions>
@@ -183,7 +209,7 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked="@_identifynameuser"/>
                     <span class="slider"></span>
                 </label>
             </MudCardActions>
@@ -200,7 +226,7 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked="@_hidefournumber"/>
                     <span class="slider"></span>
                 </label>
             </MudCardActions>
@@ -217,7 +243,7 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked="@_hidemessageshottings"/>
                     <span class="slider"></span>
                 </label>
             </MudCardActions>
@@ -235,21 +261,21 @@
             <div Style="   align-items: center; display: flex;
    ">
                 <label class="switch ma-2">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked="@_finishservicecustomer"/>
                     <span class="slider"></span>
                 </label>
 
-              <MudText Class="ma-2"> Cliente</MudText>
+              <MudText Class="ma-2" Style="width: 10%"> Cliente</MudText>
                 <input class="modern-number-input" type="number" value="0">
                 <MudText Class="ma-2"> Minutos</MudText>
             </div>
             <div Style="    align-items: center; display: flex;
     ">
                 <label class="switch ma-2">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked="@_finishserviceattendant"/>
                     <span class="slider"></span>
                 </label>
-                <MudText Class="ma-2"> Atendente</MudText>
+                <MudText Class="ma-2" Style="width: 10%"> Atendente</MudText>
 
                 <input class="modern-number-input" type="number" value="0">
                 <MudText Class="ma-2"> Minutos</MudText>
@@ -267,13 +293,14 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked="@_timeservice"/>
                     <span class="slider"></span>
                 </label>
-
-                <MudButton Class="ma-2" @onclick="OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">
-                    Configurar Horários
-                </MudButton>
+@if(_timeservice){
+    <MudButton Class="ma-2" @onclick="OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">
+        Configurar Horários
+    </MudButton>
+}
                 </MudCardActions>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
@@ -327,14 +354,36 @@
                     }
                 </MudSelect>
             </MudCardActions>
+            
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
+            <!-- Salvar Configurações -->
+            <div class="d-flex align-center" style="padding: 16px;
+    justify-content: space-between;">
+                <MudText Typo="Typo.h5">Salvar configurações</MudText>
+                <button class="bookmarkBtn ma-1" style="    border: 1px solid rgb(0 0 0);">
+                <span class="IconContainer">
+                    <MudIcon Color="Color.Primary" Icon="@Icons.Material.Outlined.Save"></MudIcon>
+                </span>
+                    <p class="text">Salvar</p>
+                </button>
+            </div>
+            <MudCardActions>
+            
+            </MudCardActions>
         </MudCard>
     </div>
 </MudContainer>
 
 
 <style>
-  
+    .mud-input{
+        width: 100%;
+       
+    }
+    .mud-input > input.mud-input-root, div.mud-input-slot.mud-input-root{
+        text-align: inherit !important;
+    }
 </style>
 
 
@@ -345,7 +394,17 @@
     public string WelcomeMessage { get; set; } = "Seja Bem-Vindo";
     public string FinishMessage { get; set; } = "Até logo!";
     public int TimefinishClient { get; set; } = 0;
-    bool _checked3 = false;
+    bool _rating = true;
+    bool _userdefault = true;
+    bool _identifynameuser = true;
+    bool _hidefournumber = true;
+    bool _hidemessageshottings = true;
+    bool _finishserviceattendant = true;
+    bool _timeservice = true;
+    bool _finishservicecustomer = true;
+
+    
+    
     
     IBrowserFile _file; // Variável para armazenar apenas 1 arquivo
     string _imageUrl; // Variável para armazenar a URL da imagem
@@ -405,5 +464,11 @@
 
         // Gere a URL da imagem
         _imageUrl = $"data:{file.ContentType};base64,{base64String}";
+    }
+
+    private void ExcludLogo()
+    {
+        _imageUrl = string.Empty;
+        return;
     }
 }

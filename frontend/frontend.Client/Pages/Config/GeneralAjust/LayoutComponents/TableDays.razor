@@ -1,147 +1,122 @@
-﻿
-
-<MudTable T="DayClass" Items="@Days"
+﻿<MudTable T="DayClass" Items="@DayService.Days"
           Filter="new Func<DayClass, bool>(Procurar)"
-          ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Hover="true"
+          ApplyButtonPosition="TableApplyButtonPosition.End"
+          EditButtonPosition="TableEditButtonPosition.End"
+          EditTrigger="TableEditTrigger.EditButton"
+          Hover="true"
           MultiSelection="true"
-          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
-    
-<ToolBarContent >
+          Bordered="true"
+          Dense="true"
+          Class="tableEdit"
+          ReadOnly="@_readOnly"
+          @ref="MudTable">
+
+    <ToolBarContent>
         <MudText Class="MudTextSize">Horário de atendimento</MudText>
-        @*<MudTextField @bind-Value="criterio"
-                      Placeholder="Procurar..."
-                      Class="searchBar input" Style="    display: flex;
-    justify-content: end;" />*@
         <div class="InputContainer ma-5 mud-elevation-1">
-            <input type="text"             placeholder="Procurar..."
-                   @bind="criterio"
-                   name="text" class="searchinput" id="input" >
+            <input type="text" placeholder="Procurar..." @bind="criterio"
+                   name="text" class="searchinput" id="input" />
             <div class="border"></div>
             <label for="input" class="labelforsearch">
-                <svg viewBox="0 0 512 512" class="searchIcon"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>
+                <svg viewBox="0 0 512 512" class="searchIcon">
+                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                </svg>
             </label>
         </div>
-        
 
-    <button class="bookmarkBtn ma-1">
-  <span class="IconContainer">
-   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
-  </span>
-        <p class="text">Deletar</p>
-    </button>
-</ToolBarContent>
+       
 
-    <HeaderContent >
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.Id)">
-                ID
-            </MudTableSortLabel>
-        </MudTh>
+        <button class="bookmarkBtn ma-1" @onclick="HandleDelete">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
+            </span>
+            <p class="text">Deletar</p>
+        </button>
+    </ToolBarContent>
 
+    <HeaderContent>
         <MudTh>
             <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.DayWeek)">
                 Dia
             </MudTableSortLabel>
         </MudTh>
-
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.DayWeek)">
+            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.StarTime)">
                 Horário de início
             </MudTableSortLabel>
         </MudTh>
-
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.DayWeek)">
+            <MudTableSortLabel SortBy="new Func<DayClass, object>(e => e.EndTime)">
                 Horário de término
             </MudTableSortLabel>
         </MudTh>
-
-        
-
     </HeaderContent>
 
     <RowTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
         <MudTd DataLabel="Dia">@context.DayWeek</MudTd>
         <MudTd DataLabel="Horário de início">@context.StarTime</MudTd>
         <MudTd DataLabel="Horário de término">@context.EndTime</MudTd>
-     
     </RowTemplate>
 
     <RowEditingTemplate>
-
-        <MudTd DataLabel="ID">
-            <MudTextField  @bind-Value="context.Id" Required />
-        </MudTd>
-
-
         <MudTd DataLabel="Dia">
-            <MudTextField  @bind-Value="context.DayWeek" Required />
+            <MudTextField @bind-Value="context.DayWeek" Required />
         </MudTd>
-
         <MudTd DataLabel="Horário de início">
-            <MudTextField  @bind-Value="context.StarTime" Required />
+            <MudTextField Mask="@(new PatternMask("00:00"))" @bind-Value="context.StarTime" Required />
         </MudTd>
-
         <MudTd DataLabel="Horário de término">
-            <MudTextField  @bind-Value="context.EndTime" Required />
+            <MudTextField Mask="@(new PatternMask("00:00"))" @bind-Value="context.EndTime" Required />
         </MudTd>
-
-
-
     </RowEditingTemplate>
-    <PagerContent >
-        <MudTablePager PageSizeOptions="[5, 15, 25, 50, 100]"
 
-
-                       RowsPerPageString="Máximo de dias por página:"
-
-        />
+    <PagerContent>
+        <MudTablePager PageSizeOptions="[5, 15, 25, 50, 100]" RowsPerPageString="Máximo de dias por página:" />
     </PagerContent>
 </MudTable>
 
+@code {
+    [Inject] TableDaysSync TableDaysSync { get; set; }
+    [Inject] private DayService DayService { get; set; }
 
-
-
-
-
-
-
-
-
-
-@code{
-    [Parameter]
-    public List<DayClass> Days { get; set; } = new List<DayClass>();
-    
-    /*private List<Day> quickResponses = new List<Day>();*/
-
-    protected override async Task OnInitializedAsync()
-    {
-        // Exemplo de inicialização
-        Days = new List<DayClass>
-        {
-            new DayClass { Id = 1, DayWeek = "Segunda-Feira", StarTime = "09:00", EndTime = "15:00"},
-            new DayClass { Id = 2, DayWeek = "Quarta-Feira", StarTime = "08:00", EndTime = "17:00"},
-        };
-    }
-
-
-    public Origin TransformOrigin { get; set; } = Origin.TopCenter;
-    public Origin AnchorOrigin { get; set; } = Origin.BottomLeft;
     private string criterio = "";
     private bool _readOnly;
-
 
     private bool Procurar(DayClass dayClass)
     {
         if (string.IsNullOrWhiteSpace(criterio))
             return true;
 
-        return dayClass.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase)
-               || dayClass.DayWeek.Contains(criterio, StringComparison.OrdinalIgnoreCase) || dayClass.StarTime.Contains(criterio, StringComparison.OrdinalIgnoreCase) || dayClass.EndTime.Contains(criterio, StringComparison.OrdinalIgnoreCase);
+        return dayClass.Id.ToString().Contains(criterio, StringComparison.OrdinalIgnoreCase) ||
+               dayClass.DayWeek.Contains(criterio, StringComparison.OrdinalIgnoreCase) ||
+               dayClass.StarTime.Contains(criterio, StringComparison.OrdinalIgnoreCase) ||
+               dayClass.EndTime.Contains(criterio, StringComparison.OrdinalIgnoreCase);
     }
 
- 
+    private MudTable<DayClass>? MudTable { get; set; }
+
+    protected override void OnInitialized()
+    {
+        TableDaysSync.RegisterSyncTableAction(syncTable);
+    }
+
+    public void syncTable()
+    {
+        StateHasChanged();
+        
+    }
+
+    private async Task HandleDelete()
+    {
+        if (MudTable?.SelectedItems is not null)
+        {
+            var selectedItems = MudTable.SelectedItems.ToList();
+            // Agora você pode trabalhar com `selectedItems`
+            foreach (var item in selectedItems)
+            {
+                DayService.Days.Remove(item); // Remover do serviço
+            }
+        }
+    }
 
 }

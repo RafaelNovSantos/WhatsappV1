@@ -1,0 +1,135 @@
+﻿<MudDialog Style="width: max-content !important;">
+    <TitleContent>
+        Adicionar usuários
+    </TitleContent>
+    <DialogContent>
+        <div class="form">
+           
+
+            <div class="flex-column">
+                <label>Nome</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.Title" />
+                <input type="text" class="input" placeholder="Digite o título" @bind="AddItem.Name" required />
+            </div>
+
+            <div class="flex-column">
+                <label>E-mail</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.Email" />
+                <input type="text" class="input" placeholder="Digite a descrição" @bind="AddItem.Email" required />
+            </div>
+
+            <div class="flex-column">
+                <label>Status</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.SignalWifiStatusbar4Bar" />
+                <input type="text" class="input" placeholder="Digite o tipo" @bind="AddItem.Status" required />
+            </div>
+
+            <div class="flex-column">
+                <label>Perfil</label>
+            </div>
+            <div class="inputForm">
+                <MudIcon Icon="@Icons.Material.Outlined.VerifiedUser" />
+                <input type="text" class="input" placeholder="Digite a visibilidade" @bind="AddItem.Profile" required />
+            </div>
+        </div>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Adicionar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+
+
+    // Define a propriedade que receberá o item editado
+    [Parameter]
+    public List<UsersClass> Users { get; set; } = new List<UsersClass>();
+
+    
+    [Parameter]
+    public UsersClass AddItem { get; set; }
+
+    [Inject]
+    private ISnackbar snackBar { get; set; }
+
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private UsersClass usersclass = new UsersClass();
+
+  
+
+
+    protected override void OnInitialized()
+    {
+        AddItem ??= new UsersClass();
+    }
+
+   
+
+    private void Submit()
+    {
+        if (ValidateItem(AddItem))
+        {
+            var newItem = new UsersClass
+            {
+                Id = 1,
+                Name = AddItem.Name,
+                Email = AddItem.Email,
+                Status = AddItem.Status,
+                Profile = AddItem.Profile
+            };
+
+            Users.Add(newItem);
+            ShowSuccessMessage("Usuário adicionado com sucesso!");
+            MudDialog.Close(DialogResult.Ok(newItem)); // Retorne o novo item adicionado
+        }
+        else
+        {
+            ShowErrorMessage("Preencha todos os campos obrigatórios!");
+        }
+    }
+
+    
+    private void ShowSuccessMessage(string message)
+    {
+        snackBar.Add(message, Severity.Success);
+    }
+
+    private bool ValidateItem(UsersClass item)
+    {
+        if (item == null)
+            return false;
+
+        return !string.IsNullOrWhiteSpace(item.Name) &&
+               !string.IsNullOrWhiteSpace(item.Email) &&
+               !string.IsNullOrWhiteSpace(item.Profile);
+    }
+
+
+    // Método para exibir mensagens de erro ao usuário
+    private void ShowErrorMessage(string message)
+    {
+        // Implemente a lógica para mostrar a mensagem de erro, pode ser um MudSnackbar, dialog, etc.
+        snackBar.Add(message, Severity.Error);
+    }
+
+    private void ShowSuccessMessage()
+    {
+       
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel(); // Fecha o diálogo sem fazer nada
+    }
+}

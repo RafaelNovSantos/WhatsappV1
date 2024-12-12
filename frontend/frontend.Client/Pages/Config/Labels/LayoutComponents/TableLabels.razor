@@ -4,16 +4,14 @@
           Filter="new Func<LabelClass, bool>(Procurar)"
           ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Hover="true"
           MultiSelection="true"
-          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
+          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly"
+          @bind-SelectedItems="selectedItems">
 
 
 <ToolBarContent >
 
         <MudText Class="MudTextSize">Etiquetas</MudText>
-        @*<MudTextField @bind-Value="criterio"
-                      Placeholder="Procurar..."
-                      Class="searchBar input" Style="    display: flex;
-    justify-content: end;" />*@
+
         <div class="InputContainer ma-5 mud-elevation-1">
             <input type="text"             placeholder="Procurar..."
 
@@ -27,17 +25,17 @@
 
         </div>
 
-    <button class="bookmarkBtn ma-1">
+    <button class="bookmarkBtn ma-1" @onclick="() => StartAddItem(new LabelClass())">
             <span class="IconContainer">
                 <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
             </span>
         <p class="text">Adicionar</p>
     </button>
 
-    <button class="bookmarkBtn ma-1">
-  <span class="IconContainer">
-   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
-  </span>
+    <button class="bookmarkBtn ma-1" @onclick="DeleteSelectedItems">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
+            </span>
         <p class="text">Deletar</p>
     </button>
 
@@ -82,7 +80,7 @@
         </MudTd>
 
         <MudTd>
-        <MudColorPicker Value="context.Color" Label="Cor etiqueta" ColorPickerView="ColorPickerView.Spectrum" />
+              <MudColorPicker  @bind-Text="context.Color" Style="@($"color: {context.Color};")" Placeholder="Select Color" />
 
         </MudTd>
 
@@ -114,7 +112,7 @@
     [Parameter]
     public List<LabelClass> Label { get; set; } = new List<LabelClass>();
     
-    /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
+    private HashSet<LabelClass> selectedItems = new HashSet<LabelClass>();  // Changed to HashSet
 
     protected override async Task OnInitializedAsync()
     {
@@ -132,6 +130,31 @@
     private string criterio = "";
     private bool _readOnly;
 
+    private async Task StartAddItem(LabelClass item)
+    {
+        var options = new DialogOptions { CloseButton = true };
+        var dialog = DialogService.Show<DialogAddLabels>("Adicionar resposta rápida", options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled && result.Data is LabelClass newItem)
+        {
+            Label.Add(newItem);
+            StateHasChanged();
+        }
+    }
+
+    private void DeleteSelectedItems()
+    {
+        if (selectedItems.Count > 0)
+        {
+            foreach (var item in selectedItems)
+            {
+                Label.Remove(item);
+            }
+            selectedItems.Clear();
+            StateHasChanged(); // Refresh the table after deletion
+        }
+    }
 
     private bool Procurar(LabelClass welcomemessage)
     {

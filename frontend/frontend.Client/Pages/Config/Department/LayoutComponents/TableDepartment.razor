@@ -1,19 +1,17 @@
 ﻿
 
-<MudTable T="DepartmentClass" Items="@WelcomeMessages"
+<MudTable T="DepartmentClass" Items="@Departments"
           Filter="new Func<DepartmentClass, bool>(Procurar)"
           ApplyButtonPosition="TableApplyButtonPosition.End" EditButtonPosition="TableEditButtonPosition.End"       EditTrigger="TableEditTrigger.EditButton"   Hover="true"
           MultiSelection="true"
-          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly">
+          Bordered="true" Dense="true" Class="tableEdit" ReadOnly="@_readOnly"
+          @bind-SelectedItems="selectedItems">
 
 
     <ToolBarContent >
 
         <MudText Class="MudTextSize">Departamentos</MudText>
-        @*<MudTextField @bind-Value="criterio"
-                      Placeholder="Procurar..."
-                      Class="searchBar input" Style="    display: flex;
-    justify-content: end;" />*@
+      
         <div class="InputContainer ma-5 mud-elevation-1">
             <input type="text"             placeholder="Procurar..."
 
@@ -27,17 +25,17 @@
 
         </div>
 
-        <button class="bookmarkBtn ma-1">
+        <button class="bookmarkBtn ma-1" @onclick="() => StartAddItem(new DepartmentClass())">
             <span class="IconContainer">
                 <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
             </span>
             <p class="text">Adicionar</p>
         </button>
 
-        <button class="bookmarkBtn ma-1">
-  <span class="IconContainer">
-   <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
-  </span>
+        <button class="bookmarkBtn ma-1" @onclick="DeleteSelectedItems">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Error" Icon="@Icons.Material.Outlined.Delete"></MudIcon>
+            </span>
             <p class="text">Deletar</p>
         </button>
 
@@ -102,14 +100,13 @@
 
 @code{
     [Parameter]
-    public List<DepartmentClass> WelcomeMessages { get; set; } = new List<DepartmentClass>();
-    
-    /*private List<QuickResponse> quickResponses = new List<QuickResponse>();*/
+    public List<DepartmentClass> Departments { get; set; } = new List<DepartmentClass>();
+    private HashSet<DepartmentClass> selectedItems = new HashSet<DepartmentClass>();  // Changed to HashSet
 
     protected override async Task OnInitializedAsync()
     {
         // Exemplo de inicialização
-        WelcomeMessages = new List<DepartmentClass>
+        Departments = new List<DepartmentClass>
         {
             new DepartmentClass { Id = 1, Title = "Suporte" },
             new DepartmentClass { Id = 2, Title = "Financeiro" },
@@ -121,7 +118,32 @@
     public Origin AnchorOrigin { get; set; } = Origin.BottomLeft;
     private string criterio = "";
     private bool _readOnly;
+    
+    private async Task StartAddItem(DepartmentClass item)
+    {
+        var options = new DialogOptions { CloseButton = true };
+        var dialog = DialogService.Show<DialogAddDepartment>("Adicionar resposta rápida", options);
+        var result = await dialog.Result;
 
+        if (!result.Canceled && result.Data is DepartmentClass newItem)
+        {
+            Departments.Add(newItem);
+            StateHasChanged();
+        }
+    }
+
+    private void DeleteSelectedItems()
+    {
+        if (selectedItems.Count > 0)
+        {
+            foreach (var item in selectedItems)
+            {
+                Departments.Remove(item);
+            }
+            selectedItems.Clear();
+            StateHasChanged(); // Refresh the table after deletion
+        }
+    }
 
     private bool Procurar(DepartmentClass departmentsearch)
     {

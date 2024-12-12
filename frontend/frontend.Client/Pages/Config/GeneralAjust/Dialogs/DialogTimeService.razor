@@ -1,43 +1,52 @@
-﻿<MudDialog>
+﻿@inject DayService DayService
+
+
+<MudDialog Style="width: 80%;">
     <TitleContent>
         Configurar horário de atendimento
     </TitleContent>
     <DialogContent>
         <MudTextField Class="ma-3" Style="width: 100%" AutoGrow MaxLines="10" Margin="Margin.Dense" @bind-Value="AbsenceMessage" Label="Mensagem de ausência" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DriveFileRenameOutline" AdornmentColor="Color.Primary" />
-        <MudSelect Class="ma-3" Style="width: 100%"  @bind-Value="_value"
+        <MudSelect Class="ma-3" FullWidth="true" @bind-Value="ValueFinishService"
                    Variant="Variant.Outlined"
                    Margin="Margin.Dense"
                    Dense="true"
                    Label="Motivo de finalização (opcional)"
-            
-
                    Clearable="true">
             @foreach (var finishService in finishServices)
             {
-                <MudSelectItem Value="finishService">@finishService</MudSelectItem>
+                <MudSelectItem Style="width: 100% !important;" Value="finishService">@finishService</MudSelectItem>
             }
         </MudSelect>
-<div class="d-flex">
-        <MudSelect Style="width: 100%" Class="ma-3"  T="string"
-                   Variant="Variant.Outlined"
-                   Margin="Margin.Dense"
-                   Dense="true"
-                   Label="Adicionar Dia"
+        <div class="d-flex align-center">
+            <MudSelect Style="width: 100%" Class="ma-3" T="string"
+                       Variant="Variant.Outlined"
+                       Margin="Margin.Dense"
+                       @bind-Value="dayselect"
+                       Dense="true"
+                       Label="Adicionar Dia"
+                       Clearable="true">
+                @foreach (var _day in _days)
+                {
+                    <MudSelectItem Style="width: 100%" Value="_day">@_day</MudSelectItem>
+                }
+            </MudSelect>
 
+            <!-- Bind TimeSpan? directly to MudTime
+            Picker -->
+            <MudTimePicker Style="border-bottom: 1px solid #00000059;" Class="ma-3" PickerVariant="PickerVariant.Dialog" Label="das" @bind-Time="_timeStart" />
+            <MudText Class="d-flex mud-typography-paragraph justify-center ma-4 align-center">até</MudText>
+            <MudTimePicker Style="border-bottom: 1px solid #00000059;" Class="ma-3" PickerVariant="PickerVariant.Dialog" Label="às" @bind-Time="_timeFinish" />
 
-                   Clearable="true">
-            @foreach (var _day in _days)
-            {
-                <MudSelectItem Style="width: 100%" Value="_day">@_day</MudSelectItem>
-            }
-        </MudSelect>
+        </div>
 
-        <MudTimePicker Style="    border-bottom: 1px solid #00000059;" Class="ma-3" PickerVariant="PickerVariant.Dialog" Label="das" @bind-Time="_timeStart" />
-        <MudText Class="d-flex mud-typography-paragraph justify-center ma-4 align-center">até</MudText>
-        <MudTimePicker Style="    border-bottom: 1px solid #00000059;" Class="ma-3" PickerVariant="PickerVariant.Dialog" Label="às" @bind-Time="_timeFinish" />
-        
-        <MudIconButton Icon="@Icons.Material.Filled.Add"></MudIconButton>
-</div>
+        <button class="bookmarkBtn ma-1" @onclick="StartAddItem">
+            <span class="IconContainer">
+                <MudIcon Color="Color.Dark" Icon="@Icons.Material.Outlined.Add"></MudIcon>
+            </span>
+            <p class="text">Adicionar</p>
+        </button>
+
         <TableDays></TableDays>
     </DialogContent>
     <DialogActions>
@@ -47,23 +56,42 @@
 </MudDialog>
 
 <style>
-.mud-dialog-width-sm{
-    width: 80%
-}
-
-.mud-input{
-    width: 100%;
-}
+    .mud-input-control > .mud-input-control-input-container{
+        display: inherit;
+    }
+    .mud-input.mud-input-outlined.mud-input-adorned-end{
+        width: 100%;
+    }
 </style>
 
 @code {
+    [Inject] TableDaysSync TableDaysSync { get; set; }
+    
+    [Parameter]
+    public List<DayClass> Days { get; set; } = new List<DayClass>();
+
+    [Inject]
+    private ISnackbar snackBar { get; set; }
+
+    [Parameter]
+    public DayClass AddItem { get; set; }
+
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; }
-    private TimeSpan? _timeStart = new TimeSpan(00, 45, 00);
-    private TimeSpan? _timeFinish = new TimeSpan(00, 45, 00);
+
+    private TimeSpan? _timeStart = new TimeSpan(8, 0, 0);  // Hora inicial (exemplo: 08:00)
+    private TimeSpan? _timeFinish = new TimeSpan(17, 0, 0);  // Hora final (exemplo: 17:00)
+    
+    private string TimeStartString => _timeStart?.ToString(@"hh\:mm") ?? string.Empty;  // Converte TimeSpan? para string
+    private string TimeFinishString => _timeFinish?.ToString(@"hh\:mm") ?? string.Empty;  // Converte TimeSpan? para string
+
+    public string dayselect = string.Empty;
+
+    public string AbsenceMessage { get; set; } = "Volto Logo";  // Mensagem de ausência
+    public string ValueFinishService { get; set; } = String.Empty;  // Valor do motivo de finalização
 
     public string[] finishServices =  {
-            "Alabama", "Alaska", "Arizona", "Arkansas", "California",
+        "Alabama", "Alaska", "Arizona", "Arkansas", "California",
         "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
         "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
         "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
@@ -73,16 +101,61 @@
         "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
         "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
         "Washington", "West Virginia", "Wisconsin", "Wyoming"
-};
+    };
 
-    public string[] _days =
-    {
+    public string[] _days = {
         "Domingo",  "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sabado"
     };
-    
 
-    public string _value = "Mensagem";
-    public string AbsenceMessage = "Volto Logo";
+    protected override void OnInitialized()
+    {
+        AddItem ??= new DayClass();
+    }
+
+    private Task StartAddItem()
+    {
+        if (ValidateItem() == true)
+        {
+            var newItem = new DayClass
+            {
+                Id = Days.Count + 1,  // Auto incremento para o ID
+                DayWeek = dayselect,      // Use o valor selecionado no MudSelect
+                StarTime = TimeStartString,
+                EndTime = TimeFinishString,
+            };
+
+            DayService.AddDay(newItem);
+            ShowSuccessMessage("Item adicionado com sucesso!");
+            TableDaysSync.CallSyncTable();
+        }
+        else
+        {
+            ShowErrorMessage("Preencha todos os campos obrigatórios!");
+        }
+
+        return Task.CompletedTask;  // Retorne um Task completado
+    }
+
+    private void ShowSuccessMessage(string message)
+    {
+        snackBar.Add(message, Severity.Success);
+    }
+
+    private void ShowErrorMessage(string message)
+    {
+        snackBar.Add(message, Severity.Error);
+    }
+
+    private bool ValidateItem()
+    {
+        if (new[] { TimeStartString, TimeFinishString, dayselect }.Any(string.IsNullOrEmpty))
+        {
+            return false;
+        }
+
+
+        return true;
+    }
 
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
 
