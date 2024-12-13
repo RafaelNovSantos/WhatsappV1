@@ -174,7 +174,7 @@
                   
               
                 <label class="switch">
-                    <input type="checkbox" checked="@_rating" />
+                    <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_rating)))" checked="@_rating" />
                     <span class="slider"></span>
                 </label>
 
@@ -192,7 +192,7 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" checked="@_userdefault"/>
+                    <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_userdefault)))" checked="@_userdefault"/>
                     <span class="slider"></span>
                 </label>
                 </MudCardActions>
@@ -209,7 +209,7 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" checked="@_identifynameuser"/>
+                    <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_identifynameuser)))" checked="@_identifynameuser"/>
                     <span class="slider"></span>
                 </label>
             </MudCardActions>
@@ -226,7 +226,7 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" checked="@_hidefournumber"/>
+                    <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_hidefournumber)))" checked="@_hidefournumber"/>
                     <span class="slider"></span>
                 </label>
             </MudCardActions>
@@ -243,7 +243,7 @@
             </MudCardContent>
             <MudCardActions>
                 <label class="switch">
-                    <input type="checkbox" checked="@_hidemessageshottings"/>
+                    <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_hidemessageshottings)))" checked="@_hidemessageshottings"/>
                     <span class="slider"></span>
                 </label>
             </MudCardActions>
@@ -261,7 +261,7 @@
             <div Style="   align-items: center; display: flex;
    ">
                 <label class="switch ma-2">
-                    <input type="checkbox" checked="@_finishservicecustomer"/>
+                    <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_finishservicecustomer)))" checked="@_finishservicecustomer"/>
                     <span class="slider"></span>
                 </label>
 
@@ -272,7 +272,7 @@
             <div Style="    align-items: center; display: flex;
     ">
                 <label class="switch ma-2">
-                    <input type="checkbox" checked="@_finishserviceattendant"/>
+                    <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_finishserviceattendant)))" checked="@_finishserviceattendant"/>
                     <span class="slider"></span>
                 </label>
                 <MudText Class="ma-2" Style="width: 10%"> Atendente</MudText>
@@ -291,9 +291,9 @@
             <MudCardContent>
                 <MudText>Defina os horários em que os atendimentos estão disponíveis.</MudText>
             </MudCardContent>
-            <MudCardActions>
+            <MudCardActions Style="height: 40px;">
                 <label class="switch">
-                    <input type="checkbox" checked="@_timeservice"/>
+                    <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_timeservice)))" checked="@_timeservice"/>
                     <span class="slider"></span>
                 </label>
 @if(_timeservice){
@@ -444,6 +444,18 @@
         "Australia +61", 
         "Japan +81"
     };
+    
+    // Função global para alternar o valor booleano
+    private void ToggleBoolean(string propertyName)
+    {
+        var property = GetType().GetField(propertyName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        if (property != null && property.FieldType == typeof(bool))
+        {
+            bool currentValue = (bool)property.GetValue(this);
+            property.SetValue(this, !currentValue);
+            StateHasChanged(); // Atualiza a interface
+        }
+    }
 
     
     private Task OpenDialogAsync()

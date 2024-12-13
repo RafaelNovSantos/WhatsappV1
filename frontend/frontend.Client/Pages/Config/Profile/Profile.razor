@@ -91,9 +91,10 @@
                 </CardHeaderContent>
             </MudCardHeader>
             <MudCardContent >
+               
                 <div Class="d-flex align-center">
                     <label class="switch ma-2">
-                        <input type="checkbox"/>
+                        <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_deletemessage)))" checked="@_deletemessage" />
                         <span class="slider"></span>
                     </label>
                     <MudText Style="    text-align: center;
@@ -102,27 +103,26 @@
 
                 <div Class="d-flex align-center">
                     <label class="switch ma-2">
-                        <input type="checkbox"/>
+                        <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_departmentrestricted)))" checked="@_departmentrestricted" />
                         <span class="slider"></span>
                     </label>
                     <MudText Class="ma-2" Style="    text-align: center;
     line-height: initial;">Restringir acesso a departamento</MudText>
-                
-                
-               
-                    <MudSelect Style="width: 100%"   T="string"
-                               Variant="Variant.Outlined"
-                               Margin="Margin.Dense"
-                               Dense="true"
-                               Label="Restringir departamento"
 
 
-                               Clearable="true">
-                        @foreach (var _department in _departments)
-                        {
-                            <MudSelectItem Style="width: 100%" Value="_department">@_department</MudSelectItem>
-                        }
-                    </MudSelect>
+                    @if(_departmentrestricted){
+                        <MudSelect Style="width: 100%" T="string"
+                                   Variant="Variant.Outlined"
+                                   Margin="Margin.Dense"
+                                   Dense="true"
+                                   Label="Restringir departamento"
+                                   Clearable="true">
+                            @foreach (var _department in _departments)
+                            {
+                                <MudSelectItem Style="width: 100%" Value="_department">@_department</MudSelectItem>
+                            }
+                        </MudSelect>
+                    }
                 </div>
             </MudCardContent>
             <MudCardActions>
@@ -190,6 +190,8 @@
 </MudContainer>
 
 @code {
+    public bool _deletemessage = true;
+    public bool _departmentrestricted = true;
     
     public string[] _departments = 
     {
@@ -197,4 +199,17 @@
         "Padaria", 
         "Lava-Rápido"
     };
+    
+    
+    // Função global para alternar o valor booleano
+    private void ToggleBoolean(string propertyName)
+    {
+        var property = GetType().GetField(propertyName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        if (property != null && property.FieldType == typeof(bool))
+        {
+            bool currentValue = (bool)property.GetValue(this);
+            property.SetValue(this, !currentValue);
+            StateHasChanged(); // Atualiza a interface
+        }
+    }
 }
