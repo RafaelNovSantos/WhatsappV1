@@ -92,7 +92,7 @@
             </MudCardHeader>
             <MudCardContent >
                
-                <div Class="d-flex align-center">
+                <div Class=" card-edit-switch">
                     <label class="switch ma-2">
                         <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_deletemessage)))" checked="@_deletemessage" />
                         <span class="slider"></span>
@@ -101,7 +101,7 @@
     line-height: initial;">Permitir deletar mensagens</MudText>
                 </div>
 
-                <div Class="d-flex align-center">
+                <div Class="card-edit-switch">
                     <label class="switch ma-2">
                         <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_departmentrestricted)))" checked="@_departmentrestricted" />
                         <span class="slider"></span>
@@ -190,8 +190,8 @@
 </MudContainer>
 
 @code {
-    public bool _deletemessage = true;
-    public bool _departmentrestricted = true;
+    bool _deletemessage = true;
+    bool _departmentrestricted = true;
     
     public string[] _departments = 
     {

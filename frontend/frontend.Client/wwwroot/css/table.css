@@ -203,6 +203,6 @@ tr:hover {
 
 .mud-input-control {
 
-    flex: unset;
+   /* flex: unset;*/
 
 }

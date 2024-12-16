@@ -1315,7 +1315,7 @@ ul {
     position: relative;
     align-items: center;
    
-    height: 62px;
+   /* height: 62px;*/
 }
 
 .mud-toolbar-gutters {
@@ -2298,6 +2298,9 @@ ul {
 
 @media (max-width: 800px) {
 
+    .layout-left{
+        margin-top: 58px !important;
+    }
 
     .activeIconOpenContacts {
         display: unset !important;
@@ -10791,7 +10794,7 @@ ul {
     }
 
     .mud-table-pagination-display {
-        display: flex;
+        
         flex-shrink: 0
     }
 
@@ -10804,7 +10807,7 @@ ul {
         }
 
     .mud-table-pagination-information {
-        white-space: nowrap;
+       /* white-space: nowrap;*/
         direction: initial
     }
 
@@ -10817,7 +10820,7 @@ ul {
         color: var(--mud-theme-on-surface);
         overflow: auto;
         font-size: .875rem;
-        display: initial
+       /* display: flex;*/
     }
 
         .mud-table-pagination:last-child {
@@ -10826,7 +10829,8 @@ ul {
 
     .mud-table-pagination-toolbar {
         border-top: 1px solid var(--mud-palette-table-lines);
-        height: 52px;
+       /* height: 52px;*/
+        
         padding-right: 2px;
         padding-inline-end: 2px;
         padding-inline-start: unset;
@@ -28388,11 +28392,88 @@ margin: 35px -40px 0;
 
     @media(min-width: 600px) {
         .mud-appbar .mud-toolbar-appbar {
-            flex-direction: column;
+          /*  flex-direction: column;*/
           /*  height: var(--mud-appbar-height)*/
+        }
+        .mud-table-pagination-display {
+            display: flex;
+        }
+
+        .mud-table-pagination-information{
+            white-space: unset;
         }
     }
 
+@media(max-width: 800px) {
+    .mud-table-pagination {
+        flex-direction: column;
+        
+    }
+    
+    .mud-table-pagination-toolbar{
+        flex-direction: column;
+    }
+}
+
+@media(min-width: 750px) {
+    .flex-responsive{
+    display: flex;
+    }
+}
+
+@media(max-width: 800px) {
+    .menu-sidebar {
+       display: none;
+    }
+    
+    .w-full{
+        width: 100%;
+    }
+    .mud-tabs-tabbar-content{
+        margin-top: 0px !important;
+        margin: 10px !important;
+    }
+    
+    .mud-tabs-panels{
+        overflow: auto;
+        padding-bottom: 58px;
+    }
+
+    .card-edit-switch{
+        flex-direction: column;
+    }
+    
+    .titleTabPanel{
+        display: none;
+    }
+}
+
+
+
+.card-edit-switch{
+    border: 1px solid #e0e0e0;
+  margin: 10px;
+    align-items: center;
+    display: flex
+;
+    padding: 10px;
+    border-radius: 20px;
+    justify-content: start;
+}
+
+@media(min-width: 800px) {
+    .layout-left{
+        margin-left: 58px !important;
+    }
+    
+    .menu-app-bar{
+        display: none !important;
+    }
+    
+    .mud-drawer{
+        display: none !important;
+    }
+}
 
 @media(max-width: 1000px) {
     .mud-table-toolbar {

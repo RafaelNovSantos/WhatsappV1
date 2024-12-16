@@ -258,24 +258,22 @@
             <MudCardContent>
                 <MudText>Caso o usuário ou cliente não enviem uma mensagem por determinado período, o atendimento será finalizado automaticamente.</MudText>
             </MudCardContent>
-            <div Style="   align-items: center; display: flex;
-   ">
+            <div class="card-edit-switch">
                 <label class="switch ma-2">
                     <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_finishservicecustomer)))" checked="@_finishservicecustomer"/>
                     <span class="slider"></span>
                 </label>
 
-              <MudText Class="ma-2" Style="width: 10%"> Cliente</MudText>
+              <MudText Class="ma-2" > Cliente</MudText>
                 <input class="modern-number-input" type="number" value="0">
                 <MudText Class="ma-2"> Minutos</MudText>
             </div>
-            <div Style="    align-items: center; display: flex;
-    ">
+            <div class="card-edit-switch">
                 <label class="switch ma-2">
                     <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_finishserviceattendant)))" checked="@_finishserviceattendant"/>
                     <span class="slider"></span>
                 </label>
-                <MudText Class="ma-2" Style="width: 10%"> Atendente</MudText>
+                <MudText Class="ma-2" > Atendente</MudText>
 
                 <input class="modern-number-input" type="number" value="0">
                 <MudText Class="ma-2"> Minutos</MudText>
@@ -291,17 +289,19 @@
             <MudCardContent>
                 <MudText>Defina os horários em que os atendimentos estão disponíveis.</MudText>
             </MudCardContent>
-            <MudCardActions Style="height: 40px;">
+            <MudCardActions Class="card-edit-switch">
+                
                 <label class="switch">
                     <input type="checkbox" onclick="@(() => ToggleBoolean(nameof(_timeservice)))" checked="@_timeservice"/>
                     <span class="slider"></span>
                 </label>
-@if(_timeservice){
-    <MudButton Class="ma-2" @onclick="OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">
-        Configurar Horários
-    </MudButton>
-}
-                </MudCardActions>
+                @if (_timeservice)
+                {
+                    <MudButton Class="ma-2" @onclick="OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">
+                        Configurar Horários
+                    </MudButton>
+                }
+            </MudCardActions>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
             <!-- Fuso Horário -->
@@ -358,10 +358,10 @@
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
 
             <!-- Salvar Configurações -->
-            <div class="d-flex align-center" style="padding: 16px;
+            <div class="d-flex align-center card-edit-switch" style="padding: 16px;
     justify-content: space-between;">
-                <MudText Typo="Typo.h5">Salvar configurações</MudText>
-                <button class="bookmarkBtn ma-1" style="    border: 1px solid rgb(0 0 0);">
+                <MudText Class="ma-2" Typo="Typo.h5">Salvar configurações</MudText>
+                <button class="bookmarkBtn ma-2" style="    border: 1px solid rgb(0 0 0);">
                 <span class="IconContainer">
                     <MudIcon Color="Color.Primary" Icon="@Icons.Material.Outlined.Save"></MudIcon>
                 </span>

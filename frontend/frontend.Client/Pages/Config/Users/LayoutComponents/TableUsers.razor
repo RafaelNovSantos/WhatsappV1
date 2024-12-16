@@ -106,23 +106,16 @@
             <MudTextField  @bind-Value="context.Email" Required />
         </MudTd>
 
-        @if(_userclass.Status == true){
+        
             <MudTd DataLabel="Status">
                 <label style="font-size: 12px !important;"  class="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox"
+                           onclick="@(() => ToggleBoolean(context, nameof(UsersClass.Status)))"
+                           checked="@context.Status" />
                     <span class="slider"></span>
                 </label>
             </MudTd>
-        }
-        else
-        {
-            <MudTd DataLabel="Status">
-                <label style="font-size: 12px !important;" class="switch">
-                    <input type="checkbox" />
-                    <span class="slider"></span>
-                </label>
-            </MudTd>
-        }
+      
         
         <MudTd DataLabel="Perfil">
             <MudTextField  @bind-Value="context.Profile" Required />
@@ -147,6 +140,8 @@
 @code{
     [Parameter]
     public List<UsersClass> Users { get; set; } = new List<UsersClass>();
+
+    bool _statusUser = true;
 
 private HashSet<UsersClass> selectedItems = new HashSet<UsersClass>();  // Changed to HashSet
 
@@ -192,6 +187,32 @@ private HashSet<UsersClass> selectedItems = new HashSet<UsersClass>();  // Chang
             StateHasChanged(); // Refresh the table after deletion
         }
     }
+
+  private void ToggleBoolean(object targetObject, string propertyName)
+{
+    var property = targetObject.GetType().GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+
+    if (property != null && property.PropertyType == typeof(bool))
+    {
+        bool currentValue = (bool)property.GetValue(targetObject);
+        property.SetValue(targetObject, !currentValue);
+
+        // Atualiza diretamente o item na lista
+        var user = Users.FirstOrDefault(u => u == targetObject);
+        if (user != null)
+        {
+            // Atualiza o item na lista e notifica o Blazor para re-renderizar
+            user.Status = !currentValue;
+        }
+
+        StateHasChanged(); // Atualiza a interface
+    }
+    else
+    {
+        Console.WriteLine($"Propriedade '{propertyName}' não encontrada ou não é do tipo bool.");
+    }
+}
+
 
 
     private bool Procurar(UsersClass welcomemessage)

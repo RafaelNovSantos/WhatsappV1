@@ -1,8 +1,8 @@
-﻿<MudDialog Style="width: max-content !important;">
+﻿<MudDialog Style="width: 60%;">
     <TitleContent>
         Adicionar resposta rápida
     </TitleContent>
-    <DialogContent>
+    <DialogContent >
         <div class="form">
            
 
@@ -25,10 +25,26 @@
             <div class="flex-column">
                 <label>Tipo</label>
             </div>
-            <div class="inputForm">
-                <MudIcon Icon="@Icons.Material.Outlined.Category" />
-                <input type="text" class="input" placeholder="Digite o tipo" @bind="AddItem.Type" required />
-            </div>
+           
+            
+            
+
+
+               
+            <MudSelect   T="string"
+                         Style="height: 50px"
+                        Variant="Variant.Outlined"
+                        Margin="Margin.Dense"
+                        Dense="true"
+                        Label="Restringir departamento"
+                        Clearable="true">
+                @foreach (var _type in _types)
+                {
+                    <MudSelectItem Style="width: 100%" Value="_type">@_type</MudSelectItem>
+                }
+            </MudSelect>
+                
+          
 
             <div class="flex-column">
                 <label>Visibilidade</label>
@@ -45,6 +61,16 @@
         <MudButton Color="Color.Primary" OnClick="Submit">Adicionar</MudButton>
     </DialogActions>
 </MudDialog>
+
+<style>
+    .mud-input-control > .mud-input-control-input-container{
+        display: inherit;
+    }
+    .mud-input.mud-input-outlined.mud-input-adorned-end{
+        width: 100%;
+    }
+</style>
+
 
 @code {
 
@@ -74,7 +100,10 @@
         AddItem ??= new QuickResponseClass();
     }
 
-   
+    public string[] _types = 
+    {
+        "Texto"
+    };
 
     private void Submit()
     {

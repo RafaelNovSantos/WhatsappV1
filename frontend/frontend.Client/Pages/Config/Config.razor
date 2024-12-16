@@ -6,7 +6,7 @@
     
     <p Style="background: transparent" Class="titleTabPanel mud-tabs-tabbar-tertiary " >Configurações</p>
     
-    <MudTabs HeaderPosition="TabHeaderPosition.After"  MinimumTabWidth="200px" Centered="true" SliderColor="Color.Primary" Color="Color.Tertiary" Outlined="true" Class="mt-0 w-full h-full" Position="Position.End" Rounded="true" Border="true" ApplyEffectsToContainer="true">
+    <MudTabs  HeaderPosition="TabHeaderPosition.After"   Centered="true" HideSlider="true" SliderColor="Color.Primary" Color="Color.Tertiary" Outlined="true" Class="mt-0 w-full h-full" Position="@Position" Rounded="true" Border="true" ApplyEffectsToContainer="true">
 
 
 
@@ -68,13 +68,63 @@
         display: grid
         !important;
     }
-    
+    .mud-tabs-tabbar.mud-tabs-vertical .mud-tabs-tabbar-inner{
+        margin-top: 100px;
+    }
     .mud-tabs-tabbar-content{
 
         width: 240px;
-        margin-top: 100px;
+        
     }
 </style>
 @code {
+    private ScreenSize screenSize = new ScreenSize();
+    public Position Position { get; set; } = Position.End;
     
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+           
+            var dotNetObjectReference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("setDotNetResizeCallback", dotNetObjectReference);
+            // Invoca o JavaScript para bloquear a tecla Enter
+            await JSRuntime.InvokeVoidAsync("blockEnterKey", "#messageInput");
+            // Atualiza o tamanho da tela após o primeiro carregamento
+            // Chama a função getScreenSize para obter o tamanho inicial da tela
+            screenSize = await JSRuntime.InvokeAsync<ScreenSize>("getScreenSize");
+           
+            if (screenSize.Width <= 800)
+            {
+                Position = Position.Top;
+            }
+            else
+            {
+            
+                Position = Position.End;
+            
+            }
+            StateHasChanged(); // Solicita uma atualização da interface
+        }
+        
+    }
+
+    [JSInvokable]
+    public Task UpdateScreenSize(ScreenSize newScreenSize)
+    {
+        
+        screenSize = newScreenSize; // Atualiza a propriedade screenSize
+        if (screenSize.Width <= 800)
+        {
+            Position = Position.Top;
+        }
+        else
+        {
+            
+            Position = Position.End;
+            
+        }
+        StateHasChanged(); // Solicita uma atualização da interface do usuário
+        return Task.CompletedTask;
+    }
 }
