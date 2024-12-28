@@ -11568,10 +11568,10 @@ ul {
         }
 
     .mud-tab {
-        width: 100%;
+        
         display: inline-flex;
         padding: 6px 12px;
-        min-height: 48px;
+        min-height: 60px;
         flex-shrink: 0;
         font-weight: 500;
         line-height: 1.75;
@@ -28431,7 +28431,7 @@ margin: 35px -40px 0;
     }
     .mud-tabs-tabbar-content{
         margin-top: 0px !important;
-        margin: 10px !important;
+        
     }
     
     .mud-tabs-panels{
@@ -28461,7 +28461,7 @@ margin: 35px -40px 0;
     justify-content: start;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 801px) {
     .layout-left{
         margin-left: 58px !important;
     }
@@ -28472,6 +28472,15 @@ margin: 35px -40px 0;
     
     .mud-drawer{
         display: none !important;
+    }
+    
+
+}
+
+@media(min-width: 799px){
+
+    .mud-tab{
+        width: 100%;
     }
 }
 
