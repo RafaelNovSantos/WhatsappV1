@@ -10642,8 +10642,8 @@ ul {
     }
 
     .mud-table-dense * .mud-table-row .mud-table-cell {
-        padding: 6px 24px 6px 16px;
-        padding-inline-start: 16px;
+        padding: 6px 6px 6px 6px;
+        padding-inline-start: 24px;
         padding-inline-end: 24px
     }
 
@@ -10818,7 +10818,7 @@ ul {
 
     .mud-table-pagination {
         color: var(--mud-theme-on-surface);
-        overflow: auto;
+        /*overflow: auto;*/
         font-size: .875rem;
        /* display: flex;*/
     }
@@ -10830,7 +10830,7 @@ ul {
     .mud-table-pagination-toolbar {
         border-top: 1px solid var(--mud-palette-table-lines);
        /* height: 52px;*/
-        
+        overflow: auto;
         padding-right: 2px;
         padding-inline-end: 2px;
         padding-inline-start: unset;
@@ -13159,8 +13159,8 @@ ul {
     }
 
     .mud-data-grid .mud-table-cell.filter-header-cell {
-        padding: 6px 24px 6px 16px;
-        padding-inline-start: 16px;
+        padding: 6px 6px 6px 6px;
+        padding-inline-start: 24px;
         padding-inline-end: 24px
     }
 

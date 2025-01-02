@@ -3,7 +3,7 @@
 
 <MudPaper Elevation="25" hidden="@contactHide" Style="height: 100%;" Class="@width100">
    <MudPaper Class="d-flex" Style="padding: 10px 0px 10px 0px;
-    background: #e6e6e6; justify-content: center;    align-items: center;">
+    background: #ffffff; justify-content: center;    align-items: center;">
        <MudIconButton Icon="@Icons.Material.Filled.PersonAddAlt1" aria-label="delete" />
        <div class="InputContainer mud-elevation-1">
            <input type="text"             placeholder="Buscar mensagens"
@@ -26,8 +26,9 @@
 
     <MudTabs MinimumTabWidth="87px" Style="width: 100%" Rounded="true" Outlined="true" SliderColor="Color.Primary"  Centered="true" Color="Color.Dark">
         <MudTabPanel Icon="@Icons.Material.Filled.Api" BadgeData='"!"' BadgeColor="Color.Error">
-            <div class="d-flex flex-column" style="overflow:auto;     height: calc(100vh - 118px);">
-                <MudList T="ChatService" Color="@Color.Info">
+            <div class="d-flex flex-column heightContact
+" style="overflow:auto;    ">
+                <MudList Style="overflow: auto;" T="ChatService" Color="@Color.Info">
                     @foreach (var chat in FilteredChats)
                     {
                     <MudListItem T="Chat" Class="" OnClick="@(() => OnChatSelected.InvokeAsync(chat.Username))">

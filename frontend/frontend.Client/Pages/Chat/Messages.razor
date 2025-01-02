@@ -23,11 +23,11 @@
 
 
     <!-- Área Principal de Chat -->
-    <MudPaper Elevation="25" Class="@widthChatArea" hidden="@chatHide" Style=" height: 100vh; background: #fafafa">
+    <MudPaper Elevation="0" Class="@widthChatArea" hidden="@chatHide" Style=" height: 100vh; background: #fafafa">
         <ChatToolBar ContactId="@ContactId" ContactHideChanged="OnContactHideChanged" ContactEmail="@ContactEmail"/>
 
         <!-- Área de mensagens -->
-        <MudPaper Style="height: calc(100vh - 122px);">
+        <MudPaper Class="heightMessage" >
             <div class="d-flex flex-column px-4" style="height:100%;  overflow:auto; background-image: url('images/chat-messages-bg-light-77174616.png'); background-size: cover; background-position: center;" id="chatContainer">
                 @if (!string.IsNullOrWhiteSpace(ContactId)) 
                 {
@@ -132,6 +132,7 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
     protected override async Task OnInitializedAsync()
     {
         width100 = "w-350px";
+        await UpdateScreenSize(screenSize);
     }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -146,7 +147,8 @@ width: 100%; height: 20px;" src="/Images/sendIcon.svg" alt="Send icon" />
             // Atualiza o tamanho da tela após o primeiro carregamento
             // Chama a função getScreenSize para obter o tamanho inicial da tela
             screenSize = await JSRuntime.InvokeAsync<ScreenSize>("getScreenSize");
-            
+            // Atualiza a interface com o tamanho inicial
+            await UpdateScreenSize(screenSize);
             StateHasChanged(); // Solicita uma atualização da interface
         }
         

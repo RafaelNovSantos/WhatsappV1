@@ -1,4 +1,35 @@
 ﻿
+@media (min-width: 800px) {
+    .heightMessage{
+        height: calc(100vh - 125px);
+    }
+
+}
+
+@media (max-width: 800px) {
+    .heightMessage{
+        height: calc(100vh - 185px);
+    }
+
+}
+
+
+@media (min-width: 800px) {
+    .heightContact
+    {
+        height: calc(100vh - 138px);
+    }
+
+}
+
+@media (max-width: 800px) {
+    .heightContact
+    {
+        height: calc(100vh - 198px);
+    }
+
+}
+
 
 .chat-background {
     background-color: #f0f0f5;
